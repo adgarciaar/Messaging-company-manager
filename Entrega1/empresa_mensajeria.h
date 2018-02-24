@@ -20,15 +20,13 @@ class EmpresaMensajeria{
 	public:
 		EmpresaMensajeria();
 		EmpresaMensajeria(std::string nombre);
- 
-	private:
-		/*
+		
 		void cargarPersonas(std::string nombreArchivo);
 		void cargarPaquetes(std::string nombreArchivo);
 		void registrarPersona();
 		void registrarPaquete();
 		long conteoPaquetes();
-		*/
+
 };
 
 #endif

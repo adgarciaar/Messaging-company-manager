@@ -11,5 +11,8 @@ int main(){
 	
 	EmpresaMensajeria empresa ("Empresa");
 	
+	empresa.cargarPersonas("Personas.csv");
+	
+	
 	return 0;
 }
