@@ -16,10 +16,23 @@ class Paquete{
 		string tipoContenido;
 		string numeroGuia;
  
-	private:
-	
-		
-	
+	public:
+		//constructores
+		Paquete();
+		Paquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia);
+		//getters
+		Persona getRemitente();
+		Persona getDestinatario();
+		int getPeso();
+		string getTipoContenido();
+		string getNumeroGuia();
+		//setters
+		void setRemitente(Persona remitente);
+		void setDestinatario(Persona destinatario);
+		void setPeso(int peso);
+		void setTipoContenido(string tipoContenido);
+		void setNumeroGuia(string numeroGuia);
+			
 };
 
 #endif

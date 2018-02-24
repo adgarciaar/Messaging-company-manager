@@ -8,13 +8,17 @@
 
 using namespace std;
 
-class Paquete{
+class EmpresaMensajeria{
 	
     private:
 	
+		string nombre;
 		list<OficinaReparto> oficinas;
 		queue<> paquetes;
 		list<Persona> personas;
+		
+	public:
+		EmpresaMensajeria(string nombre);
  
 	private:
 	
