@@ -3,33 +3,31 @@
 
 #include <string>
 
-using namespace std;
-
 class Persona{
 	
     private:
  
-		string numeroIdentificacion;
-		string nombre;
-		string direccion;
-		string ciudad;
+		std::string numeroIdentificacion;
+		std::string nombre;
+		std::string direccion;
+		std::string ciudad;
 		long telefono;
 		
 	public:
-		//constructores
+		//constructor
 		Persona();
-		Persona(string numeroIdentificacion, string nombre, string direccion, string ciudad, long telefono);
+		Persona(std::string numeroIdentificacion, std::string nombre, std::string direccion, std::string ciudad, long telefono);
 		//getters
-		string getNumeroIdentificacion();
-		string getNombre();
-		string getDireccion();
-		string getCiudad();
-		long getTelefono;
+		std::string getNumeroIdentificacion();
+		std::string getNombre();
+		std::string getDireccion();
+		std::string getCiudad();
+		long getTelefono();
 		//setters
-		void setNumeroIdentificacion(string numeroIdentificacion);
-		void setNombre(string nombre);
-		void setDireccion(string direccion);
-		void setCiudad(string ciudad);
+		void setNumeroIdentificacion(std::string numeroIdentificacion);
+		void setNombre(std::string nombre);
+		void setDireccion(std::string direccion);
+		void setCiudad(std::string ciudad);
 		void setTelefono(long telefono);
  
 	private:

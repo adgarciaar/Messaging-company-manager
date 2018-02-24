@@ -1,5 +1,11 @@
 #include "persona.h" 
 
+#include <string>
+
+using namespace std;
+
+Persona::Persona(){}
+
 Persona::Persona(string numeroIdentificacion, string nombre, string direccion, string ciudad, long telefono){
 	this->numeroIdentificacion = numeroIdentificacion;
 	this->nombre = nombre;
@@ -10,44 +16,44 @@ Persona::Persona(string numeroIdentificacion, string nombre, string direccion, s
 
 //getters
 
-string getNumeroIdentificacion(){
+string Persona::getNumeroIdentificacion(){
 	return this->numeroIdentificacion;
 }
 
-string getNombre(){
+string Persona::getNombre(){
 	return this->nombre;
 }
 
-string getDireccion(){
+string Persona::getDireccion(){
 	return this->direccion;
 }
 
-string getCiudad(){
+string Persona::getCiudad(){
 	return this->ciudad;
 }
 
-long getTelefono{
+long Persona::getTelefono(){
 	return this->telefono;
 }
 		
 //setters
 
-void setNumeroIdentificacion(string numeroIdentificacion){
+void Persona::setNumeroIdentificacion(string numeroIdentificacion){
 	this->numeroIdentificacion = numeroIdentificacion;
 }
 
-void setNombre(string nombre){
+void Persona::setNombre(string nombre){
 	this->nombre = nombre;
 }
 
-void setDireccion(string direccion){
+void Persona::setDireccion(string direccion){
 	this->direccion = direccion;
 }
 
-void setCiudad(string ciudad){
+void Persona::setCiudad(string ciudad){
 	this->ciudad = ciudad;
 }
 
-void setTelefono(long telefono){
+void Persona::setTelefono(long telefono){
 	this->telefono = telefono;
 }

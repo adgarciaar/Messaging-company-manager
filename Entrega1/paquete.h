@@ -2,9 +2,7 @@
 #define PAQUETE_H 
 
 #include <string>
-#include "Persona.h"
-
-using namespace std;
+#include "persona.h"
 
 class Paquete{
 	
@@ -13,25 +11,25 @@ class Paquete{
 		Persona remitente;
 		Persona destinatario;
 		int peso; //en gramos
-		string tipoContenido;
-		string numeroGuia;
+		std::string tipoContenido;
+		std::string numeroGuia;
  
 	public:
-		//constructores
+		//constructor
 		Paquete();
-		Paquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia);
+		Paquete(Persona remitente, Persona destinatario, int peso, std::string tipoContenido, std::string numeroGuia);
 		//getters
 		Persona getRemitente();
 		Persona getDestinatario();
 		int getPeso();
-		string getTipoContenido();
-		string getNumeroGuia();
+		std::string getTipoContenido();
+		std::string getNumeroGuia();
 		//setters
 		void setRemitente(Persona remitente);
 		void setDestinatario(Persona destinatario);
 		void setPeso(int peso);
-		void setTipoContenido(string tipoContenido);
-		void setNumeroGuia(string numeroGuia);
+		void setTipoContenido(std::string tipoContenido);
+		void setNumeroGuia(std::string numeroGuia);
 			
 };
 

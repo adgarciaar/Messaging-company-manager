@@ -1,0 +1,3 @@
+g++ -std=c++11 -o ejecutable inicio.cpp empresa_mensajeria.cpp oficina_reparto.cpp paquete.cpp persona.cpp region_reparto.cpp
+
+./ejecutable

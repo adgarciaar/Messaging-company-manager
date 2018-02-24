@@ -5,34 +5,32 @@
 #include <list>
 #include "region_reparto.h"
 
-using namespace std;
-
 class OficinaReparto{
 	
     private:
  
-		string codigo;
-		string nombre;
-		string direccion;
-		string ciudad;
-		list<RegionReparto> regiones;
+		std::string codigo;
+		std::string nombre;
+		std::string direccion;
+		std::string ciudad;
+		std::list<RegionReparto> regiones;
 		
 	public:
-		//constructores
+		//constructor
 		OficinaReparto();
-		OficinaReparto(string codigo, string nombre, string direccion, string ciudad);
+		OficinaReparto(std::string codigo, std::string nombre, std::string direccion, std::string ciudad);
 		//getters
-		string getCodigo();
-		string getNombre();
-		string getDireccion();
-		string getCiudad();
-		list<RegionReparto> getRegiones();
+		std::string getCodigo();
+		std::string getNombre();
+		std::string getDireccion();
+		std::string getCiudad();
+		std::list<RegionReparto> getRegiones();
 		//setters
-		void setCodigo(string codigo);
-		void setNombre(string nombre);
-		void setDireccion(string direccion);
-		void setCiudad(string ciudad);
-		void setRegiones(list<RegionReparto> regiones);
+		void setCodigo(std::string codigo);
+		void setNombre(std::string nombre);
+		void setDireccion(std::string direccion);
+		void setCiudad(std::string ciudad);
+		void setRegiones(std::list<RegionReparto> regiones);
  
 	private:	
 	

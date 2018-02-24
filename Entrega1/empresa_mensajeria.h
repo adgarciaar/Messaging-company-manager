@@ -5,29 +5,30 @@
 #include <list>
 #include <queue>
 #include "oficina_reparto.h"
-
-using namespace std;
+#include "persona.h"
+#include "paquete.h"
 
 class EmpresaMensajeria{
 	
     private:
 	
-		string nombre;
-		list<OficinaReparto> oficinas;
-		queue<> paquetes;
-		list<Persona> personas;
+		std::string nombre;
+		std::list<OficinaReparto> oficinas;
+		std::queue<Paquete> paquetes;
+		std::list<Persona> personas;
 		
 	public:
-		EmpresaMensajeria(string nombre);
+		EmpresaMensajeria();
+		EmpresaMensajeria(std::string nombre);
  
 	private:
-	
-		void cargarPersonas(string nombreArchivo);
-		void cargarPaquetes(string nombreArchivo);
+		/*
+		void cargarPersonas(std::string nombreArchivo);
+		void cargarPaquetes(std::string nombreArchivo);
 		void registrarPersona();
 		void registrarPaquete();
 		long conteoPaquetes();
-	
+		*/
 };
 
 #endif

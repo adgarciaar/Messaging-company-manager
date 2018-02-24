@@ -1,9 +1,15 @@
 #include "empresa_mensajeria.h" 
 
+#include <string>
+
+using namespace std;
+
+EmpresaMensajeria::EmpresaMensajeria(){}
+
 EmpresaMensajeria::EmpresaMensajeria(string nombre){
 	this->nombre = nombre;	
 }
-
+/*
 void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 	
 }
@@ -23,3 +29,4 @@ void EmpresaMensajeria::registrarPaquete(){
 long EmpresaMensajeria::conteoPaquetes(){
 	
 }
+*/

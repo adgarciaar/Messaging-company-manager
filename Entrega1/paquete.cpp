@@ -1,6 +1,13 @@
 #include "paquete.h" 
+#include "persona.h"
+#include <string>
+
+using namespace std;
 
 //constructor
+
+Paquete::Paquete(){}
+
 Paquete::Paquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia){
 	this->remitente = remitente;
 	this->destinatario = destinatario;
@@ -11,44 +18,44 @@ Paquete::Paquete(Persona remitente, Persona destinatario, int peso, string tipoC
 
 //getters
 
-Persona getRemitente(){
+Persona Paquete::getRemitente(){
 	return this->remitente;
 }
 
-Persona getDestinatario(){
+Persona Paquete::getDestinatario(){
 	return this->destinatario;
 }
 
-int getPeso(){
+int Paquete::getPeso(){
 	return this->peso;
 }
 
-string getTipoContenido(){
+string Paquete::getTipoContenido(){
 	return this->tipoContenido;
 }
 
-string getNumeroGuia(){
+string Paquete::getNumeroGuia(){
 	return this->numeroGuia;
 }
 		
 //setters
 
-void setRemitente(Persona remitente){
+void Paquete::setRemitente(Persona remitente){
 	this->remitente = remitente;
 }
 
-void setDestinatario(Persona destinatario){
+void Paquete::setDestinatario(Persona destinatario){
 	this->destinatario = destinatario;
 }
 
-void setPeso(int peso){
+void Paquete::setPeso(int peso){
 	this->peso = peso;
 }
 
-void setTipoContenido(string tipoContenido){
+void Paquete::setTipoContenido(string tipoContenido){
 	this->tipoContenido = tipoContenido;
 }
 
-void setNumeroGuia(string numeroGuia){
+void Paquete::setNumeroGuia(string numeroGuia){
 	this->numeroGuia = numeroGuia;
 }

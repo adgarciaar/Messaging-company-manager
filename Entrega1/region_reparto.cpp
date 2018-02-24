@@ -1,26 +1,32 @@
 # include "region_reparto.h"
 
-OficinaReparto::OficinaReparto(string codigo, string nombre){
+#include <string>
+
+using namespace std;
+
+RegionReparto::RegionReparto(){}
+
+RegionReparto::RegionReparto(string codigo, string nombre){
 	this->codigo = codigo;
 	this->nombre = nombre;
 }
 
 //getters
 
-string getCodigo(){
+string RegionReparto::getCodigo(){
 	return this->codigo;
 }
 
-string getNombre(){
+string RegionReparto::getNombre(){
 	return this->nombre;
 }
 
 //setters
 
-void setCodigo(string codigo){
+void RegionReparto::setCodigo(string codigo){
 	this->codigo = codigo;
 }
 
-void setNombre(string nombre){
+void RegionReparto::setNombre(string nombre){
 	this->nombre = nombre;
 }

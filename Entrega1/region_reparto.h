@@ -3,25 +3,23 @@
 
 #include <string>
 
-using namespace std;
-
-class OficinaReparto{
+class RegionReparto{
 	
     private:
  
-		string codigo;
-		string nombre;
+		std::string codigo;
+		std::string nombre;
 		
 	public:
-		//constructores
-		OficinaReparto();
-		OficinaReparto(string codigo, string nombre);
+		//constructor
+		RegionReparto();
+		RegionReparto(std::string codigo, std::string nombre);
 		//getters
-		string getCodigo();
-		string getNombre();
+		std::string getCodigo();
+		std::string getNombre();
 		//setters
-		void setCodigo(string codigo);
-		void setNombre(string nombre);
+		void setCodigo(std::string codigo);
+		void setNombre(std::string nombre);
  
 	private:	
 		
