@@ -18,7 +18,11 @@ class Paquete{
  
 	private:
 	
-		
+		void cargarPersonas(string nombreArchivo);
+		void cargarPaquetes(string nombreArchivo);
+		void registrarPersona();
+		void registrarPaquete();
+		long conteoPaquetes();
 	
 };
 
