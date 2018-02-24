@@ -34,9 +34,7 @@ class OficinaReparto{
 		void setCiudad(string ciudad);
 		void setRegiones(list<RegionReparto> regiones);
  
-	private:
-	
-		
+	private:	
 	
 };
 

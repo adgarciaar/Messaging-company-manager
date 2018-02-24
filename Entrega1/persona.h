@@ -33,7 +33,6 @@ class Persona{
 		void setTelefono(long telefono);
  
 	private:
-	
 		
 	
 };
