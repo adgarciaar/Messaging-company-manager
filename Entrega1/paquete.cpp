@@ -37,6 +37,14 @@ string Paquete::getTipoContenido(){
 string Paquete::getNumeroGuia(){
 	return this->numeroGuia;
 }
+
+OficinaReparto Paquete::getOficinaReparto(){
+	return this->oficinaReparto;
+}
+
+RegionReparto Paquete::getRegionReparto(){
+	return this->regionReparto;
+}
 		
 //setters
 
@@ -58,4 +66,12 @@ void Paquete::setTipoContenido(string tipoContenido){
 
 void Paquete::setNumeroGuia(string numeroGuia){
 	this->numeroGuia = numeroGuia;
+}
+
+void Paquete::setOficinaReparto(OficinaReparto oficinaReparto){
+	this->oficinaReparto = oficinaReparto;
+}
+
+void Paquete::setRegionReparto(RegionReparto regionReparto){
+	this->regionReparto = regionReparto;
 }

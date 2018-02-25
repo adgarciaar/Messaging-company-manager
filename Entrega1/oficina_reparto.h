@@ -31,6 +31,8 @@ class OficinaReparto{
 		void setDireccion(std::string direccion);
 		void setCiudad(std::string ciudad);
 		void setRegiones(std::list<RegionReparto> regiones);
+		
+		void agregarRegion(RegionReparto regionReparto);
  
 	private:	
 	

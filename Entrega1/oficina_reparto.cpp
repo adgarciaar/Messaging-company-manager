@@ -55,3 +55,7 @@ void OficinaReparto::setCiudad(string ciudad){
 void OficinaReparto::setRegiones(list<RegionReparto> regiones){
 	this->regiones = regiones;
 }
+
+void OficinaReparto::agregarRegion(RegionReparto regionReparto){
+	this->regiones.push_back(regionReparto);
+}

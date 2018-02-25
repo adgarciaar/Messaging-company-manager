@@ -26,7 +26,10 @@ class EmpresaMensajeria{
 		void registrarPersona();
 		void registrarPaquete();
 		long conteoPaquetes();
-
+		Persona buscarPersona(std::string cedula);
+		OficinaReparto buscarOficinaReparto(std::string codigoOficina);
+		RegionReparto buscarRegionReparto(std::string codigoRegion);
+		void agregarRegionReparto(std::string codigoOficina, RegionReparto regionReparto);
 };
 
 #endif
