@@ -13,7 +13,7 @@ class OficinaReparto{
 		std::string nombre;
 		std::string direccion;
 		std::string ciudad;
-		list<RegionReparto> regiones;
+		std::list<RegionReparto> regiones;
 		
 	public:
 		//constructor
@@ -25,7 +25,7 @@ class OficinaReparto{
 		std::string getNombre();
 		std::string getDireccion();
 		std::string getCiudad();
-		list<RegionReparto> getRegiones();
+		std::list<RegionReparto> getRegiones();
 	
 		//setters
 		void setCodigo(std::string codigo);
