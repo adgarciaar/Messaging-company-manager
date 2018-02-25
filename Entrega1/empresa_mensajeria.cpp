@@ -145,16 +145,79 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 	
 }
 
-void EmpresaMensajeria::registrarPersona(){
+void EmpresaMensajeria::registrarPersona(string numeroIdentificacion, string nombre, string apellidos, 
+			string direccion, string ciudad, string telefono){
+				
+	bool b = false;
+	
+	for(list< Persona >::iterator it = this->personas.begin(); it != this->personas.end( );	it++){
+		if(numeroIdentificacion == (*it).getNumeroIdentificacion()){
+			cout<<endl<<endl<< "La persona con identificacion "<<numeroIdentificacion<<" ya se encuentra registrada en el sistema."<<endl<<endl;
+			b = true;
+			break;
+		}
+	}
+	
+	if(b == false){ //se registra
+		Persona persona(numeroIdentificacion,nombre,apellidos,direccion,ciudad,telefono);
+		this->personas.push_back(persona);
+		cout<<endl<<endl<< "La persona con identificacion "<<numeroIdentificacion<<" ha sido registrada exitosamente."<<endl<<endl;
+	}
 	
 }
 
-void EmpresaMensajeria::registrarPaquete(){
+void EmpresaMensajeria::registrarPaquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia,
+	OficinaReparto oficinaReparto, RegionReparto regionReparto){
 	
+	bool b = false;
+	
+	queue<Paquete> auxiliar (this->paquetes);
+	
+	while (auxiliar.empty() == false){
+		if(auxiliar.front().getNumeroGuia() == numeroGuia){
+			b = true;
+			cout<<endl<<endl<< "El paquete con numero de guia "<<numeroGuia<<" ya se encuentra registrado en el sistema."<<endl<<endl;
+			break;
+		}
+		auxiliar.pop();
+	}	
+	
+	if(b == false){ //se registra
+		Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
+		this->paquetes.push(paquete);
+		cout<<endl<<endl<< "El paquete con numero de guia "<<numeroGuia<<" ha sido registrado exitosamente."<<endl<<endl;
+	}
 }
 
-long EmpresaMensajeria::conteoPaquetes(){ //hacerlo
-	return 0;
+void EmpresaMensajeria::conteoPaquetes(){
+
+	long numPaquetes = this->paquetes.size();
+	
+	if(numPaquetes == 0){
+		cout<<endl<<endl<< "No existe informacion de paquetes registrada en el sistema."<<endl<<endl;
+	}else{
+		cout<<endl<<endl<<"Se encuentran en el sistema "<<numPaquetes<<" pendientes por entregar. Estan distribuidos asi:"<<endl<<endl;
+		
+		queue<Paquete> auxiliar (this->paquetes);
+		vector <long> paquetesPorRegion;
+		long cantidad = 0;
+		for(list< OficinaReparto >::iterator it = this->oficinas.begin(); it != this->oficinas.end( );	it++){
+		
+			list<RegionReparto> regiones = (*it).getRegiones();
+			
+			for(list< RegionReparto >::iterator it2 = regiones.begin(); it2 != regiones.end( ); it2++){
+				cantidad = 0;
+				while(auxiliar.empty() == false){
+					if(auxiliar.front().getRegionReparto().getCodigo() == (*it2).getCodigo()){
+						cantidad += 1;
+					}					
+					auxiliar.pop();
+				}
+				cout<<cantidad<<" en la region de reparto "<<(*it2).getNombre()<<endl;
+				auxiliar = this->paquetes;				
+			}			
+		}		
+	}
 }
 
 Persona EmpresaMensajeria::buscarPersona(string cedula){

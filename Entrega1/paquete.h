@@ -22,7 +22,7 @@ class Paquete{
 		//constructor
 		Paquete();
 		Paquete(Persona remitente, Persona destinatario, int peso, std::string tipoContenido, std::string numeroGuia,
-		OficinaReparto oficinaReparto, RegionReparto regionReparto);
+			OficinaReparto oficinaReparto, RegionReparto regionReparto);
 		//getters
 		Persona getRemitente();
 		Persona getDestinatario();

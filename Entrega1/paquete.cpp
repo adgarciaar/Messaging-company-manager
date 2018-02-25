@@ -8,7 +8,7 @@ using namespace std;
 Paquete::Paquete(){}
 
 Paquete::Paquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia,
-OficinaReparto oficinaReparto, RegionReparto regionReparto){
+	OficinaReparto oficinaReparto, RegionReparto regionReparto){
 	this->remitente = remitente;
 	this->destinatario = destinatario;
 	this->peso = peso;
