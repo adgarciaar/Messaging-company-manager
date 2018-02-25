@@ -13,10 +13,9 @@ int main(){
 	
 	empresa.cargarPersonas("Personas.csv");
 	
-	cout<<endl<<endl;
-	
 	empresa.cargarPaquetes("Paquetes.csv");
 	
+	cout<<endl<<endl;
 	
 	return 0;
 }

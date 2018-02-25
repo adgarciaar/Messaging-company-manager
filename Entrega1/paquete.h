@@ -3,6 +3,8 @@
 
 #include <string>
 #include "persona.h"
+#include "oficina_reparto.h"
+#include "region_reparto.h"
 
 class Paquete{
 	

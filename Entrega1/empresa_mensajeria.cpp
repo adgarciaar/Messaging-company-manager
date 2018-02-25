@@ -94,18 +94,29 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 					RegionReparto regionReparto;
 					
 					if(oficinaReparto.getCodigo() == "-1"){ //no está registrada
+					
+						regionReparto.setCodigo(tokens[9]);
+						regionReparto.setNombre(tokens[10]);
 						
-						regionReparto(tokens[9], tokens[10]);
-						oficinaReparto(tokens[5], tokens[6], tokens[7], tokens[8]);
+						oficinaReparto.setCodigo(tokens[5]);
+						oficinaReparto.setNombre(tokens[6]);
+						oficinaReparto.setDireccion(tokens[7]);
+						oficinaReparto.setCiudad(tokens[8]);
+					
 						oficinaReparto.agregarRegion(regionReparto);
+						
 						this->oficinas.push_back(oficinaReparto);
 						
 					}else{ //ya está registrada
 					
 						//mirar si está registrada ya la regionReparto
 						RegionReparto regionReparto = this->buscarRegionReparto(tokens[9]);
+						
 						if(regionReparto.getCodigo() == "-1"){ //no está registrada
-							regionReparto(tokens[9], tokens[10]);
+						
+							regionReparto.setCodigo(tokens[9]);
+							regionReparto.setNombre(tokens[10]);
+							
 							this->agregarRegionReparto(oficinaReparto.getCodigo(), regionReparto);
 						}
 					}
@@ -213,10 +224,10 @@ RegionReparto EmpresaMensajeria::buscarRegionReparto(string codigoRegion){
 	return regionReparto;
 }
 
-void EmpresaMensajeria::agregarRegionReparto(std::string codigoOficina, RegionReparto regionReparto){
+void EmpresaMensajeria::agregarRegionReparto(string codigoOficina, RegionReparto regionReparto){
 	
 	for(list< OficinaReparto >::iterator it = this->oficinas.begin(); it != this->oficinas.end( );	it++){
-		if(codigoOficina = (*it).getCodigo()){
+		if(codigoOficina == (*it).getCodigo()){
 			(*it).agregarRegion(regionReparto);
 			break;
 		}
