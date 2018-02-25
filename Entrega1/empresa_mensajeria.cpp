@@ -1,4 +1,6 @@
 #include "empresa_mensajeria.h" 
+#include "oficina_reparto.h" 
+#include "region_reparto.h"
 
 #include <iostream>
 #include <fstream>
@@ -33,7 +35,7 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 				 
 				string intermediate;
 				 
-				// Tokenizing w.r.t. space ' '
+				// Tokenizing w.r.t. coma ','
 				while(getline(check, intermediate, ',')){
 					tokens.push_back(intermediate);
 				}
@@ -73,7 +75,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 				 
 				string intermediate;
 				 
-				// Tokenizing w.r.t. space ' '
+				// Tokenizing w.r.t. coma ','
 				while(getline(check, intermediate, ',')){
 					tokens.push_back(intermediate);
 				}
