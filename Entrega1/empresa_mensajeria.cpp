@@ -128,7 +128,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 					this->paquetes.push(paquete);
 					
 				}else{
-					cout<<endl<<"No se puede registrar el paquete de la línea "<<", remitente y/o destinatario no registrados"<<endl;
+					cout<<endl<<"No se puede registrar el paquete con número de guia "<<tokens[4]<<": remitente y/o destinatario no registrados"<<endl;
 				}
 							
 			}
