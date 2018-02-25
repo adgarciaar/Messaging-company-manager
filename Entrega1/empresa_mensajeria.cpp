@@ -48,9 +48,10 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 		}
 		
 		myfile.close();
+		cout<<endl<<endl<< "La informacion desde el archivo "<<nombreArchivo<<" ha sido cargada exitosamente."<<endl<<endl;
 		
 	}else{
-		cout << "No se puede abrir el archivo";
+		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible."<<endl<<endl;
 	}
 	
 }
@@ -128,7 +129,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 					this->paquetes.push(paquete);
 					
 				}else{
-					cout<<endl<<"No se puede registrar el paquete con número de guia "<<tokens[4]<<": remitente y/o destinatario no registrados"<<endl;
+					cout<<endl<<"No se puede registrar el paquete con numero de guia "<<tokens[4]<<": remitente y/o destinatario no registrado(s)"<<endl;
 				}
 							
 			}
@@ -137,9 +138,9 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 		}
 		
 		myfile.close();
-		
+		cout<<endl<<endl<< "La informacion desde el archivo "<<nombreArchivo<<" ha sido cargada exitosamente."<<endl<<endl;
 	}else{
-		cout << "No se puede abrir el archivo";
+		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible."<<endl<<endl;
 	}
 	
 }
