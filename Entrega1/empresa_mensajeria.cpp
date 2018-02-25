@@ -111,7 +111,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 					}else{ //ya está registrada
 					
 						//mirar si está registrada ya la regionReparto
-						RegionReparto regionReparto = this->buscarRegionReparto(tokens[9]);
+						regionReparto = this->buscarRegionReparto(tokens[9]);
 						
 						if(regionReparto.getCodigo() == "-1"){ //no está registrada
 						
@@ -193,27 +193,30 @@ void EmpresaMensajeria::conteoPaquetes(){
 
 	long numPaquetes = this->paquetes.size();
 	
+	
 	if(numPaquetes == 0){
 		cout<<endl<<endl<< "No existe informacion de paquetes registrada en el sistema."<<endl<<endl;
 	}else{
 		cout<<endl<<endl<<"Se encuentran en el sistema "<<numPaquetes<<" pendientes por entregar. Estan distribuidos asi:"<<endl<<endl;
 		
 		queue<Paquete> auxiliar (this->paquetes);
-		vector <long> paquetesPorRegion;
 		long cantidad = 0;
+		
 		for(list< OficinaReparto >::iterator it = this->oficinas.begin(); it != this->oficinas.end( );	it++){
 		
 			list<RegionReparto> regiones = (*it).getRegiones();
 			
 			for(list< RegionReparto >::iterator it2 = regiones.begin(); it2 != regiones.end( ); it2++){
 				cantidad = 0;
-				while(auxiliar.empty() == false){
+				while(auxiliar.empty() == false){					
 					if(auxiliar.front().getRegionReparto().getCodigo() == (*it2).getCodigo()){
-						cantidad += 1;
+						cantidad++;
 					}					
 					auxiliar.pop();
 				}
-				cout<<cantidad<<" en la region de reparto "<<(*it2).getNombre()<<endl;
+				if(cantidad != 0){
+					cout<<cantidad<<" en la region de reparto "<<(*it2).getNombre()<<endl;					
+				}
 				auxiliar = this->paquetes;				
 			}			
 		}		

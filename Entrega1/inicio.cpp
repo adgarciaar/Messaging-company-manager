@@ -15,6 +15,8 @@ int main(){
 	
 	empresa.cargarPaquetes("Paquetes.csv");
 	
+	empresa.conteoPaquetes();
+	
 	cout<<endl<<endl;
 	
 	return 0;

@@ -14,6 +14,8 @@ Paquete::Paquete(Persona remitente, Persona destinatario, int peso, string tipoC
 	this->peso = peso;
 	this->tipoContenido = tipoContenido;
 	this->numeroGuia = numeroGuia;
+	this->oficinaReparto = oficinaReparto;
+	this->regionReparto = regionReparto;
 }
 
 //getters
