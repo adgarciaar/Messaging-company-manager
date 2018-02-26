@@ -100,12 +100,16 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	cout<<"Digite el numero de identificacion: ";
 	cin>>numeroIdentificacion;
 	cout<<endl<<"Digite el nombre: ";
+	cin.ignore();
 	getline (cin, nombre);
 	cout<<endl<<"Digite los apellidos: ";
+	cin.ignore();
 	getline (cin, apellidos);
 	cout<<endl<<"Digite la direccion: ";
+	cin.ignore();
 	getline (cin, direccion);
 	cout<<endl<<"Digite la ciudad: ";
+	cin.ignore();
 	cin>>ciudad;
 	cout<<endl<<"Digite el telefono: ";
 	cin>>telefono;
