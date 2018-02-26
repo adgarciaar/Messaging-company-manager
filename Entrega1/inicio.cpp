@@ -114,7 +114,7 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	cout<<endl<<"Digite el telefono: ";
 	cin>>telefono;
 	cin.ignore();
-	if(true){ //validar los datos
+	if(true){ //validar que los datos sean validos
 		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
 	}
 }
@@ -122,13 +122,36 @@ void registrarPersona(EmpresaMensajeria& empresa){
 void registrarPaquete(EmpresaMensajeria& empresa){
 	Persona remitente, destinatario;
 	int peso;
-	string tipoContenido, numeroGuia;
+	string tipoContenido, numeroGuia, numIdRemitente, numIdDestinatario, codOficina,codRegion;
 	OficinaReparto oficinaReparto;
 	RegionReparto regionReparto;
 	
+	cout<<"Digite el numero de guia: ";
+	cin>>numeroGuia;
+	cout<<"Digite el numero de identificacion del remitente: ";
+	cin>>numIdRemitente;
+	cout<<"Digite el numero de identificacion del destinatario: ";
+	cin>>numIdRemitente;
+	cout<<"Digite el peso: ";
+	cin>>peso;	
+	cout<<"Digite el codigo de la oficina de reparto: ";
+	cin>>codOficina;
+	cout<<"Digite el codigo de la region de reparto: ";
+	cin>>codRegion;	
+	cin.ignore();
 	
+	if(true){ //validar que los datos sean validos
 	
-	if(true){ //validar los datos
-		empresa.registrarPaquete(remitente, destinatario, peso, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
+		remitente = empresa.buscarPersona(numIdRemitente);
+		destinatario = empresa.buscarPersona(numIdDestinatario);
+		oficinaReparto = empresa.buscarOficinaReparto(codOficina);
+		regionReparto = empresa.buscarRegionReparto(codRegion);
+	
+		//validar que existan remitente, destinatario, oficina y region
+		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto.getCodigo() != "-1" && regionReparto.getCodigo() != "-1"){
+			empresa.registrarPaquete(remitente, destinatario, peso, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
+		}else{
+			cout<<endl<<"No se pudo registrar el paquete, remitente y/o destinatario y/o oficina y/o region no estan registradas"<<endl<<endl;	
+		}		
 	}
 }
