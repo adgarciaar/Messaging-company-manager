@@ -21,7 +21,7 @@ int main(){
 	// Vector of string to save tokens
 	vector <string> tokens;
 	
-	do{
+	do{		
 		cout<<endl<<endl;
 		cout<<"$";
 			
@@ -113,7 +113,7 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	cin>>ciudad;
 	cout<<endl<<"Digite el telefono: ";
 	cin>>telefono;
-	
+	cin.ignore();
 	if(true){ //validar los datos
 		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
 	}
@@ -125,6 +125,8 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	string tipoContenido, numeroGuia;
 	OficinaReparto oficinaReparto;
 	RegionReparto regionReparto;
+	
+	
 	
 	if(true){ //validar los datos
 		empresa.registrarPaquete(remitente, destinatario, peso, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
