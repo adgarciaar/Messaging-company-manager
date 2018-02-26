@@ -8,6 +8,9 @@
 
 using namespace std;
 
+void registrarPersona(EmpresaMensajeria& empresa);
+void registrarPaquete(EmpresaMensajeria& empresa);
+
 int main(){
 	
 	cout<<endl<<endl<<"Bienvenido, digite comando (digite ayuda en caso de no conocerlo)"<<endl;
@@ -47,9 +50,9 @@ int main(){
 				cout<<"\t"<<"ayuda comando"<<endl;
 				cout<<"\t"<<"salir"<<endl;
 			}else if(comando == "registrarPersona"){ 
-		
+				registrarPersona(empresa);
 			}else if(comando == "registrarPaquete"){ 
-				
+				registrarPaquete(empresa);
 			}else if(comando == "conteoPaquetes"){ 
 				empresa.conteoPaquetes();
 			}else if(comando == "salir"){ 
@@ -86,8 +89,40 @@ int main(){
 		
 		tokens.clear();
 		
-	}while(comando != "salir");
+	}while(true);
 	
 	cout<<endl<<endl;
 	return 0;	
+}
+
+void registrarPersona(EmpresaMensajeria& empresa){
+	string numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono;
+	cout<<"Digite el numero de identificacion: ";
+	cin>>numeroIdentificacion;
+	cout<<endl<<"Digite el nombre: ";
+	getline (cin, nombre);
+	cout<<endl<<"Digite los apellidos: ";
+	getline (cin, apellidos);
+	cout<<endl<<"Digite la direccion: ";
+	getline (cin, direccion);
+	cout<<endl<<"Digite la ciudad: ";
+	cin>>ciudad;
+	cout<<endl<<"Digite el telefono: ";
+	cin>>telefono;
+	
+	if(true){ //validar los datos
+		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
+	}
+}
+
+void registrarPaquete(EmpresaMensajeria& empresa){
+	Persona remitente, destinatario;
+	int peso;
+	string tipoContenido, numeroGuia;
+	OficinaReparto oficinaReparto;
+	RegionReparto regionReparto;
+	
+	if(true){ //validar los datos
+		empresa.registrarPaquete(remitente, destinatario, peso, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
+	}
 }
