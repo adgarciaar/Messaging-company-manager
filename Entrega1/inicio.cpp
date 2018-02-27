@@ -10,6 +10,10 @@ using namespace std;
 
 void registrarPersona(EmpresaMensajeria& empresa);
 void registrarPaquete(EmpresaMensajeria& empresa);
+bool validarCadenaAlfabetica(string& cadena);
+bool validarCadenaNumerica(string& cadena);
+bool validarCadenaAlfanumerica(string& cadena);
+bool validarCodigoOficina(string& cadena);
 
 int main(){
 	
@@ -114,14 +118,18 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	cout<<endl<<"Digite el telefono: ";
 	cin>>telefono;
 	cin.ignore();
-	if(true){ //validar que los datos sean validos
+	
+	//validar que los datos sean validos
+	if(validarCadenaAlfanumerica(numeroIdentificacion) == true && validarCadenaAlfabetica(nombre)==true && validarCadenaAlfabetica(apellidos)==true	&& validarCadenaAlfanumerica(direccion)==true && validarCadenaAlfabetica(ciudad)==true && validarCadenaNumerica(telefono)==true) { 
 		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
+	}else{
+		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;	
 	}
 }
 
 void registrarPaquete(EmpresaMensajeria& empresa){
 	Persona remitente, destinatario;
-	int peso;
+	string peso;
 	string tipoContenido, numeroGuia, numIdRemitente, numIdDestinatario, codOficina,codRegion;
 	OficinaReparto oficinaReparto;
 	RegionReparto regionReparto;
@@ -131,16 +139,17 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	cout<<"Digite el numero de identificacion del remitente: ";
 	cin>>numIdRemitente;
 	cout<<"Digite el numero de identificacion del destinatario: ";
-	cin>>numIdRemitente;
+	cin>>numIdDestinatario;
 	cout<<"Digite el peso: ";
 	cin>>peso;	
 	cout<<"Digite el codigo de la oficina de reparto: ";
 	cin>>codOficina;
 	cout<<"Digite el codigo de la region de reparto: ";
 	cin>>codRegion;	
-	cin.ignore();
+	cin.ignore();	
 	
-	if(true){ //validar que los datos sean validos
+	//validar que los datos sean validos
+	if( validarCadenaAlfanumerica(numeroGuia)==true && validarCadenaNumerica(numIdRemitente)==true && validarCadenaNumerica(numIdDestinatario)==true && validarCadenaNumerica(peso)==true && validarCodigoOficina(codOficina)==true && validarCadenaAlfanumerica(codRegion)==true && (numIdRemitente != numIdDestinatario)){ 
 	
 		remitente = empresa.buscarPersona(numIdRemitente);
 		destinatario = empresa.buscarPersona(numIdDestinatario);
@@ -149,9 +158,82 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	
 		//validar que existan remitente, destinatario, oficina y region
 		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto.getCodigo() != "-1" && regionReparto.getCodigo() != "-1"){
-			empresa.registrarPaquete(remitente, destinatario, peso, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
+			
+			stringstream ss(peso);
+			int pesoInt;
+			ss >> pesoInt;
+			
+			empresa.registrarPaquete(remitente, destinatario, pesoInt, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
 		}else{
 			cout<<endl<<"No se pudo registrar el paquete, remitente y/o destinatario y/o oficina y/o region no estan registradas"<<endl<<endl;	
 		}		
+	}else{
+		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a ingresarlo(s)"<<endl<<endl;	
 	}
+}
+
+bool validarCadenaAlfabetica(string& cadena){ //true si cumple
+	
+	bool b = true;
+
+    for (int i=0; i<cadena.size(); i++){
+        char ch = cadena[i];
+        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
+            b = false;
+        }
+    }
+	
+	return b;
+}
+
+bool validarCadenaNumerica(string& cadena){ //true si cumple
+	
+	bool b = true;
+
+    for (int i=0; i<cadena.size(); i++){
+        char ch = cadena[i];
+        if( !(isdigit(ch)) ){
+            b = false;
+        }
+    }
+	
+	return b;
+}
+
+bool validarCadenaAlfanumerica(string& cadena){ //true si cumple
+	
+	bool b = true;
+
+    for (int i=0; i<cadena.size(); i++){
+        char ch = cadena[i];
+        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ') || (isdigit(ch))) ){
+            b = false;
+        }
+    }
+	
+	return b;
+}
+
+bool validarCodigoOficina(string& cadena){ //true si cumple
+	
+	bool b = true;
+	
+	if(cadena.size() == 8){
+		for (int i=0; i<3; i++){
+			char ch = cadena[i];
+			if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
+				b = false;
+			}
+		}
+		for (int i=3; i<cadena.size(); i++){
+			char ch = cadena[i];
+			if( !(isdigit(ch)) ){
+				b = false;
+			}
+		}
+	}else{
+		b = false;
+	}   
+	
+	return b;
 }

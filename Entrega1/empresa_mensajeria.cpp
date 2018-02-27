@@ -223,13 +223,13 @@ void EmpresaMensajeria::conteoPaquetes(){
 	}
 }
 
-Persona EmpresaMensajeria::buscarPersona(string cedula){
+Persona EmpresaMensajeria::buscarPersona(string numeroIdentificacion){
 	
 	Persona persona;
 	bool b = false;
 	
 	for(list< Persona >::iterator it = this->personas.begin(); it != this->personas.end( );	it++){
-		if(cedula == (*it).getNumeroIdentificacion()){
+		if(numeroIdentificacion == (*it).getNumeroIdentificacion()){
 			b = true;
 			persona = *it;
 			break;
