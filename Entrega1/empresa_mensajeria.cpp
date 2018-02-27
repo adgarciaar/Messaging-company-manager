@@ -135,59 +135,66 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 					&& this->validarCadenaNumerica(pesoString)==true && this->validarCadenaAlfabetica(tipoContenido)==true
 					&& this->validarCadenaAlfanumerica(numeroGuia)==true && (cedulaRemitente!=cedulaDestinatario) ){
 					
+					Paquete paqueteComprob = this->buscarPaquete(numeroGuia);
 					
-					Persona remitente = this->buscarPersona(cedulaRemitente);
-					Persona destinatario = this->buscarPersona(cedulaDestinatario);
-					
-					if(remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1"){ //ya registrados ambos
-					
-						//mirar si está registrada ya la oficinaReparto
+					if (paqueteComprob.getNumeroGuia() != "-1"){ //no se ha registrado el paquete						
+				
+						Persona remitente = this->buscarPersona(cedulaRemitente);
+						Persona destinatario = this->buscarPersona(cedulaDestinatario);
 						
-						OficinaReparto oficinaReparto = this->buscarOficinaReparto(codOficina);
-						RegionReparto regionReparto;
+						if(remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1"){ //ya registrados ambos
 						
-						if(oficinaReparto.getCodigo() == "-1"){ //no está registrada
-						
-							regionReparto.setCodigo(codRegionReparto);
-							regionReparto.setNombre(nombreRegionReparto);
+							//mirar si está registrada ya la oficinaReparto
 							
-							oficinaReparto.setCodigo(codOficina);
-							oficinaReparto.setNombre(nombreOficina);
-							oficinaReparto.setDireccion(direccionOficina);
-							oficinaReparto.setCiudad(ciudadOficina);
-						
-							oficinaReparto.agregarRegion(regionReparto);
+							OficinaReparto oficinaReparto = this->buscarOficinaReparto(codOficina);
+							RegionReparto regionReparto;
 							
-							this->oficinas.push_back(oficinaReparto);
-							
-						}else{ //ya está registrada
-						
-							//mirar si está registrada ya la regionReparto
-							regionReparto = this->buscarRegionReparto(codRegionReparto);
-							
-							if(regionReparto.getCodigo() == "-1"){ //no está registrada
+							if(oficinaReparto.getCodigo() == "-1"){ //no está registrada
 							
 								regionReparto.setCodigo(codRegionReparto);
 								regionReparto.setNombre(nombreRegionReparto);
 								
-								this->agregarRegionReparto(oficinaReparto.getCodigo(), regionReparto);
+								oficinaReparto.setCodigo(codOficina);
+								oficinaReparto.setNombre(nombreOficina);
+								oficinaReparto.setDireccion(direccionOficina);
+								oficinaReparto.setCiudad(ciudadOficina);
+							
+								oficinaReparto.agregarRegion(regionReparto);
+								
+								this->oficinas.push_back(oficinaReparto);
+								
+							}else{ //ya está registrada
+							
+								//mirar si está registrada ya la regionReparto
+								regionReparto = this->buscarRegionReparto(codRegionReparto);
+								
+								if(regionReparto.getCodigo() == "-1"){ //no está registrada
+								
+									regionReparto.setCodigo(codRegionReparto);
+									regionReparto.setNombre(nombreRegionReparto);
+									
+									this->agregarRegionReparto(oficinaReparto.getCodigo(), regionReparto);
+								}
 							}
-						}
-					
-						stringstream ss(pesoString);
-						int peso;
-						ss >> peso;
-						Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
-						this->paquetes.push(paquete);
 						
+							stringstream ss(pesoString);
+							int peso;
+							ss >> peso;
+							Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
+							this->paquetes.push(paquete);
+							
+						}else{
+							cout<<endl<<"No se puede registrar el paquete con numero de guia "<<numeroGuia<<": remitente y/o destinatario no registrado(s)"<<endl;
+						}
+
 					}else{
-						cout<<endl<<"No se puede registrar el paquete con numero de guia "<<numeroGuia<<": remitente y/o destinatario no registrado(s)"<<endl;
-					}						
-					
+						cout<<endl<<"Ya se encuentra registrado el paquete con numero guia "<<numeroGuia<<" del archivo "<<nombreArchivo<<endl;
+					}					
+						
 				}else{
 					cout<<endl<<"Uno o varios datos no son validos, en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
 				}			
-							
+				
 			}
 			
 			tokens.clear();
@@ -298,6 +305,29 @@ Persona EmpresaMensajeria::buscarPersona(string numeroIdentificacion){
 	}
 	
 	return persona;
+}
+
+Paquete EmpresaMensajeria::buscarPaquete(string numeroGuia){
+	
+	Paquete paquete;
+	bool b = false;
+	
+	queue<Paquete> auxiliar (this->paquetes);
+	
+	while (auxiliar.empty() == false){
+		if(auxiliar.front().getNumeroGuia() == numeroGuia){
+			b = true;
+			paquete = auxiliar.front();
+			break;
+		}
+		auxiliar.pop();
+	}
+	
+	if(b == false){
+		paquete.setNumeroGuia("-1");
+	}
+	
+	return paquete;
 }
 
 OficinaReparto EmpresaMensajeria::buscarOficinaReparto(string codigoOficina){
