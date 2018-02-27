@@ -120,7 +120,8 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	cin.ignore();
 	
 	//validar que los datos sean validos
-	if(validarCadenaAlfanumerica(numeroIdentificacion) == true && validarCadenaAlfabetica(nombre)==true && validarCadenaAlfabetica(apellidos)==true	&& validarCadenaAlfanumerica(direccion)==true && validarCadenaAlfabetica(ciudad)==true && validarCadenaNumerica(telefono)==true) { 
+	if(validarCadenaAlfanumerica(numeroIdentificacion) == true && validarCadenaAlfabetica(nombre)==true && validarCadenaAlfabetica(apellidos)==true	
+		&& validarCadenaAlfanumerica(direccion)==true && validarCadenaAlfabetica(ciudad)==true && validarCadenaNumerica(telefono)==true) { 
 		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
 	}else{
 		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;	
@@ -149,7 +150,9 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	cin.ignore();	
 	
 	//validar que los datos sean validos
-	if( validarCadenaAlfanumerica(numeroGuia)==true && validarCadenaNumerica(numIdRemitente)==true && validarCadenaNumerica(numIdDestinatario)==true && validarCadenaNumerica(peso)==true && validarCodigoOficina(codOficina)==true && validarCadenaAlfanumerica(codRegion)==true && (numIdRemitente != numIdDestinatario)){ 
+	if( validarCadenaAlfanumerica(numeroGuia)==true && validarCadenaNumerica(numIdRemitente)==true && validarCadenaNumerica(numIdDestinatario)==true 
+		&& validarCadenaNumerica(peso)==true && validarCodigoOficina(codOficina)==true && validarCadenaAlfanumerica(codRegion)==true 
+		&& (numIdRemitente != numIdDestinatario)){ 
 	
 		remitente = empresa.buscarPersona(numIdRemitente);
 		destinatario = empresa.buscarPersona(numIdDestinatario);

@@ -23,27 +23,31 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 	if (myfile.is_open()){
 		bool b = false;
 		
+		// Vector of string to save tokens
+		vector <string> tokens;
+		
 		while ( getline (myfile,line) ){
 			
-			if (b != false){
+			// stringstream class check1
+			stringstream check(line);
+				 
+			string intermediate;
+				 
+			// Tokenizing w.r.t. coma ','
+			while(getline(check, intermediate, ',')){
+				tokens.push_back(intermediate);
+			}
 				
-				// Vector of string to save tokens
-				vector <string> tokens;
-				 
-				// stringstream class check1
-				stringstream check(line);
-				 
-				string intermediate;
-				 
-				// Tokenizing w.r.t. coma ','
-				while(getline(check, intermediate, ',')){
-					tokens.push_back(intermediate);
-				}
-							
+			if(tokens.size() != 6){
+				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida."<<endl<<endl;
+				break;
+			}
+			
+			if (b != false){							
 				Persona persona(tokens[2],tokens[0],tokens[1],tokens[3],tokens[4],tokens[5]);
 				this->personas.push_back(persona);
 			}
-			
+			tokens.clear();
 			b = true;
 		}
 		
@@ -62,24 +66,29 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 	ifstream myfile (nombreArchivo);
 	
 	if (myfile.is_open()){
+		
 		bool b = false;
+		// Vector of string to save tokens
+		vector <string> tokens;
 		
 		while ( getline (myfile,line) ){
 			
-			if (b != false){
+			// stringstream class check1
+			stringstream check(line);
+				 
+			string intermediate;
+				 
+			// Tokenizing w.r.t. coma ','
+			while(getline(check, intermediate, ',')){
+				tokens.push_back(intermediate);
+			}
 				
-				// Vector of string to save tokens
-				vector <string> tokens;
-				 
-				// stringstream class check1
-				stringstream check(line);
-				 
-				string intermediate;
-				 
-				// Tokenizing w.r.t. coma ','
-				while(getline(check, intermediate, ',')){
-					tokens.push_back(intermediate);
-				}
+			if(tokens.size() != 11){
+				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida."<<endl<<endl;
+				break;
+			}
+			
+			if (b != false){
 				
 				string cedulaRemitente = tokens[0];
 				string cedulaDestinatario = tokens[1];
@@ -133,7 +142,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 				}
 							
 			}
-			
+			tokens.clear();
 			b = true;
 		}
 		
