@@ -37,6 +37,7 @@ class EmpresaMensajeria{
 		bool validarCadenaNumerica(std::string& cadena);
 		bool validarCadenaAlfanumerica(std::string& cadena);
 		bool validarCodigoOficina(std::string& cadena);
+		bool validarDireccion(std::string& cadena);
 };
 
 #endif

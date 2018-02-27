@@ -48,9 +48,11 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 			}else if (tokens.size() == 6 && b != false){
 				string numeroIdentificacion=tokens[2],nombre=tokens[0],apellidos=tokens[1],direccion=tokens[3],ciudad=tokens[4],telefono=tokens[5];
 				
+				if (this->validarCadenaAlfabetica(ciudad)==true){cout<<"true"<<endl;}else{cout<<"false"<<endl;}
+				
 				//revisar si datos son válidos
 				if(this->validarCadenaAlfanumerica(numeroIdentificacion) == true && this->validarCadenaAlfabetica(nombre)==true && this->validarCadenaAlfabetica(apellidos)==true	
-					&& this->validarCadenaAlfanumerica(direccion)==true && this->validarCadenaAlfabetica(ciudad)==true && this->validarCadenaNumerica(telefono)==true) { 
+					&& this->validarDireccion(direccion)==true && this->validarCadenaAlfabetica(ciudad)==true && this->validarCadenaNumerica(telefono)==true) { 
 					
 					Persona personaComprob = this->buscarPersona(numeroIdentificacion);
 					
@@ -129,7 +131,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 				if(this->validarCadenaAlfanumerica(cedulaRemitente)==true && this->validarCadenaAlfanumerica(cedulaDestinatario)== true
 					&& this->validarCadenaAlfanumerica(codRegionReparto) && this->validarCadenaAlfabetica(nombreRegionReparto)==true 
 					&& this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfabetica(nombreOficina)==true
-					&& this->validarCadenaAlfanumerica(direccionOficina)==true && this->validarCadenaAlfabetica(ciudadOficina)==true 
+					&& this->validarDireccion(direccionOficina)==true && this->validarCadenaAlfabetica(ciudadOficina)==true 
 					&& this->validarCadenaNumerica(pesoString)==true && this->validarCadenaAlfabetica(tipoContenido)==true
 					&& this->validarCadenaAlfanumerica(numeroGuia)==true && (cedulaRemitente!=cedulaDestinatario) ){
 					
@@ -363,7 +365,7 @@ bool EmpresaMensajeria::validarCadenaAlfabetica(string& cadena){ //true si cumpl
 
     for (int i=0; i<cadena.size(); i++){
         char ch = cadena[i];
-        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
+        if( isdigit(ch) ){
             b = false;
         }
     }
@@ -391,7 +393,7 @@ bool EmpresaMensajeria::validarCadenaAlfanumerica(string& cadena){ //true si cum
 
     for (int i=0; i<cadena.size(); i++){
         char ch = cadena[i];
-        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ') || (isdigit(ch))) ){
+        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ') || (isdigit(ch))) ){
             b = false;
         }
     }
@@ -406,7 +408,7 @@ bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
 	if(cadena.size() == 8){
 		for (int i=0; i<3; i++){
 			char ch = cadena[i];
-			if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
+			if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
 				b = false;
 			}
 		}
@@ -419,6 +421,20 @@ bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
 	}else{
 		b = false;
 	}   
+	
+	return b;
+}
+
+bool EmpresaMensajeria::validarDireccion(string& cadena){ //true si cumple
+	
+	bool b = true;
+
+    for (int i=0; i<cadena.size(); i++){
+        char ch = cadena[i];
+        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ') || (isdigit(ch)) || (ch == '#') || (ch == '-') ) ){
+            b = false;
+        }
+    }
 	
 	return b;
 }

@@ -117,7 +117,7 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	
 	//validar que los datos sean validos
 	if(empresa.validarCadenaAlfanumerica(numeroIdentificacion) == true && empresa.validarCadenaAlfabetica(nombre)==true && empresa.validarCadenaAlfabetica(apellidos)==true	
-		&& empresa.validarCadenaAlfanumerica(direccion)==true && empresa.validarCadenaAlfabetica(ciudad)==true && empresa.validarCadenaNumerica(telefono)==true) { 
+		&& empresa.validarDireccion(direccion)==true && empresa.validarCadenaAlfabetica(ciudad)==true && empresa.validarCadenaNumerica(telefono)==true) { 
 		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
 	}else{
 		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;	
