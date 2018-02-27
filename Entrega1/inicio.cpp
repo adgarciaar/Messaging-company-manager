@@ -146,7 +146,7 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	cin.ignore();	
 	
 	//validar que los datos sean validos
-	if( empresa.validarCadenaAlfanumerica(numeroGuia)==true && empresa.validarCadenaNumerica(numIdRemitente)==true && empresa.validarCadenaNumerica(numIdDestinatario)==true 
+	if( empresa.validarCadenaAlfanumerica(numeroGuia)==true && empresa.validarCadenaAlfanumerica(numIdRemitente)==true && empresa.validarCadenaAlfanumerica(numIdDestinatario)==true 
 		&& empresa.validarCadenaNumerica(peso)==true && empresa.validarCodigoOficina(codOficina)==true && empresa.validarCadenaAlfanumerica(codRegion)==true 
 		&& (numIdRemitente != numIdDestinatario)){ 
 	

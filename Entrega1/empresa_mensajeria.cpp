@@ -22,12 +22,12 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 	
 	if (myfile.is_open()){
 		bool b = false;
-		
+		int numeroLinea = 0;
 		// Vector of string to save tokens
 		vector <string> tokens;
 		
 		while ( getline (myfile,line) ){
-			
+			numeroLinea++;
 			// stringstream class check1
 			stringstream check(line);
 				 
@@ -37,16 +37,28 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 			while(getline(check, intermediate, ',')){
 				tokens.push_back(intermediate);
 			}
-				
-			if(tokens.size() != 6){
+			
+			if(tokens.size() != 6 && b == false){
 				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida."<<endl<<endl;
 				break;
 			}
 			
-			if (b != false){							
-				Persona persona(tokens[2],tokens[0],tokens[1],tokens[3],tokens[4],tokens[5]);
-				this->personas.push_back(persona);
+			if(tokens.size() != 6 && b != false){
+				cout<<endl<<"Datos incompletos en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
+			}else if (tokens.size() == 6 && b != false){
+				string numeroIdentificacion=tokens[2],nombre=tokens[0],apellidos=tokens[1],direccion=tokens[3],ciudad=tokens[4],telefono=tokens[5];
+				
+				//revisar si datos son válidos
+				if(this->validarCadenaAlfanumerica(numeroIdentificacion) == true && this->validarCadenaAlfabetica(nombre)==true && this->validarCadenaAlfabetica(apellidos)==true	
+					&& this->validarCadenaAlfanumerica(direccion)==true && this->validarCadenaAlfabetica(ciudad)==true && this->validarCadenaNumerica(telefono)==true) { 
+			
+					Persona persona(numeroIdentificacion,nombre,apellidos,direccion,ciudad,telefono);
+					this->personas.push_back(persona);
+				}else{
+					cout<<endl<<"Uno o varios datos no son validos, en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
+				}							
 			}
+			
 			tokens.clear();
 			b = true;
 		}
@@ -66,13 +78,13 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 	ifstream myfile (nombreArchivo);
 	
 	if (myfile.is_open()){
-		
+		int numeroLinea = 0;
 		bool b = false;
 		// Vector of string to save tokens
 		vector <string> tokens;
 		
 		while ( getline (myfile,line) ){
-			
+			numeroLinea++;
 			// stringstream class check1
 			stringstream check(line);
 				 
@@ -82,66 +94,93 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 			while(getline(check, intermediate, ',')){
 				tokens.push_back(intermediate);
 			}
-				
-			if(tokens.size() != 11){
+			
+			if(tokens.size() != 11 && b == false){
 				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida."<<endl<<endl;
 				break;
 			}
 			
-			if (b != false){
+			if(tokens.size() != 11 && b != false){
+				cout<<endl<<"Datos incompletos en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
+				
+			}else if(tokens.size() == 11 && b != false){
 				
 				string cedulaRemitente = tokens[0];
 				string cedulaDestinatario = tokens[1];
+				string codRegionReparto = tokens[9];
+				string nombreRegionReparto = tokens[10];
+				string codOficina = tokens[5];
+				string nombreOficina = tokens[6];
+				string direccionOficina = tokens[7];
+				string ciudadOficina = tokens[8];
+				string pesoString = tokens[2];
+				string tipoContenido = tokens[3];
+				string numeroGuia = tokens[4];
 				
-				Persona remitente = this->buscarPersona(cedulaRemitente);
-				Persona destinatario = this->buscarPersona(cedulaDestinatario);
+				//revisar si datos son válidos
 				
-				if(remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1"){ //ya registrados ambos
-				
-					//mirar si está registrada ya la oficinaReparto
+				if(this->validarCadenaAlfanumerica(cedulaRemitente)==true && this->validarCadenaAlfanumerica(cedulaDestinatario)== true
+					&& this->validarCadenaAlfanumerica(codRegionReparto) && this->validarCadenaAlfabetica(nombreRegionReparto)==true 
+					&& this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfabetica(nombreOficina)==true
+					&& this->validarCadenaAlfanumerica(direccionOficina)==true && this->validarCadenaAlfabetica(ciudadOficina)==true 
+					&& this->validarCadenaNumerica(pesoString)==true && this->validarCadenaAlfabetica(tipoContenido)==true
+					&& this->validarCadenaAlfanumerica(numeroGuia) ){
 					
-					OficinaReparto oficinaReparto = this->buscarOficinaReparto(tokens[5]);
-					RegionReparto regionReparto;
 					
-					if(oficinaReparto.getCodigo() == "-1"){ //no está registrada
+					Persona remitente = this->buscarPersona(cedulaRemitente);
+					Persona destinatario = this->buscarPersona(cedulaDestinatario);
 					
-						regionReparto.setCodigo(tokens[9]);
-						regionReparto.setNombre(tokens[10]);
-						
-						oficinaReparto.setCodigo(tokens[5]);
-						oficinaReparto.setNombre(tokens[6]);
-						oficinaReparto.setDireccion(tokens[7]);
-						oficinaReparto.setCiudad(tokens[8]);
+					if(remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1"){ //ya registrados ambos
 					
-						oficinaReparto.agregarRegion(regionReparto);
+						//mirar si está registrada ya la oficinaReparto
 						
-						this->oficinas.push_back(oficinaReparto);
+						OficinaReparto oficinaReparto = this->buscarOficinaReparto(codOficina);
+						RegionReparto regionReparto;
 						
-					}else{ //ya está registrada
-					
-						//mirar si está registrada ya la regionReparto
-						regionReparto = this->buscarRegionReparto(tokens[9]);
+						if(oficinaReparto.getCodigo() == "-1"){ //no está registrada
 						
-						if(regionReparto.getCodigo() == "-1"){ //no está registrada
-						
-							regionReparto.setCodigo(tokens[9]);
-							regionReparto.setNombre(tokens[10]);
+							regionReparto.setCodigo(codRegionReparto);
+							regionReparto.setNombre(nombreRegionReparto);
 							
-							this->agregarRegionReparto(oficinaReparto.getCodigo(), regionReparto);
+							oficinaReparto.setCodigo(codOficina);
+							oficinaReparto.setNombre(nombreOficina);
+							oficinaReparto.setDireccion(direccionOficina);
+							oficinaReparto.setCiudad(ciudadOficina);
+						
+							oficinaReparto.agregarRegion(regionReparto);
+							
+							this->oficinas.push_back(oficinaReparto);
+							
+						}else{ //ya está registrada
+						
+							//mirar si está registrada ya la regionReparto
+							regionReparto = this->buscarRegionReparto(codRegionReparto);
+							
+							if(regionReparto.getCodigo() == "-1"){ //no está registrada
+							
+								regionReparto.setCodigo(codRegionReparto);
+								regionReparto.setNombre(nombreRegionReparto);
+								
+								this->agregarRegionReparto(oficinaReparto.getCodigo(), regionReparto);
+							}
 						}
-					}
-				
-					stringstream ss(tokens[2]);
-					int peso;
-					ss >> peso;
-					Paquete paquete(remitente,destinatario,peso,tokens[3],tokens[4],oficinaReparto,regionReparto);
-					this->paquetes.push(paquete);
+					
+						stringstream ss(pesoString);
+						int peso;
+						ss >> peso;
+						Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
+						this->paquetes.push(paquete);
+						
+					}else{
+						cout<<endl<<"No se puede registrar el paquete con numero de guia "<<numeroGuia<<": remitente y/o destinatario no registrado(s)"<<endl;
+					}						
 					
 				}else{
-					cout<<endl<<"No se puede registrar el paquete con numero de guia "<<tokens[4]<<": remitente y/o destinatario no registrado(s)"<<endl;
-				}
+					cout<<endl<<"Uno o varios datos no son validos, en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
+				}			
 							
 			}
+			
 			tokens.clear();
 			b = true;
 		}
