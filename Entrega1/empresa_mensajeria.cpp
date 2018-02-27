@@ -310,3 +310,69 @@ void EmpresaMensajeria::agregarRegionReparto(string codigoOficina, RegionReparto
 	}
 	
 }
+
+bool EmpresaMensajeria::validarCadenaAlfabetica(string& cadena){ //true si cumple
+	
+	bool b = true;
+
+    for (int i=0; i<cadena.size(); i++){
+        char ch = cadena[i];
+        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
+            b = false;
+        }
+    }
+	
+	return b;
+}
+
+bool EmpresaMensajeria::validarCadenaNumerica(string& cadena){ //true si cumple
+	
+	bool b = true;
+
+    for (int i=0; i<cadena.size(); i++){
+        char ch = cadena[i];
+        if( !(isdigit(ch)) ){
+            b = false;
+        }
+    }
+	
+	return b;
+}
+
+bool EmpresaMensajeria::validarCadenaAlfanumerica(string& cadena){ //true si cumple
+	
+	bool b = true;
+
+    for (int i=0; i<cadena.size(); i++){
+        char ch = cadena[i];
+        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ') || (isdigit(ch))) ){
+            b = false;
+        }
+    }
+	
+	return b;
+}
+
+bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
+	
+	bool b = true;
+	
+	if(cadena.size() == 8){
+		for (int i=0; i<3; i++){
+			char ch = cadena[i];
+			if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
+				b = false;
+			}
+		}
+		for (int i=3; i<cadena.size(); i++){
+			char ch = cadena[i];
+			if( !(isdigit(ch)) ){
+				b = false;
+			}
+		}
+	}else{
+		b = false;
+	}   
+	
+	return b;
+}

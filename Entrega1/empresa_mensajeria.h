@@ -32,6 +32,11 @@ class EmpresaMensajeria{
 		OficinaReparto buscarOficinaReparto(std::string codigoOficina);
 		RegionReparto buscarRegionReparto(std::string codigoRegion);
 		void agregarRegionReparto(std::string codigoOficina, RegionReparto regionReparto);
+		
+		bool validarCadenaAlfabetica(std::string& cadena);
+		bool validarCadenaNumerica(std::string& cadena);
+		bool validarCadenaAlfanumerica(std::string& cadena);
+		bool validarCodigoOficina(std::string& cadena);
 };
 
 #endif

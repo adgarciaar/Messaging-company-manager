@@ -10,10 +10,6 @@ using namespace std;
 
 void registrarPersona(EmpresaMensajeria& empresa);
 void registrarPaquete(EmpresaMensajeria& empresa);
-bool validarCadenaAlfabetica(string& cadena);
-bool validarCadenaNumerica(string& cadena);
-bool validarCadenaAlfanumerica(string& cadena);
-bool validarCodigoOficina(string& cadena);
 
 int main(){
 	
@@ -120,8 +116,8 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	cin.ignore();
 	
 	//validar que los datos sean validos
-	if(validarCadenaAlfanumerica(numeroIdentificacion) == true && validarCadenaAlfabetica(nombre)==true && validarCadenaAlfabetica(apellidos)==true	
-		&& validarCadenaAlfanumerica(direccion)==true && validarCadenaAlfabetica(ciudad)==true && validarCadenaNumerica(telefono)==true) { 
+	if(empresa.validarCadenaAlfanumerica(numeroIdentificacion) == true && empresa.validarCadenaAlfabetica(nombre)==true && empresa.validarCadenaAlfabetica(apellidos)==true	
+		&& empresa.validarCadenaAlfanumerica(direccion)==true && empresa.validarCadenaAlfabetica(ciudad)==true && empresa.validarCadenaNumerica(telefono)==true) { 
 		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
 	}else{
 		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;	
@@ -150,8 +146,8 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	cin.ignore();	
 	
 	//validar que los datos sean validos
-	if( validarCadenaAlfanumerica(numeroGuia)==true && validarCadenaNumerica(numIdRemitente)==true && validarCadenaNumerica(numIdDestinatario)==true 
-		&& validarCadenaNumerica(peso)==true && validarCodigoOficina(codOficina)==true && validarCadenaAlfanumerica(codRegion)==true 
+	if( empresa.validarCadenaAlfanumerica(numeroGuia)==true && empresa.validarCadenaNumerica(numIdRemitente)==true && empresa.validarCadenaNumerica(numIdDestinatario)==true 
+		&& empresa.validarCadenaNumerica(peso)==true && empresa.validarCodigoOficina(codOficina)==true && empresa.validarCadenaAlfanumerica(codRegion)==true 
 		&& (numIdRemitente != numIdDestinatario)){ 
 	
 		remitente = empresa.buscarPersona(numIdRemitente);
@@ -173,70 +169,4 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	}else{
 		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a ingresarlo(s)"<<endl<<endl;	
 	}
-}
-
-bool validarCadenaAlfabetica(string& cadena){ //true si cumple
-	
-	bool b = true;
-
-    for (int i=0; i<cadena.size(); i++){
-        char ch = cadena[i];
-        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
-            b = false;
-        }
-    }
-	
-	return b;
-}
-
-bool validarCadenaNumerica(string& cadena){ //true si cumple
-	
-	bool b = true;
-
-    for (int i=0; i<cadena.size(); i++){
-        char ch = cadena[i];
-        if( !(isdigit(ch)) ){
-            b = false;
-        }
-    }
-	
-	return b;
-}
-
-bool validarCadenaAlfanumerica(string& cadena){ //true si cumple
-	
-	bool b = true;
-
-    for (int i=0; i<cadena.size(); i++){
-        char ch = cadena[i];
-        if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ') || (isdigit(ch))) ){
-            b = false;
-        }
-    }
-	
-	return b;
-}
-
-bool validarCodigoOficina(string& cadena){ //true si cumple
-	
-	bool b = true;
-	
-	if(cadena.size() == 8){
-		for (int i=0; i<3; i++){
-			char ch = cadena[i];
-			if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
-				b = false;
-			}
-		}
-		for (int i=3; i<cadena.size(); i++){
-			char ch = cadena[i];
-			if( !(isdigit(ch)) ){
-				b = false;
-			}
-		}
-	}else{
-		b = false;
-	}   
-	
-	return b;
 }
