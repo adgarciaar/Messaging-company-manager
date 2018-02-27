@@ -51,9 +51,16 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 				//revisar si datos son válidos
 				if(this->validarCadenaAlfanumerica(numeroIdentificacion) == true && this->validarCadenaAlfabetica(nombre)==true && this->validarCadenaAlfabetica(apellidos)==true	
 					&& this->validarCadenaAlfanumerica(direccion)==true && this->validarCadenaAlfabetica(ciudad)==true && this->validarCadenaNumerica(telefono)==true) { 
-			
-					Persona persona(numeroIdentificacion,nombre,apellidos,direccion,ciudad,telefono);
-					this->personas.push_back(persona);
+					
+					Persona personaComprob = this->buscarPersona(numeroIdentificacion);
+					
+					if(personaComprob.getNumeroIdentificacion() == "-1"){ //no está registrada
+						Persona persona(numeroIdentificacion,nombre,apellidos,direccion,ciudad,telefono);
+						this->personas.push_back(persona);
+					}else{ //ya está registrada
+						cout<<endl<<"La persona con numero de identificacion "<<numeroIdentificacion<<" ya se encuentra registrada "<<endl;
+					}			
+					
 				}else{
 					cout<<endl<<"Uno o varios datos no son validos, en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
 				}							
