@@ -124,7 +124,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 					&& this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfabetica(nombreOficina)==true
 					&& this->validarCadenaAlfanumerica(direccionOficina)==true && this->validarCadenaAlfabetica(ciudadOficina)==true 
 					&& this->validarCadenaNumerica(pesoString)==true && this->validarCadenaAlfabetica(tipoContenido)==true
-					&& this->validarCadenaAlfanumerica(numeroGuia) ){
+					&& this->validarCadenaAlfanumerica(numeroGuia)==true && (cedulaRemitente!=cedulaDestinatario) ){
 					
 					
 					Persona remitente = this->buscarPersona(cedulaRemitente);
