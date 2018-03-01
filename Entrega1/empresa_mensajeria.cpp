@@ -130,7 +130,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 					&& this->validarCadenaAlfanumerica(codRegionReparto) && this->validarCadenaAlfabetica(nombreRegionReparto)==true 
 					&& this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfabetica(nombreOficina)==true
 					&& this->validarDireccion(direccionOficina)==true && this->validarCadenaAlfabetica(ciudadOficina)==true 
-					&& this->validarCadenaNumerica(pesoString)==true && this->validarCadenaAlfabetica(tipoContenido)==true
+					&& this->validarCadenaNumerica(pesoString)==true && this->validarCadenaAlfanumerica(tipoContenido)==true
 					&& this->validarCadenaAlfanumerica(numeroGuia)==true && (cedulaRemitente!=cedulaDestinatario) ){
 					
 					Paquete paqueteComprob = this->buscarPaquete(numeroGuia);
@@ -439,7 +439,7 @@ bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
 	for (int i=0; i<cadena.size(); i++){
         char ch = cadena[i];
         if( !(isdigit(ch)) ){
-            numLetras++;
+            numLetras++;			
         }
 		if( isdigit(ch) ){
             numDigitos++;
@@ -447,6 +447,7 @@ bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
     }
 	
 	bool b;
+	
 	if(numLetras == 3 && numDigitos == 5){
 		b = true;
 	}else{

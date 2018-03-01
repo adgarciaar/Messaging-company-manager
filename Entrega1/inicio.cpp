@@ -139,16 +139,21 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	cin>>numIdDestinatario;
 	cout<<"Digite el peso: ";
 	cin>>peso;	
+	cout<<endl<<"Digite el tipo de contenido: ";
+	cin.ignore();
+	getline (cin, tipoContenido);
 	cout<<"Digite el codigo de la oficina de reparto: ";
 	cin>>codOficina;
 	cout<<"Digite el codigo de la region de reparto: ";
 	cin>>codRegion;	
 	cin.ignore();	
 	
+	if (empresa.validarCodigoOficina(codOficina)==true){cout<<"true codOficina"<<endl;}
+	
 	//validar que los datos sean validos
 	if( empresa.validarCadenaAlfanumerica(numeroGuia)==true && empresa.validarCadenaAlfanumerica(numIdRemitente)==true && empresa.validarCadenaAlfanumerica(numIdDestinatario)==true 
 		&& empresa.validarCadenaNumerica(peso)==true && empresa.validarCodigoOficina(codOficina)==true && empresa.validarCadenaAlfanumerica(codRegion)==true 
-		&& (numIdRemitente != numIdDestinatario)){ 
+		&& (numIdRemitente != numIdDestinatario) && empresa.validarCadenaAlfanumerica(tipoContenido)==true ){
 	
 		remitente = empresa.buscarPersona(numIdRemitente);
 		destinatario = empresa.buscarPersona(numIdDestinatario);
