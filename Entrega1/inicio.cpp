@@ -1,4 +1,4 @@
-#include <iostream>
+gfds#include <iostream>
 #include "empresa_mensajeria.h" 
 #include "paquete.h" 
 #include "persona.h"
@@ -147,8 +147,6 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	cout<<"Digite el codigo de la region de reparto: ";
 	cin>>codRegion;	
 	cin.ignore();	
-	
-	if (empresa.validarCodigoOficina(codOficina)==true){cout<<"true codOficina"<<endl;}
 	
 	//validar que los datos sean validos
 	if( empresa.validarCadenaAlfanumerica(numeroGuia)==true && empresa.validarCadenaAlfanumerica(numIdRemitente)==true && empresa.validarCadenaAlfanumerica(numIdDestinatario)==true 
