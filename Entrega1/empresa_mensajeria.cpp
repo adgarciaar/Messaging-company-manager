@@ -135,7 +135,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 					
 					Paquete paqueteComprob = this->buscarPaquete(numeroGuia);
 					
-					if (paqueteComprob.getNumeroGuia() != "-1"){ //no se ha registrado el paquete						
+					if (paqueteComprob.getNumeroGuia() == "-1"){ //no se ha registrado el paquete						
 				
 						Persona remitente = this->buscarPersona(cedulaRemitente);
 						Persona destinatario = this->buscarPersona(cedulaDestinatario);
@@ -310,15 +310,18 @@ Paquete EmpresaMensajeria::buscarPaquete(string numeroGuia){
 	Paquete paquete;
 	bool b = false;
 	
-	queue<Paquete> auxiliar (this->paquetes);
+	if(this->paquetes.size() > 0){
+		
+		queue<Paquete> auxiliar (this->paquetes);
 	
-	while (auxiliar.empty() == false){
-		if(auxiliar.front().getNumeroGuia() == numeroGuia){
-			b = true;
-			paquete = auxiliar.front();
-			break;
+		while (auxiliar.empty() == false){
+			if(auxiliar.front().getNumeroGuia() == numeroGuia){
+				b = true;
+				paquete = auxiliar.front();
+				break;
+			}
+			auxiliar.pop();
 		}
-		auxiliar.pop();
 	}
 	
 	if(b == false){
@@ -431,24 +434,24 @@ bool EmpresaMensajeria::validarCadenaAlfanumerica(string& cadena){ //true si cum
 
 bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
 	
-	bool b = true;
+	int numLetras = 0, numDigitos = 0;
 	
-	if(cadena.size() == 8){
-		for (int i=0; i<3; i++){
-			char ch = cadena[i];
-			if( !((ch <= 'z' && ch >= 'a') || (ch <= 'Z' && ch >= 'A') || (ch == ' ')) ){
-				b = false;
-			}
-		}
-		for (int i=3; i<cadena.size(); i++){
-			char ch = cadena[i];
-			if( !(isdigit(ch)) ){
-				b = false;
-			}
-		}
+	for (int i=0; i<cadena.size(); i++){
+        char ch = cadena[i];
+        if( !(isdigit(ch)) ){
+            numLetras++;
+        }
+		if( isdigit(ch) ){
+            numDigitos++;
+        }
+    }
+	
+	bool b;
+	if(numLetras == 3 && numDigitos == 5){
+		b = true;
 	}else{
 		b = false;
-	}   
+	}
 	
 	return b;
 }
