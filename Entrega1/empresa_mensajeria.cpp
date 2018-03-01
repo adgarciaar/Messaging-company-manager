@@ -48,8 +48,6 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 			}else if (tokens.size() == 6 && b != false){
 				string numeroIdentificacion=tokens[2],nombre=tokens[0],apellidos=tokens[1],direccion=tokens[3],ciudad=tokens[4],telefono=tokens[5];
 				
-				if (this->validarCadenaAlfabetica(ciudad)==true){cout<<"true"<<endl;}else{cout<<"false"<<endl;}
-				
 				//revisar si datos son válidos
 				if(this->validarCadenaAlfanumerica(numeroIdentificacion) == true && this->validarCadenaAlfabetica(nombre)==true && this->validarCadenaAlfabetica(apellidos)==true	
 					&& this->validarDireccion(direccion)==true && this->validarCadenaAlfabetica(ciudad)==true && this->validarCadenaNumerica(telefono)==true) { 
