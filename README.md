@@ -1,3 +1,3 @@
 # ProyectoEstructuras
 
-Nicolas, Diego y Adrian
+Adrian Garcia, Nicolas Miranda, Diego Mateus
