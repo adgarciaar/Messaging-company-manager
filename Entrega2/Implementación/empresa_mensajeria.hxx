@@ -46,7 +46,7 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 			}
 			
 			if(tokens.size() != 6 && b != false){
-				cout<<endl<<"Datos incompletos en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
+				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
 				incorrectos++;
 			}else if (tokens.size() == 6 && b != false){
 				string numeroIdentificacion=tokens[2],nombre=tokens[0],apellidos=tokens[1],direccion=tokens[3],ciudad=tokens[4],telefono=tokens[5];
@@ -62,12 +62,12 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 						this->personas.push_back(persona);
 						correctos++;
 					}else{ //ya está registrada
-						cout<<endl<<"La persona con numero de identificacion "<<numeroIdentificacion<<" ya se encuentra registrada "<<endl;
+						cout<<endl<<"En la linea "<<numeroLinea<<": la persona con numero de identificacion "<<numeroIdentificacion<<" ya se encuentra registrada "<<endl;
 						incorrectos++;
 					}			
 					
 				}else{
-					cout<<endl<<"Uno o varios datos no son validos, en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
+					cout<<endl<<"En la linea "<<numeroLinea<<": uno o varios datos no son validos"<<endl;
 					incorrectos++;
 				}							
 			}
@@ -117,7 +117,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 			}
 			
 			if(tokens.size() != 11 && b != false){
-				cout<<endl<<"Datos incompletos en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
+				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
 				incorrectos++;
 				
 			}else if(tokens.size() == 11 && b != false){
@@ -193,17 +193,17 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 							correctos++;
 							
 						}else{
-							cout<<endl<<"No se puede registrar el paquete con numero de guia "<<numeroGuia<<": remitente y/o destinatario no registrado(s)"<<endl;
+							cout<<endl<<"En la linea "<<numeroLinea<<": no se puede registrar el paquete con numero de guia "<<numeroGuia<<": remitente y/o destinatario no registrado(s)"<<endl;
 							incorrectos++;
 						}
 
 					}else{
-						cout<<endl<<"Ya se encuentra registrado el paquete con numero guia "<<numeroGuia<<" del archivo "<<nombreArchivo<<endl;
+						cout<<endl<<"En la linea "<<numeroLinea<<": ya se encuentra registrado el paquete con numero guia "<<numeroGuia<<" del archivo "<<nombreArchivo<<endl;
 						incorrectos++;
 					}					
 						
 				}else{
-					cout<<endl<<"Uno o varios datos no son validos, en la linea "<<numeroLinea<<" del archivo "<<nombreArchivo<<endl;
+					cout<<endl<<"En la linea "<<numeroLinea<<": uno o varios datos no son validos"<<endl;
 					incorrectos++;
 				}			
 				
