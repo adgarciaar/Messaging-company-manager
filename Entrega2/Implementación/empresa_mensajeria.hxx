@@ -11,10 +11,13 @@ using namespace std;
 
 EmpresaMensajeria::EmpresaMensajeria(){}
 
+//---------------------------------------------------------------------------------------------------
+
 EmpresaMensajeria::EmpresaMensajeria(string nombre){
 	this->nombre = nombre;	
 }
 
+//---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 	
 	string line;
@@ -86,6 +89,7 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 	
 }
 
+//---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 	
 	string line;
@@ -222,6 +226,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 	
 }
 
+//---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::registrarPersona(string numeroIdentificacion, string nombre, string apellidos, 
 			string direccion, string ciudad, string telefono){
 				
@@ -243,6 +248,7 @@ void EmpresaMensajeria::registrarPersona(string numeroIdentificacion, string nom
 	
 }
 
+//---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::registrarPaquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia,
 	OficinaReparto oficinaReparto, RegionReparto regionReparto){
 	
@@ -266,6 +272,7 @@ void EmpresaMensajeria::registrarPaquete(Persona remitente, Persona destinatario
 	}
 }
 
+//---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::conteoPaquetes(){
 
 	long numPaquetes = this->paquetes.size();
@@ -292,7 +299,7 @@ void EmpresaMensajeria::conteoPaquetes(){
 					auxiliar.pop();
 				}
 				if(cantidad != 0){
-					cout<<cantidad<<" en la region de reparto "<<(*it2).getNombre()<<endl;					
+					cout<<cantidad<<" en la oficina "<<(*it).getCodigo()<<", region de reparto "<<(*it2).getNombre()<<endl;					
 				}
 				auxiliar = this->paquetes;				
 			}			
@@ -300,6 +307,7 @@ void EmpresaMensajeria::conteoPaquetes(){
 	}
 }
 
+//---------------------------------------------------------------------------------------------------
 Persona EmpresaMensajeria::buscarPersona(string numeroIdentificacion){
 	
 	Persona persona;
@@ -320,6 +328,7 @@ Persona EmpresaMensajeria::buscarPersona(string numeroIdentificacion){
 	return persona;
 }
 
+//---------------------------------------------------------------------------------------------------
 Paquete EmpresaMensajeria::buscarPaquete(string numeroGuia){
 	
 	Paquete paquete;
@@ -346,6 +355,7 @@ Paquete EmpresaMensajeria::buscarPaquete(string numeroGuia){
 	return paquete;
 }
 
+//---------------------------------------------------------------------------------------------------
 OficinaReparto EmpresaMensajeria::buscarOficinaReparto(string codigoOficina){
 	
 	OficinaReparto oficinaReparto;
@@ -366,6 +376,7 @@ OficinaReparto EmpresaMensajeria::buscarOficinaReparto(string codigoOficina){
 	return oficinaReparto;
 }
 
+//---------------------------------------------------------------------------------------------------
 RegionReparto EmpresaMensajeria::buscarRegionReparto(string codigoRegion){
 	
 	RegionReparto regionReparto;
@@ -394,6 +405,7 @@ RegionReparto EmpresaMensajeria::buscarRegionReparto(string codigoRegion){
 	return regionReparto;
 }
 
+//---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::agregarRegionReparto(string codigoOficina, RegionReparto regionReparto){
 	
 	for(list< OficinaReparto >::iterator it = this->oficinas.begin(); it != this->oficinas.end( );	it++){
@@ -405,6 +417,7 @@ void EmpresaMensajeria::agregarRegionReparto(string codigoOficina, RegionReparto
 	
 }
 
+//---------------------------------------------------------------------------------------------------
 bool EmpresaMensajeria::validarCadenaAlfabetica(string& cadena){ //true si cumple
 	
 	bool b = true;
@@ -419,6 +432,7 @@ bool EmpresaMensajeria::validarCadenaAlfabetica(string& cadena){ //true si cumpl
 	return b;
 }
 
+//---------------------------------------------------------------------------------------------------
 bool EmpresaMensajeria::validarCadenaNumerica(string& cadena){ //true si cumple
 	
 	bool b = true;
@@ -433,6 +447,7 @@ bool EmpresaMensajeria::validarCadenaNumerica(string& cadena){ //true si cumple
 	return b;
 }
 
+//---------------------------------------------------------------------------------------------------
 bool EmpresaMensajeria::validarCadenaAlfanumerica(string& cadena){ //true si cumple
 	
 	bool b = true;
@@ -448,6 +463,7 @@ bool EmpresaMensajeria::validarCadenaAlfanumerica(string& cadena){ //true si cum
 	return b;
 }
 
+//---------------------------------------------------------------------------------------------------
 bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
 	
 	int numLetras = 0, numDigitos = 0;
@@ -471,4 +487,29 @@ bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
 	}
 	
 	return b;
+}
+
+//---------------------------------------------------------------------------------------------------
+void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
+	
+}
+
+//---------------------------------------------------------------------------------------------------
+void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
+	
+}
+
+//---------------------------------------------------------------------------------------------------
+void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
+	
+}
+
+//---------------------------------------------------------------------------------------------------
+void EmpresaMensajeria::agregarOficina(Oficina oficina){
+		
+}
+
+//---------------------------------------------------------------------------------------------------
+void EmpresaMensajeria::agregarRegion(RegionReparto regionReparto){
+		
 }

@@ -33,6 +33,7 @@ class EmpresaMensajeria{
 		Paquete buscarPaquete(std::string numeroGuia);
 		OficinaReparto buscarOficinaReparto(std::string codigoOficina);
 		RegionReparto buscarRegionReparto(std::string codigoRegion);
+		
 		void agregarRegionReparto(std::string codigoOficina, RegionReparto regionReparto);
 		
 		bool validarCadenaAlfabetica(std::string& cadena);
@@ -40,6 +41,13 @@ class EmpresaMensajeria{
 		bool validarCadenaAlfanumerica(std::string& cadena);
 		bool validarCodigoOficina(std::string& cadena);
 		
+		void cargarOficinas(std::string nombreArchivo); //implementar
+		void cargarRegiones(std::string nombreArchivo); //implementar
+		void repartirPaquetes(std::string codigoOficina); //implementar
+		
+		void agregarOficina(Oficina oficina); //implementar
+		void agregarRegion(RegionReparto regionReparto); //implementar
+		 
 };
 
 #include "empresa_mensajeria.hxx"

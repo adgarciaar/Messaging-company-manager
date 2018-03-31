@@ -10,6 +10,8 @@ using namespace std;
 
 void registrarPersona(EmpresaMensajeria& empresa);
 void registrarPaquete(EmpresaMensajeria& empresa);
+void registrarOficina(EmpresaMensajeria& empresa);
+void registrarRegion(EmpresaMensajeria& empresa);
 
 int main(){
 	
@@ -46,6 +48,8 @@ int main(){
 				cout<<"\t"<<"cargarPaquetes nombre_archivo"<<endl;
 				cout<<"\t"<<"registrarPersona"<<endl;
 				cout<<"\t"<<"registrarPaquete"<<endl;
+				cout<<"\t"<<"registrarOficina"<<endl;
+				cout<<"\t"<<"registrarRegion"<<endl;
 				cout<<"\t"<<"conteoPaquetes"<<endl;
 				cout<<"\t"<<"ayuda comando"<<endl;
 				cout<<"\t"<<"salir"<<endl;
@@ -53,6 +57,10 @@ int main(){
 				registrarPersona(empresa);
 			}else if(comando == "registrarPaquete"){ 
 				registrarPaquete(empresa);
+			}else if(comando == "registrarOficina"){ 
+				registrarOficina(empresa);
+			}else if(comando == "registrarRegion"){ 
+				registrarRegion(empresa);
 			}else if(comando == "conteoPaquetes"){ 
 				empresa.conteoPaquetes();
 			}else if(comando == "salir"){ 
@@ -75,6 +83,10 @@ int main(){
 					cout<<"\t"<<"Se debe escribir el comando: registrarPersona. El programa lo guiara para introducir los datos de la persona"<<endl;
 				}else if(tokens[1] == "registrarPaquete"){
 					cout<<"\t"<<"Se debe escribir el comando: registrarPaquete. El programa lo guiara para introducir los datos del paquete"<<endl;
+				}else if(tokens[1] == "registrarOficina"){
+					cout<<"\t"<<"Se debe escribir el comando: registrarOficina. El programa lo guiara para introducir los datos de la oficina"<<endl;
+				}else if(tokens[1] == "registrarRegion"){
+					cout<<"\t"<<"Se debe escribir el comando: registrarRegion. El programa lo guiara para introducir los datos de la region"<<endl;
 				}else if(tokens[1] == "conteoPaquetes"){
 					cout<<"\t"<<"Se debe escribir el comando: conteoPaquetes. Se imprimira la informacion de los paquetes"<<endl;
 				}else if(tokens[1] == "salir"){
@@ -96,6 +108,7 @@ int main(){
 }
 
 void registrarPersona(EmpresaMensajeria& empresa){
+	
 	string numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono;
 	cout<<"Digite el numero de identificacion: ";
 	cin>>numeroIdentificacion;
@@ -120,11 +133,12 @@ void registrarPersona(EmpresaMensajeria& empresa){
        && empresa.validarCadenaAlfabetica(ciudad)==true && empresa.validarCadenaNumerica(telefono)==true) { 
 		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
 	}else{
-		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;	
+		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar."<<endl<<endl;	
 	}
 }
 
 void registrarPaquete(EmpresaMensajeria& empresa){
+	
 	Persona remitente, destinatario;
 	string peso;
 	string tipoContenido, numeroGuia, numIdRemitente, numIdDestinatario, codOficina,codRegion;
@@ -171,5 +185,79 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 		}		
 	}else{
 		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a ingresarlo(s)"<<endl<<endl;	
+	}
+}
+
+void registrarOficina(EmpresaMensajeria& empresa){
+	
+	string codOficina, nombreOficina, direccionOficina, ciudadOficina;
+	cout<<"Digite el codigo de la oficina: ";
+	cin>>codOficina;
+	cout<<endl<<"Digite el nombre de la oficina: ";
+	cin.ignore();
+	getline (cin, nombreOficina);
+	cout<<endl<<"Digite la direccion de la oficina: ";
+	cin.ignore();
+	getline (cin, direccionOficina);
+	cout<<endl<<"Digite la ciudad de la oficina: ";
+	cin.ignore();
+	getline (cin, ciudadOficina);
+	cin.ignore();
+	
+	//validar que los datos sean validos
+	if(empresa.validarCodigoOficina(codOficina) == true) { 		
+		
+		OficinaReparto oficinaReparto = empresa.buscarOficinaReparto(codOficina);
+		
+		if(oficinaReparto.getCodigo() == "-1"){ //no está registrada
+		
+			oficinaReparto.setCodigo(codOficina);
+			oficinaReparto.setNombre(nombreOficina);
+			oficinaReparto.setDireccion(direccionOficina);
+			oficinaReparto.setCiudad(ciudadOficina);
+			
+			//guardarla en el árbol
+			
+			cout<<endl<<"La oficina con identificacion "<<codOficina<<" ha sido registrada exitosamente"<<endl<<endl;
+		
+		}else{ //ya está registrada
+			cout<<endl<<"La oficina con identificacion "<<codOficina<<" ya se encuentra registrada en el sistema"<<endl<<endl;	
+		}
+		
+	}else{
+		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;	
+	}
+}
+
+void registrarRegion(EmpresaMensajeria& empresa){
+	
+	string codRegion, nombreRegion;
+	cout<<"Digite el codigo de la region: ";
+	cin>>codRegion;
+	cout<<endl<<"Digite el nombre de la region: ";
+	cin.ignore();
+	getline (cin, nombreRegion);
+	cin.ignore();
+	
+	//validar que los datos sean validos
+	if(empresa.validarCadenaAlfanumerica(codRegion) == true) { 		
+		
+		RegionReparto regionReparto = empresa.buscarRegionReparto(codRegion);
+		
+		if(regionReparto.getCodigo() == "-1"){ //no está registrada
+		
+			regionReparto.setCodigo(codRegionReparto);
+			regionReparto.setNombre(nombreRegionReparto);
+			
+			//guardarla en el árbol
+			
+			cout<<endl<<"La region con codigo "<<codRegion<<" ha sido registrada exitosamente"<<endl<<endl;
+		
+		}else{ //ya está registrada
+			cout<<endl<<"La region con codigo "<<codRegion<<" ya se encuentra registrada en el sistema"<<endl<<endl;	
+		}
+		
+	}else{
+		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;	
 	}
 }
