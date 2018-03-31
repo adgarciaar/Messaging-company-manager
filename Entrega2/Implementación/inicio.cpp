@@ -214,9 +214,9 @@ void registrarOficina(EmpresaMensajeria& empresa){
 			oficinaReparto.setCodigo(codOficina);
 			oficinaReparto.setNombre(nombreOficina);
 			oficinaReparto.setDireccion(direccionOficina);
-			oficinaReparto.setCiudad(ciudadOficina);
+			oficinaReparto.setCiudad(ciudadOficina);			
 			
-			//guardarla en el árbol
+			empresa.agregarOficina(oficinaReparto);
 			
 			cout<<endl<<"La oficina con identificacion "<<codOficina<<" ha sido registrada exitosamente"<<endl<<endl;
 		
@@ -231,12 +231,14 @@ void registrarOficina(EmpresaMensajeria& empresa){
 
 void registrarRegion(EmpresaMensajeria& empresa){
 	
-	string codRegion, nombreRegion;
+	string codRegion, nombreRegion, codOficina;
 	cout<<"Digite el codigo de la region: ";
 	cin>>codRegion;
 	cout<<endl<<"Digite el nombre de la region: ";
 	cin.ignore();
 	getline (cin, nombreRegion);
+	cout<<"Digite el codigo de la oficina a la que pertenece: ";
+	cin>>codOficina;
 	cin.ignore();
 	
 	//validar que los datos sean validos
@@ -246,12 +248,20 @@ void registrarRegion(EmpresaMensajeria& empresa){
 		
 		if(regionReparto.getCodigo() == "-1"){ //no está registrada
 		
-			regionReparto.setCodigo(codRegionReparto);
-			regionReparto.setNombre(nombreRegionReparto);
+			OficinaReparto oficinaReparto = empresa.buscarOficinaReparto(codOficina);
 			
-			//guardarla en el árbol
+			if(oficinaReparto.getCodigo() != "-1"){ //ya está registrada
+		
+				regionReparto.setCodigo(codRegionReparto);
+				regionReparto.setNombre(nombreRegionReparto);
 			
-			cout<<endl<<"La region con codigo "<<codRegion<<" ha sido registrada exitosamente"<<endl<<endl;
+				empresa.agregarRegion(regionReparto, oficinaReparto);
+			
+				cout<<endl<<"La region con codigo "<<codRegion<<" ha sido registrada exitosamente"<<endl<<endl;
+				
+			}else{
+				cout<<endl<<"La oficina a la que pertenece no esta registrada en el sistema. No se puede registrar la region"<<endl<<endl;
+			}
 		
 		}else{ //ya está registrada
 			cout<<endl<<"La region con codigo "<<codRegion<<" ya se encuentra registrada en el sistema"<<endl<<endl;	

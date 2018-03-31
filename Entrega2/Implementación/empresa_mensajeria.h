@@ -45,8 +45,8 @@ class EmpresaMensajeria{
 		void cargarRegiones(std::string nombreArchivo); //implementar
 		void repartirPaquetes(std::string codigoOficina); //implementar
 		
-		void agregarOficina(Oficina oficina); //implementar
-		void agregarRegion(RegionReparto regionReparto); //implementar
+		void agregarOficina(OficinaReparto oficinaReparto); //implementar
+		void agregarRegion(RegionReparto regionReparto, OficinaReparto oficinaReparto); //implementar
 		 
 };
 

@@ -505,11 +505,11 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 }
 
 //---------------------------------------------------------------------------------------------------
-void EmpresaMensajeria::agregarOficina(Oficina oficina){
-		
+void EmpresaMensajeria::agregarOficina(OficinaReparto oficinaReparto){
+	//guardarla en el árbol
 }
 
 //---------------------------------------------------------------------------------------------------
-void EmpresaMensajeria::agregarRegion(RegionReparto regionReparto){
-		
+void EmpresaMensajeria::agregarRegion(RegionReparto regionReparto, OficinaReparto oficinaReparto){
+	//guardarla en el árbol
 }
