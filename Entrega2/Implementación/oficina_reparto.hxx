@@ -3,7 +3,7 @@
 
 using namespace std;
 
-OficinaReparto::OficinaReparto(){}
+//constructor
 
 OficinaReparto::OficinaReparto(string codigo, string nombre, string direccion, string ciudad){
 	this->codigo = codigo;
@@ -12,15 +12,11 @@ OficinaReparto::OficinaReparto(string codigo, string nombre, string direccion, s
 	this->ciudad = ciudad;
 }
 
+//destructor
+
+OficinaReparto::~OficinaReparto(){}
+
 //getters
-
-string OficinaReparto::getCodigo(){
-	return this->codigo;
-}
-
-string OficinaReparto::getNombre(){
-	return this->nombre;
-}
 
 string OficinaReparto::getDireccion(){
 	return this->direccion;
@@ -29,20 +25,8 @@ string OficinaReparto::getDireccion(){
 string OficinaReparto::getCiudad(){
 	return this->ciudad;
 }
-
-list<RegionReparto> OficinaReparto::getRegiones(){
-	return this->regiones;
-}
 		
 //setters
-		
-void OficinaReparto::setCodigo(string codigo){
-	this->codigo = codigo;
-}
-
-void OficinaReparto::setNombre(string nombre){
-	this->nombre = nombre;
-}
 
 void OficinaReparto::setDireccion(string direccion){
 	this->direccion = direccion;
@@ -50,12 +34,4 @@ void OficinaReparto::setDireccion(string direccion){
 
 void OficinaReparto::setCiudad(string ciudad){
 	this->ciudad = ciudad;
-}
-
-void OficinaReparto::setRegiones(list<RegionReparto> regiones){
-	this->regiones = regiones;
-}
-
-void OficinaReparto::agregarRegion(RegionReparto regionReparto){
-	this->regiones.push_back(regionReparto);
 }

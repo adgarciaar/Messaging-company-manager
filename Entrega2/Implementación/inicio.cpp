@@ -131,7 +131,16 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	//validar que los datos sean validos
 	if(empresa.validarCadenaAlfanumerica(numeroIdentificacion) == true && empresa.validarCadenaAlfabetica(nombre)==true && empresa.validarCadenaAlfabetica(apellidos)==true	
        && empresa.validarCadenaAlfabetica(ciudad)==true && empresa.validarCadenaNumerica(telefono)==true) { 
-		empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
+	   
+	    Persona personaComprob = empresa.buscarPersona(numeroIdentificacion);
+					
+		if(personaComprob.getNumeroIdentificacion() == "-1"){ //no está registrada	   
+			empresa.registrarPersona(numeroIdentificacion, nombre, apellidos, direccion, ciudad, telefono);
+			cout<<endl<<endl<< "La persona con identificacion "<<numeroIdentificacion<<" ha sido registrada exitosamente"<<endl<<endl;			
+		}else{
+			cout<<endl<<endl<< "La persona con identificacion "<<numeroIdentificacion<<" ya se encuentra registrada en el sistema"<<endl<<endl;
+		}
+		
 	}else{
 		cout<<endl<<"Uno o varios datos no son validos, corrijalos y vuelva a intentar."<<endl<<endl;	
 	}
@@ -142,8 +151,8 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	Persona remitente, destinatario;
 	string peso;
 	string tipoContenido, numeroGuia, numIdRemitente, numIdDestinatario, codOficina,codRegion;
-	OficinaReparto oficinaReparto;
-	RegionReparto regionReparto;
+	OficinaReparto* oficinaReparto;
+	RegionReparto* regionReparto;
 	
 	cout<<"Digite el numero de guia: ";
 	cin>>numeroGuia;
@@ -169,17 +178,27 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	
 		remitente = empresa.buscarPersona(numIdRemitente);
 		destinatario = empresa.buscarPersona(numIdDestinatario);
-		oficinaReparto = empresa.buscarOficinaReparto(codOficina);
-		regionReparto = empresa.buscarRegionReparto(codRegion);
+		oficinaReparto = empresa.buscarOficina(codOficina);
+		regionReparto = empresa.buscarRegion(codRegion);
 	
 		//validar que existan remitente, destinatario, oficina y region
-		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto.getCodigo() != "-1" && regionReparto.getCodigo() != "-1"){
+		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto->getCodigo() != "-1" && regionReparto->getCodigo() != "-1"){
 			
-			stringstream ss(peso);
-			int pesoInt;
-			ss >> pesoInt;
+			Paquete paqueteComprob = empresa.buscarPaquete(numeroGuia);
+					
+			if (paqueteComprob.getNumeroGuia() == "-1"){ //no se ha registrado el paquete
 			
-			empresa.registrarPaquete(remitente, destinatario, pesoInt, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
+				stringstream ss(peso);
+				int pesoInt;
+				ss >> pesoInt;
+				
+				empresa.registrarPaquete(remitente, destinatario, pesoInt, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
+				
+				cout<<endl<<endl<< "El paquete con numero de guia "<<numeroGuia<<" ha sido registrado exitosamente."<<endl<<endl;
+				
+			}else{
+				cout<<endl<<endl<< "El paquete con numero de guia "<<numeroGuia<<" ya se encuentra registrado en el sistema"<<endl<<endl;
+			}
 		}else{
 			cout<<endl<<"No se pudo registrar el paquete, remitente y/o destinatario y/o oficina y/o region no estan registradas"<<endl<<endl;	
 		}		
@@ -207,14 +226,14 @@ void registrarOficina(EmpresaMensajeria& empresa){
 	//validar que los datos sean validos
 	if(empresa.validarCodigoOficina(codOficina) == true) { 		
 		
-		OficinaReparto oficinaReparto = empresa.buscarOficinaReparto(codOficina);
+		LugarReparto* oficinaReparto = empresa.buscarOficina(codOficina);
 		
-		if(oficinaReparto.getCodigo() == "-1"){ //no está registrada
+		if(oficinaReparto->getCodigo() == "-1"){ //no está registrada
 		
-			oficinaReparto.setCodigo(codOficina);
-			oficinaReparto.setNombre(nombreOficina);
-			oficinaReparto.setDireccion(direccionOficina);
-			oficinaReparto.setCiudad(ciudadOficina);			
+			oficinaReparto->setCodigo(codOficina);
+			oficinaReparto->setNombre(nombreOficina);
+			oficinaReparto->setDireccion(direccionOficina);
+			oficinaReparto->setCiudad(ciudadOficina);			
 			
 			empresa.agregarOficina(oficinaReparto);
 			
@@ -244,16 +263,16 @@ void registrarRegion(EmpresaMensajeria& empresa){
 	//validar que los datos sean validos
 	if(empresa.validarCadenaAlfanumerica(codRegion) == true) { 		
 		
-		RegionReparto regionReparto = empresa.buscarRegionReparto(codRegion);
+		LugarReparto* regionReparto = empresa.buscarRegion(codRegion);
 		
 		if(regionReparto.getCodigo() == "-1"){ //no está registrada
 		
-			OficinaReparto oficinaReparto = empresa.buscarOficinaReparto(codOficina);
+			LugarReparto* oficinaReparto = empresa.buscarOficina(codOficina);
 			
-			if(oficinaReparto.getCodigo() != "-1"){ //ya está registrada
+			if(oficinaReparto->getCodigo() != "-1"){ //ya está registrada
 		
-				regionReparto.setCodigo(codRegionReparto);
-				regionReparto.setNombre(nombreRegionReparto);
+				regionReparto->setCodigo(codRegionReparto);
+				regionReparto->setNombre(nombreRegionReparto);
 			
 				empresa.agregarRegion(regionReparto, oficinaReparto);
 			

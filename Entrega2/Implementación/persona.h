@@ -15,9 +15,11 @@ class Persona{
 		std::string telefono;
 		
 	public:
+	
 		//constructor
 		Persona();
 		Persona(std::string numeroIdentificacion, std::string nombre, std::string apellidos, std::string direccion, std::string ciudad, std::string telefono);
+		
 		//getters
 		std::string getNumeroIdentificacion();
 		std::string getNombre();
@@ -25,6 +27,7 @@ class Persona{
 		std::string getDireccion();
 		std::string getCiudad();
 		std::string getTelefono();
+		
 		//setters
 		void setNumeroIdentificacion(std::string numeroIdentificacion);
 		void setNombre(std::string nombre);
@@ -33,9 +36,6 @@ class Persona{
 		void setCiudad(std::string ciudad);
 		void setTelefono(std::string telefono);
  
-	private:
-		
-	
 };
 
 #include "persona.hxx"
