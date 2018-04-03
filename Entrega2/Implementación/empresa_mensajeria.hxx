@@ -6,7 +6,7 @@
 using namespace std;
 
 EmpresaMensajeria::EmpresaMensajeria(){
-	LugarReparto* lugarReparto = new OficinaReparto(0, "Oficina central en Colombia", "Calle 142 No. 5", "Bogota");
+	LugarReparto* lugarReparto = new OficinaReparto("0", "Oficina central en Colombia", "Calle 142 No. 5", "Bogota");
 	this->arbol.fijarRaiz(lugarReparto);
 }
 
@@ -14,7 +14,7 @@ EmpresaMensajeria::EmpresaMensajeria(){
 
 EmpresaMensajeria::EmpresaMensajeria(string nombre){
 	this->nombre = nombre;	
-	LugarReparto* lugarReparto = new OficinaReparto(0, "Oficina central en Colombia", "Calle 142 No. 5", "Bogota");
+	LugarReparto* lugarReparto = new OficinaReparto("0", "Oficina central en Colombia", "Calle 142 No. 5", "Bogota");
 	this->arbol.fijarRaiz(lugarReparto);
 }
 
