@@ -180,13 +180,13 @@ int Arbol<T>::getLevel(T key){
 
 // ------------------------------------------------------------------------
 template< class T >
-void Arbol<T>::returnNodes(std:list< Nodo<T>* > lista){
+void Arbol<T>::returnNodes(std::list< Nodo<T>* > lista){
 	this->raiz->returnNodes(this->raiz, lista);
 }
 
 // ------------------------------------------------------------------------
 template< class T >
-void Arbol<T>::returnValues(std:list<T> lista){
+void Arbol<T>::returnValues(std::list<T> lista){
 	this->raiz->returnValues(this->raiz, lista);
 }
 

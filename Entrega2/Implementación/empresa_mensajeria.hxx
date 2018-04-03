@@ -1,10 +1,7 @@
 #include "empresa_mensajeria.h" 
-#include "oficina_reparto.h" 
-#include "region_reparto.h"
-
-#include <iostream>
 #include <fstream>
 #include <bits/stdc++.h>
+#include "Nodo.h"
 
 using namespace std;
 
@@ -257,22 +254,22 @@ void EmpresaMensajeria::conteoPaquetes(){
 		queue<Paquete> auxiliar (this->paquetes);
 		long cantidad = 0;
 		
-		list< Nodo< LugarReparto* > listaNodos;
+		list< Nodo<LugarReparto*>* > listaNodos;
 		this->arbol.returnNodes(listaNodos);
 		
 		LugarReparto* oficinaReparto;	
 		
-		for(list< Nodo< LugarReparto* >::iterator it = listaNodos.begin(); it != listaNodos.end( );	it++){
+		for(list< Nodo<LugarReparto*>* >::iterator it = listaNodos.begin(); it != listaNodos.end( );	it++){
 						
 			oficinaReparto = dynamic_cast<OficinaReparto*>( (*it)->obtenerDato() );			
-			list< LugarReparto* > descendientes;
+			list< Nodo<LugarReparto*>* > descendientes;
 			
 			if(oficinaReparto != NULL){ //si es una oficina		
 			
 				descendientes = (*it)->obtenerDesc();
 				LugarReparto* regionReparto;
 			
-				for(list< LugarReparto* >::iterator it2 = descendientes.begin(); it2 != descendientes.end( ); it2++){					
+				for(list< Nodo<LugarReparto*>* >::iterator it2 = descendientes.begin(); it2 != descendientes.end( ); it2++){					
 										
 					regionReparto = dynamic_cast<RegionReparto*>( (*it2)->obtenerDato() );
 					
@@ -359,7 +356,7 @@ LugarReparto* EmpresaMensajeria::buscarOficina(string codigoOficina){
 	
 	for(list< LugarReparto* >::iterator it = listaLugares.begin(); it != listaLugares.end( ); it++){
 			
-		oficinaReparto = dynamic_cast<OficinaReparto*>( (*it)->obtenerDato() );
+		oficinaReparto = dynamic_cast<OficinaReparto*>( *it );
 		
 		if(oficinaReparto != NULL){ //si es una oficina		
 			
@@ -389,7 +386,7 @@ LugarReparto* EmpresaMensajeria::buscarRegion(string codigoRegion){
 	
 	for(list< LugarReparto* >::iterator it = listaLugares.begin(); it != listaLugares.end( ); it++){
 			
-		regionReparto = dynamic_cast<RegionReparto*>( (*it)->obtenerDato() );
+		regionReparto = dynamic_cast<RegionReparto*>( *it );
 		
 		if(regionReparto != NULL){ //si es una oficina		
 			

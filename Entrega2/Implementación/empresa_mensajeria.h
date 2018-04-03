@@ -3,6 +3,7 @@
 
 #include <string>
 #include <queue>
+#include <list>
 #include "lugar_reparto.h"
 #include "oficina_reparto.h"
 #include "region_reparto.h"

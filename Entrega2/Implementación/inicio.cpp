@@ -166,8 +166,8 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	Persona remitente, destinatario;
 	string peso;
 	string tipoContenido, numeroGuia, numIdRemitente, numIdDestinatario, codOficina,codRegion;
-	OficinaReparto* oficinaReparto;
-	RegionReparto* regionReparto;
+	LugarReparto* oficinaReparto;
+	LugarReparto* regionReparto;
 	
 	cout<<"Digite el numero de guia: ";
 	cin>>numeroGuia;
@@ -283,7 +283,7 @@ void registrarRegion(EmpresaMensajeria& empresa){
 			
 			if(oficinaReparto != NULL){ //ya está registrada
 		
-				regionReparto = new RegionReparto(codRegionReparto, nombreRegionReparto);
+				regionReparto = new RegionReparto(codRegion, nombreRegion);
 			
 				empresa.agregarRegion(regionReparto, oficinaReparto);
 			

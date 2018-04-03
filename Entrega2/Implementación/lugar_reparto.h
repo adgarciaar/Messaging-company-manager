@@ -1,12 +1,12 @@
-#ifndef REGION_REPARTO_H
-#define REGION_REPARTO_H 
+#ifndef LUGAR_REPARTO_H
+#define LUGAR_REPARTO_H 
 
 #include <string>
 
 //abstract class
 class LugarReparto{
 	
-    private:
+    protected:
  
 		std::string codigo;
 		std::string nombre;

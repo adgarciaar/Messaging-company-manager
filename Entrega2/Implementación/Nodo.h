@@ -45,11 +45,11 @@ class Nodo {
 	int getLevelUtil(Nodo<T>* node, T key, int level);
 	int getLevel(Nodo<T>* node, T key);
 	
-	void returnNodes(Nodo<T>* root, std:list< Nodo<T>* > lista);
-	void returnNodesGivenLevel(Nodo<T>* root, int level, std:list< Nodo<T>* > lista);
+	void returnNodes(Nodo<T>* root, std::list< Nodo<T>* > lista);
+	void returnNodesGivenLevel(Nodo<T>* root, int level, std::list< Nodo<T>* > lista);
 	
-	void returnValues(Nodo<T>* root, std:list<T> lista);	
-	void returnValuesGivenLevel(Nodo<T>* root, int level, std:list<T> lista);
+	void returnValues(Nodo<T>* root, std::list<T> lista);	
+	void returnValuesGivenLevel(Nodo<T>* root, int level, std::list<T> lista);
   
   protected:
     T dato;

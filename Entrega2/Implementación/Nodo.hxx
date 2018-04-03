@@ -376,7 +376,7 @@ int Nodo<T>::getLevel(Nodo<T>* node, T key)
 
 // ------------------------------------------------------------------------
 template< class T >
-void Nodo<T>::returnNodes(Nodo<T>* root, std:list< Nodo<T>* > lista){
+void Nodo<T>::returnNodes(Nodo<T>* root, std::list< Nodo<T>* > lista){
 	
     int h = root->altura();
     int i;
@@ -387,7 +387,7 @@ void Nodo<T>::returnNodes(Nodo<T>* root, std:list< Nodo<T>* > lista){
 
 // ------------------------------------------------------------------------ 
 template< class T >
-void Nodo<T>::returnNodesGivenLevel(Nodo<T>* root, int level, std:list< Nodo<T>* > lista){
+void Nodo<T>::returnNodesGivenLevel(Nodo<T>* root, int level, std::list< Nodo<T>* > lista){
 	
     if (root == NULL)
         return;
@@ -406,7 +406,7 @@ void Nodo<T>::returnNodesGivenLevel(Nodo<T>* root, int level, std:list< Nodo<T>*
 
 // ------------------------------------------------------------------------
 template< class T >
-void Nodo<T>::returnValues(Nodo<T>* root, std:list<T> lista){
+void Nodo<T>::returnValues(Nodo<T>* root, std::list<T> lista){
     int h = root->altura();
     int i;
     for (i=0; i<=h; i++)
@@ -415,7 +415,7 @@ void Nodo<T>::returnValues(Nodo<T>* root, std:list<T> lista){
 
 // ------------------------------------------------------------------------ 
 template< class T >
-void Nodo<T>::returnValuesGivenLevel(Nodo<T>* root, int level, std:list<T> lista){
+void Nodo<T>::returnValuesGivenLevel(Nodo<T>* root, int level, std::list<T> lista){
 	
     if (root == NULL)
         return;
