@@ -46,11 +46,14 @@ int main(){
 				cout<<endl<<endl<<"Comandos disponibles: "<<endl<<endl;	
 				cout<<"\t"<<"cargarPersonas nombre_archivo"<<endl;
 				cout<<"\t"<<"cargarPaquetes nombre_archivo"<<endl;
+				cout<<"\t"<<"cargarOficinas nombre_archivo"<<endl;
+				cout<<"\t"<<"cargarRegiones nombre_archivo"<<endl;
 				cout<<"\t"<<"registrarPersona"<<endl;
 				cout<<"\t"<<"registrarPaquete"<<endl;
 				cout<<"\t"<<"registrarOficina"<<endl;
 				cout<<"\t"<<"registrarRegion"<<endl;
 				cout<<"\t"<<"conteoPaquetes"<<endl;
+				cout<<"\t"<<"repartirPaquetes codigo_oficina"<<endl;
 				cout<<"\t"<<"ayuda comando"<<endl;
 				cout<<"\t"<<"salir"<<endl;
 			}else if(comando == "registrarPersona"){ 
@@ -74,11 +77,21 @@ int main(){
 				empresa.cargarPersonas(tokens[1]);
 			}else if(tokens[0] == "cargarPaquetes"){ 
 				empresa.cargarPaquetes(tokens[1]);
+			}else if(tokens[0] == "cargarOficinas"){ 
+				empresa.cargarOficinas(tokens[1]);
+			}else if(tokens[0] == "cargarRegiones"){ 
+				empresa.cargarRegiones(tokens[1]);
+			}else if(tokens[0] == "repartirPaquetes"){ 
+				empresa.repartirPaquetes(tokens[1]);
 			}else if(tokens[0] == "ayuda"){ 
 				if(tokens[1] == "cargarPersonas"){
 					cout<<"\t"<<"Se debe escribir el comando: cargarPersonas nombre_archivo, donde nombre_archivo es el nombre del archivo que tiene la informacion de las personas, seguido de su extension. Por ejemplo: cargarPersonas personas.csv"<<endl;
 				}else if(tokens[1] == "cargarPaquetes"){
 					cout<<"\t"<<"Se debe escribir el comando: cargarPaquetes nombre_archivo, donde nombre_archivo es el nombre del archivo que tiene la informacion de los paquetes, seguido de su extension. Por ejemplo: cargarPersonas paquetes.csv"<<endl;
+				}else if(tokens[1] == "cargarOficinas"){
+					cout<<"\t"<<"Se debe escribir el comando: cargarOficinas nombre_archivo, donde nombre_archivo es el nombre del archivo que tiene la informacion de las oficinas, seguido de su extension. Por ejemplo: cargarOficinas oficina.csv"<<endl;
+				}else if(tokens[1] == "cargarRegiones"){
+					cout<<"\t"<<"Se debe escribir el comando: cargarRegiones nombre_archivo, donde nombre_archivo es el nombre del archivo que tiene la informacion de las regiones, seguido de su extension. Por ejemplo: cargarRegiones regiones.csv"<<endl;
 				}else if(tokens[1] == "registrarPersona"){
 					cout<<"\t"<<"Se debe escribir el comando: registrarPersona. El programa lo guiara para introducir los datos de la persona"<<endl;
 				}else if(tokens[1] == "registrarPaquete"){
@@ -89,6 +102,8 @@ int main(){
 					cout<<"\t"<<"Se debe escribir el comando: registrarRegion. El programa lo guiara para introducir los datos de la region"<<endl;
 				}else if(tokens[1] == "conteoPaquetes"){
 					cout<<"\t"<<"Se debe escribir el comando: conteoPaquetes. Se imprimira la informacion de los paquetes"<<endl;
+				}else if(tokens[1] == "repartirPaquetes"){
+					cout<<"\t"<<"Se debe escribir el comando: repartirPaquetes codigo_oficina, donde codigo_oficina es el codigo de la oficina donde se repartiran los paquetes"<<endl;
 				}else if(tokens[1] == "salir"){
 					cout<<"\t"<<"Se debe escribir el comando: salir. El programa terminara la ejecucion"<<endl;
 				}else{
@@ -182,7 +197,7 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 		regionReparto = empresa.buscarRegion(codRegion);
 	
 		//validar que existan remitente, destinatario, oficina y region
-		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto->getCodigo() != "-1" && regionReparto->getCodigo() != "-1"){
+		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto != NULL && regionReparto != NULL){
 			
 			Paquete paqueteComprob = empresa.buscarPaquete(numeroGuia);
 					
@@ -228,12 +243,9 @@ void registrarOficina(EmpresaMensajeria& empresa){
 		
 		LugarReparto* oficinaReparto = empresa.buscarOficina(codOficina);
 		
-		if(oficinaReparto->getCodigo() == "-1"){ //no está registrada
+		if(oficinaReparto == NULL){ //no está registrada
 		
-			oficinaReparto->setCodigo(codOficina);
-			oficinaReparto->setNombre(nombreOficina);
-			oficinaReparto->setDireccion(direccionOficina);
-			oficinaReparto->setCiudad(ciudadOficina);			
+			oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);		
 			
 			empresa.agregarOficina(oficinaReparto);
 			
@@ -265,14 +277,13 @@ void registrarRegion(EmpresaMensajeria& empresa){
 		
 		LugarReparto* regionReparto = empresa.buscarRegion(codRegion);
 		
-		if(regionReparto.getCodigo() == "-1"){ //no está registrada
+		if(regionReparto == NULL){ //no está registrada
 		
 			LugarReparto* oficinaReparto = empresa.buscarOficina(codOficina);
 			
-			if(oficinaReparto->getCodigo() != "-1"){ //ya está registrada
+			if(oficinaReparto != NULL){ //ya está registrada
 		
-				regionReparto->setCodigo(codRegionReparto);
-				regionReparto->setNombre(nombreRegionReparto);
+				regionReparto = new RegionReparto(codRegionReparto, nombreRegionReparto);
 			
 				empresa.agregarRegion(regionReparto, oficinaReparto);
 			

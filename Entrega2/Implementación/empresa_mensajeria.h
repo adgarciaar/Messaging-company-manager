@@ -45,8 +45,9 @@ class EmpresaMensajeria{
 		bool validarCadenaAlfanumerica(std::string& cadena);
 		bool validarCodigoOficina(std::string& cadena);
 		
-		bool agregarOficina(LugarReparto* general, LugarReparto* secundaria); //implementar
-		bool agregarRegion(LugarReparto* oficina, LugarReparto* region); //implementar
+		bool agregarOficina(LugarReparto* general, LugarReparto* secundaria); 
+		bool agregarOficina(LugarReparto* secundaria); 
+		bool agregarRegion(LugarReparto* oficina, LugarReparto* region); 
 		
 		void cargarOficinas(std::string nombreArchivo); //implementar
 		void cargarRegiones(std::string nombreArchivo); //implementar

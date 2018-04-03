@@ -165,18 +165,14 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 							LugarReparto* oficinaReparto = this->buscarOficina(codOficina);
 							LugarReparto* regionReparto;
 							
-							if(oficinaReparto->getCodigo() == "-1"){ //no está registrada
+							if(oficinaReparto == NULL){ //no está registrada
 							
-								regionReparto->setCodigo(codRegionReparto);
-								regionReparto->setNombre(nombreRegionReparto);
+								regionReparto = new RegionReparto(codRegionReparto, nombreRegionReparto);
 								
-								oficinaReparto->setCodigo(codOficina);
-								oficinaReparto->setNombre(nombreOficina);
-								oficinaReparto->setDireccion(direccionOficina);
-								oficinaReparto->setCiudad(ciudadOficina);
+								oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);
 							
-								//cambios
-								this->agregarOficina(this->arbol.obtenerRaiz()->obtenerDato(), oficinaReparto);
+								//cambios: REVISAR SI SE LE ENVIA RAIZ COMO PADRE A TODOS
+								this->agregarOficina(oficinaReparto);
 								this->agregarRegion(oficinaReparto, regionReparto);
 								
 							}else{ //ya está registrada
@@ -184,10 +180,9 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 								//mirar si está registrada ya la regionReparto
 								regionReparto = this->buscarRegion(codRegionReparto);
 								
-								if(regionReparto.getCodigo() == "-1"){ //no está registrada
+								if(regionReparto == NULL){ //no está registrada
 								
-									regionReparto.setCodigo(codRegionReparto);
-									regionReparto.setNombre(nombreRegionReparto);
+									regionReparto = new RegionReparto(codRegionReparto, nombreRegionReparto);
 									
 									//cambios
 									this->agregarRegion(oficinaReparto, regionReparto);
@@ -224,9 +219,9 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 		
 		myfile.close();
 		cout<<endl<<endl<< "Desde el archivo "<<nombreArchivo<<", se han cargado exitosamente "<<correctos
-		<<" registros; mientras que "<<incorrectos<<" registros presentaron problemas."<<endl<<endl;
+		<<" registros; mientras que "<<incorrectos<<" registros presentaron problemas"<<endl<<endl;
 	}else{
-		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible."<<endl<<endl;
+		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible"<<endl<<endl;
 	}
 	
 }
@@ -255,7 +250,7 @@ void EmpresaMensajeria::conteoPaquetes(){
 	long numPaquetes = this->paquetes.size();	
 	
 	if(numPaquetes == 0){
-		cout<<endl<<endl<< "No existe informacion de paquetes registrada en el sistema."<<endl<<endl;
+		cout<<endl<<endl<< "No existe informacion de paquetes registrada en el sistema"<<endl<<endl;
 	}else{
 		cout<<endl<<endl<<"Se encuentran en el sistema "<<numPaquetes<<" pendientes por entregar. Estan distribuidos asi:"<<endl<<endl;
 		
@@ -356,7 +351,7 @@ Paquete EmpresaMensajeria::buscarPaquete(string numeroGuia){
 //---------------------------------------------------------------------------------------------------
 LugarReparto* EmpresaMensajeria::buscarOficina(string codigoOficina){
 	
-	LugarReparto* oficinaReparto;
+	LugarReparto* oficinaReparto = NULL;
 	bool b = false;
 	
 	list< LugarReparto* > listaLugares;
@@ -377,7 +372,7 @@ LugarReparto* EmpresaMensajeria::buscarOficina(string codigoOficina){
 	}
 	
 	if(b == false){
-		oficinaReparto->setCodigo("-1");
+		oficinaReparto = NULL;
 	}
 	
 	return oficinaReparto;
@@ -386,7 +381,7 @@ LugarReparto* EmpresaMensajeria::buscarOficina(string codigoOficina){
 //---------------------------------------------------------------------------------------------------
 LugarReparto* EmpresaMensajeria::buscarRegion(string codigoRegion){
 	
-	LugarReparto* regionReparto;
+	LugarReparto* regionReparto = NULL;
 	bool b = false;
 	
 	list< LugarReparto* > listaLugares;
@@ -407,7 +402,7 @@ LugarReparto* EmpresaMensajeria::buscarRegion(string codigoRegion){
 	}
 	
 	if(b == false){
-		regionReparto->setCodigo("-1");
+		regionReparto = NULL;
 	}
 	
 	return regionReparto;
@@ -488,6 +483,11 @@ bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
 //---------------------------------------------------------------------------------------------------
 bool EmpresaMensajeria::agregarOficina(LugarReparto* general, LugarReparto* secundaria){
 	return this->arbol.insertarNodo(general, secundaria);
+}
+
+//---------------------------------------------------------------------------------------------------
+bool EmpresaMensajeria::agregarOficina(LugarReparto* secundaria){
+	return this->arbol.insertarNodo(this->arbol.obtenerRaiz()->obtenerDato(), secundaria);
 }
 
 //---------------------------------------------------------------------------------------------------
