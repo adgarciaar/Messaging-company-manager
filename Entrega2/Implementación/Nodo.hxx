@@ -170,8 +170,8 @@ Nodo<T>* Nodo<T>::buscarNodo(T& val) {
 
 	Nodo<T>* nodo = NULL;
 	bool b = false;
-	
-	if(val == this->dato){
+	//modificación respecto al TAD original
+	if(val->getCodigo() == this->dato->getCodigo()){
 		nodo = this;
 	}else{	
 		typename TList::iterator it;	
