@@ -4,7 +4,6 @@
 #include <string>
 #include <queue>
 #include <list>
-#include "lugar_reparto.h"
 #include "oficina_reparto.h"
 #include "region_reparto.h"
 #include "persona.h"
@@ -16,7 +15,7 @@ class EmpresaMensajeria{
     private:
 	
 		std::string nombre;
-		Arbol< LugarReparto* > arbol; //almacena jerarquía de oficinas y regiones
+		Arbol< OficinaReparto* > arbol; //almacena jerarquía de oficinas y regiones
 		std::queue<Paquete> paquetes;
 		std::list<Persona> personas;
 		
@@ -32,23 +31,23 @@ class EmpresaMensajeria{
 			std::string direccion, std::string ciudad, std::string telefono);
 		//--------------------------------------------------------------------------------------------------------------------------
 		void registrarPaquete(Persona remitente, Persona destinatario, int peso, std::string tipoContenido, std::string numeroGuia,
-			LugarReparto* oficinaReparto, LugarReparto* regionReparto);
+			OficinaReparto oficinaReparto, RegionReparto regionReparto);
 		//--------------------------------------------------------------------------------------------------------------------------
 		void conteoPaquetes();
 		
 		Persona buscarPersona(std::string numeroIdentificacion);
 		Paquete buscarPaquete(std::string numeroGuia);		
-		LugarReparto* buscarOficina(std::string codigoOficina);
-		LugarReparto* buscarRegion(std::string codigoRegion);
+		OficinaReparto* buscarOficina(std::string codigoOficina);
+		RegionReparto buscarRegion(std::string codigoRegion);
 		
 		bool validarCadenaAlfabetica(std::string& cadena);
 		bool validarCadenaNumerica(std::string& cadena);
 		bool validarCadenaAlfanumerica(std::string& cadena);
 		bool validarCodigoOficina(std::string& cadena);
 		
-		bool agregarOficina(LugarReparto* general, LugarReparto* secundaria); 
-		bool agregarOficina(LugarReparto* secundaria); 
-		bool agregarRegion(LugarReparto* oficina, LugarReparto* region); 
+		bool agregarOficina(OficinaReparto* general, OficinaReparto* secundaria); 
+		bool agregarOficina(OficinaReparto* secundaria); 
+		bool agregarRegion(OficinaReparto* oficina, RegionReparto region); 
 		
 		void cargarOficinas(std::string nombreArchivo); //implementar
 		void cargarRegiones(std::string nombreArchivo); //implementar

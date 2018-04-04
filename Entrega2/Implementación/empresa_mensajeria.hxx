@@ -6,7 +6,7 @@
 using namespace std;
 
 EmpresaMensajeria::EmpresaMensajeria(){
-	LugarReparto* lugarReparto = new OficinaReparto("0", "Oficina central en Colombia", "Calle 142 No. 5", "Bogota");
+	OficinaReparto* lugarReparto = new OficinaReparto("0", "Oficina central en Colombia", "Calle 142 No. 5", "Bogota");
 	this->arbol.fijarRaiz(lugarReparto);
 }
 
@@ -14,7 +14,7 @@ EmpresaMensajeria::EmpresaMensajeria(){
 
 EmpresaMensajeria::EmpresaMensajeria(string nombre){
 	this->nombre = nombre;	
-	LugarReparto* lugarReparto = new OficinaReparto("0", "Oficina central en Colombia", "Calle 142 No. 5", "Bogota");
+	OficinaReparto* lugarReparto = new OficinaReparto("0", "Oficina central en Colombia", "Calle 142 No. 5", "Bogota");
 	this->arbol.fijarRaiz(lugarReparto);
 }
 
@@ -159,12 +159,12 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 						
 							//mirar si está registrada ya la oficinaReparto
 							
-							LugarReparto* oficinaReparto = this->buscarOficina(codOficina);
-							LugarReparto* regionReparto;
+							OficinaReparto* oficinaReparto = this->buscarOficina(codOficina);
+							RegionReparto regionReparto;
 							
 							if(oficinaReparto == NULL){ //no está registrada
 							
-								regionReparto = new RegionReparto(codRegionReparto, nombreRegionReparto);
+								RegionReparto regionReparto(codRegionReparto, nombreRegionReparto);
 								
 								oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);
 							
@@ -177,19 +177,19 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 								//mirar si está registrada ya la regionReparto
 								regionReparto = this->buscarRegion(codRegionReparto);
 								
-								if(regionReparto == NULL){ //no está registrada
+								if(regionReparto.getCodigo() == "-1"){ //no está registrada
 								
-									regionReparto = new RegionReparto(codRegionReparto, nombreRegionReparto);
+									RegionReparto region(codRegionReparto, nombreRegionReparto);
 									
 									//cambios
-									this->agregarRegion(oficinaReparto, regionReparto);
+									this->agregarRegion(oficinaReparto, region);
 								}
 							}
 						
 							stringstream ss(pesoString);
 							int peso;
 							ss >> peso;
-							Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
+							Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,*oficinaReparto,regionReparto);
 							this->paquetes.push(paquete);
 							correctos++;
 							
@@ -234,7 +234,7 @@ void EmpresaMensajeria::registrarPersona(string numeroIdentificacion, string nom
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::registrarPaquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia,
-	LugarReparto* oficinaReparto, LugarReparto* regionReparto){
+	OficinaReparto oficinaReparto, RegionReparto regionReparto){
 	
 	Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
 	this->paquetes.push(paquete);		
@@ -254,47 +254,36 @@ void EmpresaMensajeria::conteoPaquetes(){
 		queue<Paquete> auxiliar (this->paquetes);
 		long cantidad = 0;
 		
-		list< Nodo<LugarReparto*>* > listaNodos;
+		list< Nodo<OficinaReparto*>* > listaNodos;
 		this->arbol.returnNodes(listaNodos);
 		
-		LugarReparto* oficinaReparto;	
+		OficinaReparto* oficinaReparto;	
 		
-		for(list< Nodo<LugarReparto*>* >::iterator it = listaNodos.begin(); it != listaNodos.end( );	it++){
-						
-			oficinaReparto = dynamic_cast<OficinaReparto*>( (*it)->obtenerDato() );			
-			list< Nodo<LugarReparto*>* > descendientes;
-			
-			if(oficinaReparto != NULL){ //si es una oficina		
-			
-				descendientes = (*it)->obtenerDesc();
-				LugarReparto* regionReparto;
-			
-				for(list< Nodo<LugarReparto*>* >::iterator it2 = descendientes.begin(); it2 != descendientes.end( ); it2++){					
-										
-					regionReparto = dynamic_cast<RegionReparto*>( (*it2)->obtenerDato() );
-					
-					if(regionReparto != NULL){ //si es una región
-						
-						cantidad = 0;
-						while(auxiliar.empty() == false){					
-							if(auxiliar.front().getRegionReparto()->getCodigo() == regionReparto->getCodigo()){
-								cantidad++;
-							}					
-							auxiliar.pop();
-						}
-						if(cantidad != 0){
-							cout<<cantidad<<" en la oficina "<<oficinaReparto->getCodigo()<<", region de reparto "<<regionReparto->getNombre()<<endl;					
-						}
-						auxiliar = this->paquetes;		
-						
-					}
+		for(list< Nodo<OficinaReparto*>* >::iterator it = listaNodos.begin(); it != listaNodos.end( );	it++){
 							
-				}			
-				
-			}		
+			oficinaReparto = (*it)->obtenerDato();
+
+			list<RegionReparto> regiones = oficinaReparto->getRegiones();
 			
-		}		
-	}
+			for(list< RegionReparto >::iterator it2 = regiones.begin(); it2 != regiones.end( ); it2++){
+				
+				cantidad = 0;
+				while(auxiliar.empty() == false){					
+					if(auxiliar.front().getRegionReparto().getCodigo() == (*it2).getCodigo()){
+						cantidad++;
+					}					
+					auxiliar.pop();
+				}
+				if(cantidad != 0){
+					cout<<cantidad<<" en la oficina "<<oficinaReparto->getCodigo()<<", region de reparto "<<(*it2).getNombre()<<endl;			
+				}
+				auxiliar = this->paquetes;				
+			}			
+							
+		}			
+				
+	}		
+			
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -346,63 +335,40 @@ Paquete EmpresaMensajeria::buscarPaquete(string numeroGuia){
 }
 
 //---------------------------------------------------------------------------------------------------
-LugarReparto* EmpresaMensajeria::buscarOficina(string codigoOficina){
+OficinaReparto* EmpresaMensajeria::buscarOficina(string codigoOficina){	
+
+	OficinaReparto* oficina = NULL;
+	OficinaReparto* aux = new OficinaReparto();
+	aux->setCodigo(codigoOficina);
 	
-	LugarReparto* oficinaReparto = NULL;
-	bool b = false;
+	Nodo<OficinaReparto*>* nodo = this->arbol.buscarNodo(aux);
 	
-	list< LugarReparto* > listaLugares;
-	this->arbol.returnValues(listaLugares);
-	
-	for(list< LugarReparto* >::iterator it = listaLugares.begin(); it != listaLugares.end( ); it++){
-			
-		oficinaReparto = dynamic_cast<OficinaReparto*>( *it );
-		
-		if(oficinaReparto != NULL){ //si es una oficina		
-			
-			if( codigoOficina == oficinaReparto->getCodigo() ){
-				b = true;
-				break;
-			}
-			
-		}		
+	if(nodo != NULL){
+		oficina = nodo->obtenerDato();
 	}
 	
-	if(b == false){
-		oficinaReparto = NULL;
-	}
-	
-	return oficinaReparto;
+	return oficina;
 }
 
 //---------------------------------------------------------------------------------------------------
-LugarReparto* EmpresaMensajeria::buscarRegion(string codigoRegion){
+RegionReparto EmpresaMensajeria::buscarRegion(string codigoRegion){
 	
-	LugarReparto* regionReparto = NULL;
-	bool b = false;
+	RegionReparto region;
+	region.setCodigo("-1");
 	
-	list< LugarReparto* > listaLugares;
-	this->arbol.returnValues(listaLugares);
-	
-	for(list< LugarReparto* >::iterator it = listaLugares.begin(); it != listaLugares.end( ); it++){
-			
-		regionReparto = dynamic_cast<RegionReparto*>( *it );
+	list< Nodo<OficinaReparto*>* > listaNodos;
+	this->arbol.returnNodes(listaNodos);
 		
-		if(regionReparto != NULL){ //si es una oficina		
-			
-			if( codigoRegion == regionReparto->getCodigo() ){
-				b = true;
-				break;
-			}
-			
-		}		
+	OficinaReparto* oficinaReparto;	
+		
+	for(list< Nodo<OficinaReparto*>* >::iterator it = listaNodos.begin(); it != listaNodos.end( );	it++){							
+		oficinaReparto = (*it)->obtenerDato();		
+		region = oficinaReparto->buscarRegion(codigoRegion);	
+		if(region.getCodigo() != "-1"){
+			break;
+		}
 	}
 	
-	if(b == false){
-		regionReparto = NULL;
-	}
-	
-	return regionReparto;
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -478,18 +444,19 @@ bool EmpresaMensajeria::validarCodigoOficina(string& cadena){ //true si cumple
 }
 
 //---------------------------------------------------------------------------------------------------
-bool EmpresaMensajeria::agregarOficina(LugarReparto* general, LugarReparto* secundaria){
+bool EmpresaMensajeria::agregarOficina(OficinaReparto* general, OficinaReparto* secundaria){
 	return this->arbol.insertarNodo(general, secundaria);
 }
 
 //---------------------------------------------------------------------------------------------------
-bool EmpresaMensajeria::agregarOficina(LugarReparto* secundaria){
+bool EmpresaMensajeria::agregarOficina(OficinaReparto* secundaria){
 	return this->arbol.insertarNodo(this->arbol.obtenerRaiz()->obtenerDato(), secundaria);
 }
 
 //---------------------------------------------------------------------------------------------------
-bool EmpresaMensajeria::agregarRegion(LugarReparto* oficina, LugarReparto* region){
-	return this->arbol.insertarNodo(oficina, region);
+bool EmpresaMensajeria::agregarRegion(OficinaReparto* oficina, RegionReparto region){
+	oficina->agregarRegion(region);
+	return true;
 }
 
 //---------------------------------------------------------------------------------------------------

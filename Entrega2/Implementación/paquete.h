@@ -5,7 +5,6 @@
 #include "persona.h"
 #include "oficina_reparto.h"
 #include "region_reparto.h"
-#include "lugar_reparto.h"
 
 class Paquete{
 	
@@ -16,15 +15,15 @@ class Paquete{
 		int peso; //en gramos
 		std::string tipoContenido;
 		std::string numeroGuia;
-		LugarReparto* oficinaReparto;
-		LugarReparto* regionReparto;
+		OficinaReparto oficinaReparto;
+		RegionReparto regionReparto;
  
 	public:
 	
 		//constructor
 		Paquete();
 		Paquete(Persona remitente, Persona destinatario, int peso, std::string tipoContenido, std::string numeroGuia,
-			LugarReparto* oficinaReparto, LugarReparto* regionReparto);
+			OficinaReparto oficinaReparto, RegionReparto regionReparto);
 			
 		//getters
 		Persona getRemitente();
@@ -32,8 +31,8 @@ class Paquete{
 		int getPeso();
 		std::string getTipoContenido();
 		std::string getNumeroGuia();
-		LugarReparto* getOficinaReparto();
-		LugarReparto* getRegionReparto();
+		OficinaReparto getOficinaReparto();
+		RegionReparto getRegionReparto();
 		
 		//setters
 		void setRemitente(Persona remitente);
@@ -41,8 +40,8 @@ class Paquete{
 		void setPeso(int peso);
 		void setTipoContenido(std::string tipoContenido);
 		void setNumeroGuia(std::string numeroGuia);
-		void setOficinaReparto(LugarReparto* oficinaReparto);
-		void setRegionReparto(LugarReparto* regionReparto);
+		void setOficinaReparto(OficinaReparto oficinaReparto);
+		void setRegionReparto(RegionReparto regionReparto);
 		
 };
 

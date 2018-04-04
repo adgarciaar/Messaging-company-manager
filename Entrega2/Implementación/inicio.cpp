@@ -3,6 +3,7 @@
 #include "paquete.h" 
 #include "persona.h"
 #include "oficina_reparto.h"
+#include "region_reparto.h"
 #include <bits/stdc++.h>
 #include <string>
 
@@ -166,8 +167,8 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	Persona remitente, destinatario;
 	string peso;
 	string tipoContenido, numeroGuia, numIdRemitente, numIdDestinatario, codOficina,codRegion;
-	LugarReparto* oficinaReparto;
-	LugarReparto* regionReparto;
+	OficinaReparto* oficinaReparto;
+	RegionReparto regionReparto;
 	
 	cout<<"Digite el numero de guia: ";
 	cin>>numeroGuia;
@@ -197,7 +198,7 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 		regionReparto = empresa.buscarRegion(codRegion);
 	
 		//validar que existan remitente, destinatario, oficina y region
-		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto != NULL && regionReparto != NULL){
+		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto != NULL && regionReparto.getCodigo() != "-1" ){
 			
 			Paquete paqueteComprob = empresa.buscarPaquete(numeroGuia);
 					
@@ -207,7 +208,7 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 				int pesoInt;
 				ss >> pesoInt;
 				
-				empresa.registrarPaquete(remitente, destinatario, pesoInt, tipoContenido, numeroGuia, oficinaReparto, regionReparto);
+				empresa.registrarPaquete(remitente, destinatario, pesoInt, tipoContenido, numeroGuia, *oficinaReparto, regionReparto);
 				
 				cout<<endl<<endl<< "El paquete con numero de guia "<<numeroGuia<<" ha sido registrado exitosamente."<<endl<<endl;
 				
@@ -241,7 +242,7 @@ void registrarOficina(EmpresaMensajeria& empresa){
 	//validar que los datos sean validos
 	if(empresa.validarCodigoOficina(codOficina) == true) { 		
 		
-		LugarReparto* oficinaReparto = empresa.buscarOficina(codOficina);
+		OficinaReparto* oficinaReparto = empresa.buscarOficina(codOficina);
 		
 		if(oficinaReparto == NULL){ //no está registrada
 		
@@ -275,17 +276,17 @@ void registrarRegion(EmpresaMensajeria& empresa){
 	//validar que los datos sean validos
 	if(empresa.validarCadenaAlfanumerica(codRegion) == true) { 		
 		
-		LugarReparto* regionReparto = empresa.buscarRegion(codRegion);
+		RegionReparto regionReparto = empresa.buscarRegion(codRegion);
 		
-		if(regionReparto == NULL){ //no está registrada
+		if(regionReparto.getCodigo() == "-1"){ //no está registrada
 		
-			LugarReparto* oficinaReparto = empresa.buscarOficina(codOficina);
+			OficinaReparto* oficinaReparto = empresa.buscarOficina(codOficina);
 			
 			if(oficinaReparto != NULL){ //ya está registrada
 		
-				regionReparto = new RegionReparto(codRegion, nombreRegion);
+				RegionReparto region(codRegion, nombreRegion);
 			
-				empresa.agregarRegion(regionReparto, oficinaReparto);
+				empresa.agregarRegion(oficinaReparto, region);
 			
 				cout<<endl<<"La region con codigo "<<codRegion<<" ha sido registrada exitosamente"<<endl<<endl;
 				

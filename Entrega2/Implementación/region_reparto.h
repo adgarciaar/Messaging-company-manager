@@ -2,16 +2,27 @@
 #define REGION_REPARTO_H 
 
 #include <string>
-#include "lugar_reparto.h"
 
-class RegionReparto : public LugarReparto{
+class RegionReparto{
+	
+    private:
+ 
+		std::string codigo;
+		std::string nombre;
 		
 	public:
-	
 		//constructor
+		RegionReparto();
 		RegionReparto(std::string codigo, std::string nombre);
-		//destructor
-		~RegionReparto();
+		//getters
+		std::string getCodigo();
+		std::string getNombre();
+		//setters
+		void setCodigo(std::string codigo);
+		void setNombre(std::string nombre);
+ 
+	private:	
+		
 	
 };
 
