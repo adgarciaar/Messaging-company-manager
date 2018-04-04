@@ -284,9 +284,10 @@ void registrarRegion(EmpresaMensajeria& empresa){
 			
 			if(oficinaReparto != NULL){ //ya está registrada
 		
-				RegionReparto region(codRegion, nombreRegion);
+				regionReparto.setCodigo(codRegion); 
+				regionReparto.setNombre(nombreRegion);
 			
-				empresa.agregarRegion(oficinaReparto, region);
+				empresa.agregarRegion(oficinaReparto, regionReparto);
 			
 				cout<<endl<<"La region con codigo "<<codRegion<<" ha sido registrada exitosamente"<<endl<<endl;
 				

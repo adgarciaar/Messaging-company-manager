@@ -36,8 +36,8 @@ class Arbol {
 	void printLevelOrder();
 	int getLevel(T key);
 	
-	void returnNodes(std::list< Nodo<T>* > lista);
-	void returnValues(std::list<T> lista);
+	void returnNodes(std::list< Nodo<T>* >& lista);
+	void returnValues(std::list<T>& lista);
 	
 };
 

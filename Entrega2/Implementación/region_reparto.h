@@ -19,10 +19,7 @@ class RegionReparto{
 		std::string getNombre();
 		//setters
 		void setCodigo(std::string codigo);
-		void setNombre(std::string nombre);
- 
-	private:	
-		
+		void setNombre(std::string nombre);		
 	
 };
 

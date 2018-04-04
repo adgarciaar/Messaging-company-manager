@@ -66,9 +66,11 @@ RegionReparto OficinaReparto::buscarRegion(string codigoRegion){
 	regionReparto.setCodigo("-1");
 
 	for(list< RegionReparto >::iterator it = this->regiones.begin(); it != this->regiones.end( ); it++){
-		if( codigoRegion == (*it).getNombre() ){
-			regionReparto = (*it);
+		if( codigoRegion == (*it).getCodigo() ){
+			regionReparto = *it;
+			break;
 		}
 	}
 	
+	return regionReparto;
 }
