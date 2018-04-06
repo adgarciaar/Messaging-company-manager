@@ -1,6 +1,6 @@
 #include "empresa_mensajeria.h" 
-#include <fstream>
-#include <bits/stdc++.h>
+#include <fstream> // std::ifstream
+#include <sstream>  // std::stringstream
 #include "Nodo.h"
 
 using namespace std;
