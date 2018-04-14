@@ -190,5 +190,11 @@ void Arbol<T>::returnValues(std::list<T>& lista){
 	this->raiz->returnValues(this->raiz, lista);
 }
 
+// ------------------------------------------------------------------------
+template< class T >
+void Arbol<T>::returnLeafs(Nodo<T>* nodo, std::list<T>& lista){
+	this->raiz->returnLeafs(nodo, lista);
+}
+
 // eof - Arbol.hxx
 

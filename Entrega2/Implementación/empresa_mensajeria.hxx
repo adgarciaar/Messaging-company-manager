@@ -650,6 +650,41 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 	
+	OficinaReparto* oficinaReparto = new OficinaReparto();
+	oficinaReparto->setCodigo(codigoOficina);
 	
+	Nodo<OficinaReparto*>* nodo = this->arbol.buscarNodo(oficinaReparto);
 	
+	if(nodo == NULL){ //no está registrada la oficina
+		cout<<endl<<endl<< "La oficina "<<codigoOficina<<" no esta registrada"<<endl<<endl;
+	}else{
+
+		list<OficinaReparto*> oficinasSecundarias;
+		
+		this->arbol.returnLeafs(nodo, oficinasSecundarias);
+		
+		typename list<OficinaReparto*>::iterator it;
+		
+		for(it = root->desc.begin(); it != root->desc.end(); it++){
+			
+		}
+		
+		//AQUÍ VA LA COSA
+	
+		list<RegionReparto> regiones = oficinaReparto->getRegiones();
+		int regionesReparto = regiones.size();
+		
+		if(regionesReparto == 0){
+			cout<<endl<<endl<< "La oficina "<<codigoOficina<<" no tiene regiones de reparto asociadas"<<endl<<endl;
+		}else{
+			long paquetesRepartidos = 0, paquetesARepartir = 0;
+			int oficinasReparto = 0;
+			
+			paquetesARepartir = this->paquetes.size();
+			
+			cout<<endl<<endl<< "Se han repartido exitosamente "<<paquetesRepartidos<<" paquetes en "<<regionesReparto
+			<<" regiones de reparto de "<<oficinasReparto<<" oficinas "<<" secundarias a la oficina "<<codigoOficina<<endl<<endl;
+		}
+	
+	}
 }

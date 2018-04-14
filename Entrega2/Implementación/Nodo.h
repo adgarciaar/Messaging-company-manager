@@ -50,6 +50,8 @@ class Nodo {
 	
 	void returnValues(Nodo<T>* root, std::list<T>& lista);	
 	void returnValuesGivenLevel(Nodo<T>* root, int level, std::list<T>& lista);
+	
+	void returnLeafs(Nodo<T>* nodo, std::list<T>& lista);
   
   protected:
     T dato;

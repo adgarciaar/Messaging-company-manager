@@ -39,6 +39,8 @@ class Arbol {
 	void returnNodes(std::list< Nodo<T>* >& lista);
 	void returnValues(std::list<T>& lista);
 	
+	void returnLeafs(Nodo<T>* nodo, std::list<T>& lista);
+	
 };
 
 #include "Arbol.hxx"
