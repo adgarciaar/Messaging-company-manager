@@ -2,6 +2,7 @@
 #include <fstream> // std::ifstream
 #include <sstream>  // std::stringstream
 #include "Nodo.h"
+#include <algorithm> //para str.erase
 
 using namespace std;
 
@@ -25,7 +26,7 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 	ifstream myfile (nombreArchivo);
 	
 	if (myfile.is_open()){
-		bool b = false;
+		
 		int numeroLinea = 0;
 		// Vector of string to save tokens
 		vector <string> tokens;
@@ -44,15 +45,15 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 				tokens.push_back(intermediate);
 			}
 			
-			if(tokens.size() != 6 && b == false){
-				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida."<<endl<<endl;
+			if(tokens.size() != 6 && numeroLinea == 1){
+				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida"<<endl<<endl;
 				break;
 			}
 			
-			if(tokens.size() != 6 && b != false){
+			if(tokens.size() != 6 && numeroLinea != 1){
 				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
 				incorrectos++;
-			}else if (tokens.size() == 6 && b != false){
+			}else if (tokens.size() == 6 && numeroLinea != 1){
 				string numeroIdentificacion=tokens[2],nombre=tokens[0],apellidos=tokens[1],direccion=tokens[3],ciudad=tokens[4],telefono=tokens[5];
 				
 				//revisar si datos son válidos
@@ -77,7 +78,7 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 			}
 			
 			tokens.clear();
-			b = true;
+			
 		}
 		
 		myfile.close();
@@ -97,8 +98,9 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 	ifstream myfile (nombreArchivo);
 	
 	if (myfile.is_open()){
+		
 		int numeroLinea = 0;
-		bool b = false;
+		
 		// Vector of string to save tokens
 		vector <string> tokens;
 		
@@ -116,16 +118,16 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 				tokens.push_back(intermediate);
 			}
 			
-			if(tokens.size() != 11 && b == false){
-				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida."<<endl<<endl;
+			if(tokens.size() != 11 && numeroLinea == 1){
+				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida"<<endl<<endl;
 				break;
 			}
 			
-			if(tokens.size() != 11 && b != false){
+			if(tokens.size() != 11 && numeroLinea != 1){
 				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
 				incorrectos++;
 				
-			}else if(tokens.size() == 11 && b != false){
+			}else if(tokens.size() == 11 && numeroLinea != 1){
 				
 				string cedulaRemitente = tokens[0];
 				string cedulaDestinatario = tokens[1];
@@ -142,7 +144,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 				//revisar si datos son válidos
 				
 				if(this->validarCadenaAlfanumerica(cedulaRemitente)==true && this->validarCadenaAlfanumerica(cedulaDestinatario)== true
-					&& this->validarCadenaAlfanumerica(codRegionReparto) && this->validarCadenaAlfabetica(nombreRegionReparto)==true 
+					&& this->validarCadenaAlfanumerica(codRegionReparto)
 					&& this->validarCodigoOficina(codOficina)==true
 					&& this->validarCadenaAlfabetica(ciudadOficina)==true 
 					&& this->validarCadenaNumerica(pesoString)==true
@@ -170,8 +172,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 								
 								oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);
 							
-								//cambios: REVISAR SI SE LE ENVIA RAIZ COMO PADRE A TODOS
-								this->agregarOficina(oficinaReparto);
+								this->agregarOficina(oficinaReparto);	//REVISAR BIEN ESTO, CUÁL SERÍA LA OFICINA PADRE
 								this->agregarRegion(oficinaReparto, regionReparto);
 								
 							}else{ //ya está registrada
@@ -184,8 +185,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 									regionReparto.setCodigo(codRegionReparto); 
 									regionReparto.setNombre(nombreRegionReparto);
 									
-									//cambios
-									this->agregarRegion(oficinaReparto, regionReparto);
+									this->agregarRegion(oficinaReparto, regionReparto); //cambios
 								}
 							}
 						
@@ -214,7 +214,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 			}
 			
 			tokens.clear();
-			b = true;
+			
 		}
 		
 		myfile.close();
@@ -464,15 +464,192 @@ bool EmpresaMensajeria::agregarRegion(OficinaReparto* oficina, RegionReparto reg
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
-	//esperar a ver el archivo
+	
+	string line;
+	ifstream myfile (nombreArchivo);
+	
+	if (myfile.is_open()){
+		
+		int numeroLinea = 0;
+		// Vector of string to save tokens
+		vector <string> tokens;
+		
+		long correctos = 0, incorrectos = 0;
+		
+		OficinaReparto* oficinaGeneral = NULL;
+		
+		while ( getline (myfile,line) ){
+			
+			line.erase(remove(line.begin(), line.end(), '"'), line.end()); //eliminar los " de la línea
+			
+			numeroLinea++;
+			// stringstream class check1
+			stringstream check(line);
+				 
+			string intermediate;
+				 
+			// Tokenizing w.r.t. coma ','
+			while(getline(check, intermediate, ',')){
+				tokens.push_back(intermediate);
+			}
+			
+			if(tokens.size() != 4 && numeroLinea == 1){
+				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida"<<endl<<endl;
+				break;
+			}			
+			
+			if(tokens.size() != 4 && numeroLinea != 1){
+				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
+				incorrectos++;
+				
+			}else if (tokens.size() == 4 && numeroLinea != 1){
+				string codOficina = tokens[0];
+				string nombreOficina = tokens[1];
+				string direccionOficina = tokens[2];
+				string ciudadOficina = tokens[3];
+				
+				//revisar si datos son válidos
+				if(this->validarCodigoOficina(codOficina)==true	&& this->validarCadenaAlfabetica(ciudadOficina)==true) { 
+					
+					OficinaReparto* oficinaReparto = this->buscarOficina(codOficina);							
+							
+					if(oficinaReparto == NULL){ //no está registrada
+								
+						oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);
+						
+						if(numeroLinea == 2){ //primera oficina del archivo
+							oficinaGeneral = oficinaReparto;
+							this->agregarOficina(oficinaReparto); //es la oficina general de la ciudad
+							correctos++;
+						}else{
+							if(oficinaGeneral != NULL){
+								this->agregarOficina(oficinaGeneral, oficinaReparto); //es una oficina secundaria de la ciudad
+								correctos++;
+							}else{
+								cout<<endl<<"En la linea "<<numeroLinea<<": la oficina con codigo "<<codOficina<<" no pudo registrarse por problemas de registro de su oficina general"<<endl;
+								incorrectos++;	
+							}
+							
+						}
+								
+					}else{	//ya está registrada
+						if(numeroLinea == 2){
+							oficinaGeneral = oficinaReparto;
+						}
+						cout<<endl<<"En la linea "<<numeroLinea<<": la oficina con codigo "<<codOficina<<" ya se encuentra registrada "<<endl;
+						incorrectos++;		
+					}
+					
+				}else{
+					cout<<endl<<"En la linea "<<numeroLinea<<": uno o varios datos no son validos"<<endl;
+					incorrectos++;
+				}							
+			}
+			
+			tokens.clear();
+			
+		}
+		
+		myfile.close();
+		cout<<endl<<endl<< "Desde el archivo "<<nombreArchivo<<", se han cargado exitosamente "<<correctos
+		<<" registros; mientras que "<<incorrectos<<" registros presentaron problemas."<<endl<<endl;
+		
+	}else{
+		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible."<<endl<<endl;
+	}	
+	
 }
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
-	//esperar a ver el archivo
+	
+	string line;
+	ifstream myfile (nombreArchivo);
+	
+	if (myfile.is_open()){
+		
+		int numeroLinea = 0;
+		// Vector of string to save tokens
+		vector <string> tokens;
+		
+		long correctos = 0, incorrectos = 0;
+		
+		while ( getline (myfile,line) ){
+			
+			line.erase(remove(line.begin(), line.end(), '"'), line.end()); //eliminar los " de la línea
+			
+			numeroLinea++;
+			// stringstream class check1
+			stringstream check(line);
+				 
+			string intermediate;
+				 
+			// Tokenizing w.r.t. coma ','
+			while(getline(check, intermediate, ',')){
+				tokens.push_back(intermediate);
+			}
+			
+			if(tokens.size() != 3 && numeroLinea == 1){
+				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida"<<endl<<endl;
+				break;
+			}			
+			
+			if(tokens.size() != 3 && numeroLinea != 1){
+				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
+				incorrectos++;
+				
+			}else if (tokens.size() == 3 && numeroLinea != 1){
+				string codRegionReparto = tokens[0];
+				string nombreRegionReparto = tokens[1];
+				string codOficina = tokens[2];
+				
+				//revisar si datos son válidos
+				if( this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfanumerica(codRegionReparto) ) { 
+					
+					RegionReparto regionReparto = this->buscarRegion(codRegionReparto);
+								
+					if(regionReparto.getCodigo() == "-1"){ //no está registrada
+					
+						OficinaReparto* oficinaReparto = this->buscarOficina(codOficina);
+							
+						if(oficinaReparto != NULL){ // está registrada
+							regionReparto.setCodigo(codRegionReparto); 
+							regionReparto.setNombre(nombreRegionReparto);									
+							this->agregarRegion(oficinaReparto, regionReparto); 
+							correctos++;
+						}else{
+							cout<<endl<<"En la linea "<<numeroLinea<<": la oficina con codigo "<<codOficina<<" no se encuentra registrada. No se puede registrar la region"<<endl;
+							incorrectos++;		
+						}				
+								
+					}else{	//ya está registrada
+						cout<<endl<<"En la linea "<<numeroLinea<<": la region con codigo "<<codRegionReparto<<" ya se encuentra registrada "<<endl;
+						incorrectos++;		
+					}
+					
+				}else{
+					cout<<endl<<"En la linea "<<numeroLinea<<": uno o varios datos no son validos"<<endl;
+					incorrectos++;
+				}							
+			}
+			
+			tokens.clear();
+			
+		}
+		
+		myfile.close();
+		cout<<endl<<endl<< "Desde el archivo "<<nombreArchivo<<", se han cargado exitosamente "<<correctos
+		<<" registros; mientras que "<<incorrectos<<" registros presentaron problemas."<<endl<<endl;
+		
+	}else{
+		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible."<<endl<<endl;
+	}
+	
 }
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
-	//esperar a tener indicaciones
+	
+	
+	
 }

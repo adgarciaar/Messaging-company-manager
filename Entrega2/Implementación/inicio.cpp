@@ -240,7 +240,7 @@ void registrarOficina(EmpresaMensajeria& empresa){
 	cin.ignore();
 	
 	//validar que los datos sean validos
-	if(empresa.validarCodigoOficina(codOficina) == true) { 		
+	if(empresa.validarCodigoOficina(codOficina) == true && empresa.validarCadenaAlfabetica(ciudadOficina)==true ) { 		
 		
 		OficinaReparto* oficinaReparto = empresa.buscarOficina(codOficina);
 		
