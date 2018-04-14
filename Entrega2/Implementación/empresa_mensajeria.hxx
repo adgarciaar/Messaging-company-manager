@@ -659,28 +659,40 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 		cout<<endl<<endl<< "La oficina "<<codigoOficina<<" no esta registrada"<<endl<<endl;
 	}else{
 
-		list<OficinaReparto*> oficinasSecundarias;
-		
+		list<OficinaReparto*> oficinasSecundarias;		
 		this->arbol.returnLeafs(nodo, oficinasSecundarias);
 		
-		typename list<OficinaReparto*>::iterator it;
-		
-		for(it = root->desc.begin(); it != root->desc.end(); it++){
-			
+		list<RegionReparto> regiones;
+		list<RegionReparto> copiaRegiones;
+
+		typename list<OficinaReparto*>::iterator it;		
+		for(it = oficinasSecundarias.begin(); it != oficinasSecundarias.end(); it++){
+			oficinaReparto = (*it);
+			copiaRegiones = oficinaReparto->getRegiones();
+			regiones.insert( regiones.end(), copiaRegiones.begin(), copiaRegiones.end() );
 		}
 		
-		//AQUÍ VA LA COSA
-	
-		list<RegionReparto> regiones = oficinaReparto->getRegiones();
 		int regionesReparto = regiones.size();
-		
-		if(regionesReparto == 0){
+					
+		if(regionesReparto == 0){ //no regiones asociadas ni para la oficina ni para sus secundarias (en caso de tenerlas)
 			cout<<endl<<endl<< "La oficina "<<codigoOficina<<" no tiene regiones de reparto asociadas"<<endl<<endl;
 		}else{
-			long paquetesRepartidos = 0, paquetesARepartir = 0;
-			int oficinasReparto = 0;
+			long paquetesRepartidos = 0, paquetesARepartir = this->paquetes.size();
+			int oficinasReparto = oficinasSecundarias.size();
 			
-			paquetesARepartir = this->paquetes.size();
+			Paquete paquete;
+			
+			if(regionesReparto == 1){
+				/*
+				queue<Paquete> auxPaquetes (this->paquetes); //inicializado como copia de this->paquetes 
+				while(auxPaquetes.size() > 0){
+					paquete = auxPaquetes.front();
+					auxPaquetes.pop();
+					paquete.setOficinaReparto();
+					paquete.setRegionReparto();
+				}				
+				*/
+			}
 			
 			cout<<endl<<endl<< "Se han repartido exitosamente "<<paquetesRepartidos<<" paquetes en "<<regionesReparto
 			<<" regiones de reparto de "<<oficinasReparto<<" oficinas "<<" secundarias a la oficina "<<codigoOficina<<endl<<endl;
