@@ -16,7 +16,7 @@ class EmpresaMensajeria{
 	
 		std::string nombre;
 		Arbol< OficinaReparto* > arbol; //almacena jerarquía de oficinas y regiones
-		std::queue<Paquete> paquetes;
+		std::list<Paquete> paquetes;
 		std::list<Persona> personas;
 		
 	public:

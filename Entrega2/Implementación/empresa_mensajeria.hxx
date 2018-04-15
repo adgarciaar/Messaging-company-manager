@@ -194,7 +194,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 							int peso;
 							ss >> peso;
 							Paquete paquete(cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numeroGuia,codOficina,codRegionReparto);
-							this->paquetes.push(paquete);
+							this->paquetes.push_back(paquete);
 							correctos++;
 							
 						}else{
@@ -241,7 +241,7 @@ void EmpresaMensajeria::registrarPaquete(string remitente, string destinatario, 
 	string oficinaReparto, string regionReparto){
 	
 	Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
-	this->paquetes.push(paquete);		
+	this->paquetes.push_back(paquete);		
 	
 }
 
@@ -255,7 +255,6 @@ void EmpresaMensajeria::conteoPaquetes(){
 	}else{
 		cout<<endl<<endl<<"Se encuentran en el sistema "<<numPaquetes<<" pendientes por entregar. Estan distribuidos asi:"<<endl<<endl;
 		
-		queue<Paquete> auxiliar (this->paquetes);
 		long cantidad = 0;
 		
 		list< Nodo<OficinaReparto*>* > listaNodos;
@@ -272,16 +271,15 @@ void EmpresaMensajeria::conteoPaquetes(){
 			for(list< RegionReparto >::iterator it2 = regiones.begin(); it2 != regiones.end( ); it2++){
 				
 				cantidad = 0;
-				while(auxiliar.empty() == false){	
-					if(auxiliar.front().getRegionReparto() == (*it2).getCodigo()){
+				for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end(); it++ ){
+					if((*it).getRegionReparto() == (*it2).getCodigo()){
 						cantidad++;
-					}					
-					auxiliar.pop();
+					}	
 				}
 				if(cantidad != 0){
 					cout<<cantidad<<" en la oficina "<<oficinaReparto->getCodigo()<<", region de reparto "<<(*it2).getNombre()<<endl;			
 				}
-				auxiliar = this->paquetes;				
+								
 			}			
 							
 		}			
@@ -319,16 +317,14 @@ Paquete EmpresaMensajeria::buscarPaquete(string numeroGuia){
 	
 	if(this->paquetes.size() > 0){
 		
-		queue<Paquete> auxiliar (this->paquetes);
-	
-		while (auxiliar.empty() == false){
-			if(auxiliar.front().getNumeroGuia() == numeroGuia){
+		for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end( );	it++){
+			if((*it).getNumeroGuia() == numeroGuia){
 				b = true;
-				paquete = auxiliar.front();
+				paquete = *it;
 				break;
 			}
-			auxiliar.pop();
 		}
+		
 	}
 	
 	if(b == false){
@@ -650,7 +646,7 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
-	
+	/*
 	OficinaReparto* oficinaReparto = new OficinaReparto();
 	oficinaReparto->setCodigo(codigoOficina);
 	
@@ -720,5 +716,5 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 			<<" regiones de reparto de "<<oficinasReparto<<" oficinas "<<" secundarias a la oficina "<<codigoOficina<<endl<<endl;
 		}
 	
-	}
+	}*/
 }
