@@ -10,38 +10,38 @@ class Paquete{
 	
     private:
  
-		Persona remitente;
-		Persona destinatario;
+		std::string remitente;
+		std::string destinatario;
 		int peso; //en gramos
 		std::string tipoContenido;
 		std::string numeroGuia;
-		OficinaReparto oficinaReparto;
-		RegionReparto regionReparto;
+		std::string oficinaReparto;
+		std::string regionReparto;
  
 	public:
 	
 		//constructor
 		Paquete();
-		Paquete(Persona remitente, Persona destinatario, int peso, std::string tipoContenido, std::string numeroGuia,
-			OficinaReparto oficinaReparto, RegionReparto regionReparto);
+		Paquete(std::string remitente, std::string destinatario, int peso, std::string tipoContenido, std::string numeroGuia,
+			std::string oficinaReparto, std::string regionReparto);
 			
 		//getters
-		Persona getRemitente();
-		Persona getDestinatario();
+		std::string getRemitente();
+		std::string getDestinatario();
 		int getPeso();
 		std::string getTipoContenido();
 		std::string getNumeroGuia();
-		OficinaReparto getOficinaReparto();
-		RegionReparto getRegionReparto();
+		std::string getOficinaReparto();
+		std::string getRegionReparto();
 		
 		//setters
-		void setRemitente(Persona remitente);
-		void setDestinatario(Persona destinatario);
+		void setRemitente(std::string remitente);
+		void setDestinatario(std::string destinatario);
 		void setPeso(int peso);
 		void setTipoContenido(std::string tipoContenido);
 		void setNumeroGuia(std::string numeroGuia);
-		void setOficinaReparto(OficinaReparto oficinaReparto);
-		void setRegionReparto(RegionReparto regionReparto);
+		void setOficinaReparto(std::string oficinaReparto);
+		void setRegionReparto(std::string regionReparto);
 		
 };
 

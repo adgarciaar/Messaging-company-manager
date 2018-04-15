@@ -208,7 +208,7 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 				int pesoInt;
 				ss >> pesoInt;
 				
-				empresa.registrarPaquete(remitente, destinatario, pesoInt, tipoContenido, numeroGuia, *oficinaReparto, regionReparto);
+				empresa.registrarPaquete(numIdRemitente, numIdDestinatario, pesoInt, tipoContenido, numeroGuia, codOficina, codRegion);
 				
 				cout<<endl<<endl<< "El paquete con numero de guia "<<numeroGuia<<" ha sido registrado exitosamente."<<endl<<endl;
 				

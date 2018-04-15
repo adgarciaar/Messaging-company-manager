@@ -423,7 +423,7 @@ void Nodo<T>::returnValuesGivenLevel(Nodo<T>* root, int level, std::list<T>& lis
         lista.push_back(root->dato);
     else if (level > 0)
     {
-		typename std::list<T>::iterator it;
+		typename TList::iterator it;	
 		for(it = root->desc.begin(); it != root->desc.end(); it++){
 			Nodo<T>* nodo = *it;
 			returnValuesGivenLevel(nodo, level-1, lista);
@@ -437,11 +437,11 @@ template< class T >
 void Nodo<T>::returnLeafs(Nodo<T>* nodo, std::list<T>& lista){
     
 	if (nodo->numDesc() > 0){
-		typename std::list<T>::iterator it;
-		for(it = root->desc.begin(); it != root->desc.end(); it++){
+		typename TList::iterator it;	
+		for(it = nodo->desc.begin(); it != nodo->desc.end(); it++){
 			Nodo<T>* nodo = *it;
 			returnLeafs(nodo, lista);
-		}    
+		}
 	}else{
 		lista.push_back(nodo->obtenerDato());
 	}

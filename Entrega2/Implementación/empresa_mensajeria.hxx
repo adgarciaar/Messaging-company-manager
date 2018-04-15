@@ -3,6 +3,7 @@
 #include <sstream>  // std::stringstream
 #include "Nodo.h"
 #include <algorithm> //para str.erase
+#include <map>
 
 using namespace std;
 
@@ -192,7 +193,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 							stringstream ss(pesoString);
 							int peso;
 							ss >> peso;
-							Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,*oficinaReparto,regionReparto);
+							Paquete paquete(cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numeroGuia,codOficina,codRegionReparto);
 							this->paquetes.push(paquete);
 							correctos++;
 							
@@ -236,8 +237,8 @@ void EmpresaMensajeria::registrarPersona(string numeroIdentificacion, string nom
 }
 
 //---------------------------------------------------------------------------------------------------
-void EmpresaMensajeria::registrarPaquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia,
-	OficinaReparto oficinaReparto, RegionReparto regionReparto){
+void EmpresaMensajeria::registrarPaquete(string remitente, string destinatario, int peso, string tipoContenido, string numeroGuia,
+	string oficinaReparto, string regionReparto){
 	
 	Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
 	this->paquetes.push(paquete);		
@@ -272,7 +273,7 @@ void EmpresaMensajeria::conteoPaquetes(){
 				
 				cantidad = 0;
 				while(auxiliar.empty() == false){	
-					if(auxiliar.front().getRegionReparto().getCodigo() == (*it2).getCodigo()){
+					if(auxiliar.front().getRegionReparto() == (*it2).getCodigo()){
 						cantidad++;
 					}					
 					auxiliar.pop();
@@ -663,13 +664,17 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 		this->arbol.returnLeafs(nodo, oficinasSecundarias);
 		
 		list<RegionReparto> regiones;
-		list<RegionReparto> copiaRegiones;
+		map <string, string> oficinasRegiones;
+		queue<string> codigosRegiones;
 
 		typename list<OficinaReparto*>::iterator it;		
 		for(it = oficinasSecundarias.begin(); it != oficinasSecundarias.end(); it++){
 			oficinaReparto = (*it);
-			copiaRegiones = oficinaReparto->getRegiones();
-			regiones.insert( regiones.end(), copiaRegiones.begin(), copiaRegiones.end() );
+			regiones = oficinaReparto->getRegiones();
+			for(list<RegionReparto>::iterator it = regiones.begin(); it != regiones.end( ); it++){
+				oficinasRegiones.insert(pair <string, string> ( (*it).getCodigo() , oficinaReparto.getCodigo() ));
+				codigosRegiones.push( (*it).getCodigo() );
+			}
 		}
 		
 		int regionesReparto = regiones.size();
@@ -680,19 +685,36 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 			long paquetesRepartidos = 0, paquetesARepartir = this->paquetes.size();
 			int oficinasReparto = oficinasSecundarias.size();
 			
-			Paquete paquete;
+			string codOficina, codRegion;
 			
-			if(regionesReparto == 1){
-				/*
+			if(paquetesARepartir == regionesReparto){ //#paquetes = # regiones
+			
 				queue<Paquete> auxPaquetes (this->paquetes); //inicializado como copia de this->paquetes 
 				while(auxPaquetes.size() > 0){
-					paquete = auxPaquetes.front();
-					auxPaquetes.pop();
-					paquete.setOficinaReparto();
-					paquete.setRegionReparto();
+					
+					paquete = auxPaquetes.front(); //tomar paquete en el tope
+					auxPaquetes.pop();	//eliminar el tope de la pila
+					this->paquetes.pop(); //eliminar el tope de la pila original
+					
+					codRegion = codigosRegiones.front();	//tomar región en tope de la pila
+					codigosRegiones.pop();	//eliminar tope de la pila
+					
+					codOficina = oficinasRegiones.at(codRegion);	//buscar el codigo de oficina de la respectiva región, almacenado en el map
+					
+					paquete.setOficinaReparto(codOficina); //establecer al paquete la nueva oficina
+					paquete.setRegionReparto(codRegion); //establecer al paquete la nueva region de la respectiva oficina
+					
+					this->paquetes.push(paquete);	//insertar el paquete en la pila original
+					
 				}				
-				*/
+				
+			}else if(paquetesARepartir < regionesReparto){ //#paquetes < # regiones
+				
+			}else if(paquetesARepartir > regionesReparto){ //#paquetes > # regiones
+				
 			}
+			
+			Paquete paquete;
 			
 			cout<<endl<<endl<< "Se han repartido exitosamente "<<paquetesRepartidos<<" paquetes en "<<regionesReparto
 			<<" regiones de reparto de "<<oficinasReparto<<" oficinas "<<" secundarias a la oficina "<<codigoOficina<<endl<<endl;

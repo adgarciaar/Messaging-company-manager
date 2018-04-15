@@ -7,8 +7,8 @@ using namespace std;
 
 Paquete::Paquete(){}
 
-Paquete::Paquete(Persona remitente, Persona destinatario, int peso, string tipoContenido, string numeroGuia,
-	OficinaReparto oficinaReparto, RegionReparto regionReparto){
+Paquete::Paquete(std::string remitente, std::string destinatario, int peso, string tipoContenido, string numeroGuia,
+	std::string oficinaReparto, std::string regionReparto){
 	this->remitente = remitente;
 	this->destinatario = destinatario;
 	this->peso = peso;
@@ -20,11 +20,11 @@ Paquete::Paquete(Persona remitente, Persona destinatario, int peso, string tipoC
 
 //getters
 
-Persona Paquete::getRemitente(){
+std::string Paquete::getRemitente(){
 	return this->remitente;
 }
 
-Persona Paquete::getDestinatario(){
+std::string Paquete::getDestinatario(){
 	return this->destinatario;
 }
 
@@ -40,21 +40,21 @@ string Paquete::getNumeroGuia(){
 	return this->numeroGuia;
 }
 
-OficinaReparto Paquete::getOficinaReparto(){
+std::string Paquete::getOficinaReparto(){
 	return this->oficinaReparto;
 }
 
-RegionReparto Paquete::getRegionReparto(){
+std::string Paquete::getRegionReparto(){
 	return this->regionReparto;
 }
 		
 //setters
 
-void Paquete::setRemitente(Persona remitente){
+void Paquete::setRemitente(std::string remitente){
 	this->remitente = remitente;
 }
 
-void Paquete::setDestinatario(Persona destinatario){
+void Paquete::setDestinatario(std::string destinatario){
 	this->destinatario = destinatario;
 }
 
@@ -70,10 +70,10 @@ void Paquete::setNumeroGuia(string numeroGuia){
 	this->numeroGuia = numeroGuia;
 }
 
-void Paquete::setOficinaReparto(OficinaReparto oficinaReparto){
+void Paquete::setOficinaReparto(std::string oficinaReparto){
 	this->oficinaReparto = oficinaReparto;
 }
 
-void Paquete::setRegionReparto(RegionReparto regionReparto){
+void Paquete::setRegionReparto(std::string regionReparto){
 	this->regionReparto = regionReparto;
 }
