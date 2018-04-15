@@ -646,75 +646,116 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
-	/*
+	
 	OficinaReparto* oficinaReparto = new OficinaReparto();
 	oficinaReparto->setCodigo(codigoOficina);
 	
-	Nodo<OficinaReparto*>* nodo = this->arbol.buscarNodo(oficinaReparto);
+	Nodo<OficinaReparto*>* nodo = this->arbol.buscarNodo(oficinaReparto); //trae el nodo con la oficina buscada
 	
 	if(nodo == NULL){ //no está registrada la oficina
 		cout<<endl<<endl<< "La oficina "<<codigoOficina<<" no esta registrada"<<endl<<endl;
-	}else{
+	}else{ //sí está registrada la oficina
 
 		list<OficinaReparto*> oficinasSecundarias;		
 		this->arbol.returnLeafs(nodo, oficinasSecundarias);
 		
-		list<RegionReparto> regiones;
-		map <string, string> oficinasRegiones;
-		queue<string> codigosRegiones;
+		list<RegionReparto> listRegiones;
+		map <string, string> mapOficinasRegiones;
+		queue<string> queueCodigosRegiones;
 
 		typename list<OficinaReparto*>::iterator it;		
 		for(it = oficinasSecundarias.begin(); it != oficinasSecundarias.end(); it++){
+			
 			oficinaReparto = (*it);
-			regiones = oficinaReparto->getRegiones();
-			for(list<RegionReparto>::iterator it = regiones.begin(); it != regiones.end( ); it++){
-				oficinasRegiones.insert(pair <string, string> ( (*it).getCodigo() , oficinaReparto.getCodigo() ));
-				codigosRegiones.push( (*it).getCodigo() );
+			listRegiones = oficinaReparto->getRegiones();
+			
+			for(list<RegionReparto>::iterator it = listRegiones.begin(); it != listRegiones.end( ); it++){
+				
+				mapOficinasRegiones.insert(pair <string, string> ( (*it).getCodigo() , oficinaReparto->getCodigo() ));
+				queueCodigosRegiones.push( (*it).getCodigo() );
+				
 			}
 		}
 		
-		int regionesReparto = regiones.size();
+		int regionesReparto = listRegiones.size();
 					
-		if(regionesReparto == 0){ //no regiones asociadas ni para la oficina ni para sus secundarias (en caso de tenerlas)
+		if(regionesReparto == 0){ //no regiones asociadas ni para la oficina ni para sus secundarias (en caso de tenerlas)	
+			
 			cout<<endl<<endl<< "La oficina "<<codigoOficina<<" no tiene regiones de reparto asociadas"<<endl<<endl;
+		
 		}else{
+			
 			long paquetesRepartidos = 0, paquetesARepartir = this->paquetes.size();
 			int oficinasReparto = oficinasSecundarias.size();
 			
+			Paquete paquete;
 			string codOficina, codRegion;
 			
-			if(paquetesARepartir == regionesReparto){ //#paquetes = # regiones
+			queue<Paquete> auxPaquetes; //copiar lista de paquetes en una cola		
+			for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end( );	it++){ 
+				auxPaquetes.push(*it);
+			}
+			this->paquetes.clear();
 			
-				queue<Paquete> auxPaquetes (this->paquetes); //inicializado como copia de this->paquetes 
-				while(auxPaquetes.size() > 0){
-					
+			if( paquetesARepartir <= regionesReparto ){ //#paquetes <= # regiones
+				
+				while(auxPaquetes.size() > 0){					
 					paquete = auxPaquetes.front(); //tomar paquete en el tope
 					auxPaquetes.pop();	//eliminar el tope de la pila
-					this->paquetes.pop(); //eliminar el tope de la pila original
 					
-					codRegion = codigosRegiones.front();	//tomar región en tope de la pila
-					codigosRegiones.pop();	//eliminar tope de la pila
+					codRegion = queueCodigosRegiones.front();	//tomar región en tope de la pila
+					queueCodigosRegiones.pop();	//eliminar tope de la pila
 					
-					codOficina = oficinasRegiones.at(codRegion);	//buscar el codigo de oficina de la respectiva región, almacenado en el map
+					codOficina = mapOficinasRegiones.at(codRegion);	//buscar el codigo de oficina de la respectiva región, almacenado en el map
 					
 					paquete.setOficinaReparto(codOficina); //establecer al paquete la nueva oficina
 					paquete.setRegionReparto(codRegion); //establecer al paquete la nueva region de la respectiva oficina
 					
-					this->paquetes.push(paquete);	//insertar el paquete en la pila original
-					
+					this->paquetes.push_back(paquete);	//insertar el paquete en la lista original	
+					paquetesRepartidos++;
 				}				
 				
-			}else if(paquetesARepartir < regionesReparto){ //#paquetes < # regiones
-				
-			}else if(paquetesARepartir > regionesReparto){ //#paquetes > # regiones
+			}else{ 	//#paquetes > # regiones								
+										
+				int cociente = paquetesARepartir/regionesReparto;
+				int contador = cociente;
+				while( paquetesRepartidos < cociente*regionesReparto ){ 
+							
+					if (contador == cociente){
+						codRegion = queueCodigosRegiones.front();	//tomar región en tope de la pila
+						queueCodigosRegiones.pop();	//eliminar tope de la pila							
+						codOficina = mapOficinasRegiones.at(codRegion);	//buscar el codigo de oficina de la respectiva región, almacenado en el map
+						contador = 0;
+					}
+							
+					paquete = auxPaquetes.front(); //tomar paquete en el tope
+					auxPaquetes.pop();	//eliminar el tope de la pila						
+							
+					paquete.setOficinaReparto(codOficina); //establecer al paquete la nueva oficina
+					paquete.setRegionReparto(codRegion); //establecer al paquete la nueva region de la respectiva oficina
+							
+					this->paquetes.push_back(paquete);	//insertar el paquete en la lista original
+					paquetesRepartidos++;
+					contador++;
+				}
+						
+				while(auxPaquetes.size() > 0){ //se reparten los restantes en caso de haber
+							
+					paquete = auxPaquetes.front(); //tomar paquete en el tope
+					auxPaquetes.pop();	//eliminar el tope de la pila						
+							
+					paquete.setOficinaReparto(codOficina); //establecer al paquete la nueva oficina
+					paquete.setRegionReparto(codRegion); //establecer al paquete la nueva region de la respectiva oficina
+							
+					this->paquetes.push_back(paquete);	//insertar el paquete en la lista original
+					paquetesRepartidos++;
+				}				
 				
 			}
-			
-			Paquete paquete;
 			
 			cout<<endl<<endl<< "Se han repartido exitosamente "<<paquetesRepartidos<<" paquetes en "<<regionesReparto
 			<<" regiones de reparto de "<<oficinasReparto<<" oficinas "<<" secundarias a la oficina "<<codigoOficina<<endl<<endl;
 		}
 	
-	}*/
+	}
 }
