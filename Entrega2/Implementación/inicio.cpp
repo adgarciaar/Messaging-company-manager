@@ -4,7 +4,6 @@
 #include "persona.h"
 #include "oficina_reparto.h"
 #include "region_reparto.h"
-#include <bits/stdc++.h>
 #include <string>
 
 using namespace std;
