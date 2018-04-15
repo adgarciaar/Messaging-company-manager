@@ -653,7 +653,9 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 	Nodo<OficinaReparto*>* nodo = this->arbol.buscarNodo(oficinaReparto); //trae el nodo con la oficina buscada
 	
 	if(nodo == NULL){ //no está registrada la oficina
+	
 		cout<<endl<<endl<< "La oficina "<<codigoOficina<<" no esta registrada"<<endl<<endl;
+		
 	}else{ //sí está registrada la oficina
 
 		list<OficinaReparto*> oficinasSecundarias;		
@@ -677,9 +679,9 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 			}
 		}
 		
-		int regionesReparto = listRegiones.size();
+		int regionesARepartir = listRegiones.size();
 					
-		if(regionesReparto == 0){ //no regiones asociadas ni para la oficina ni para sus secundarias (en caso de tenerlas)	
+		if(regionesARepartir == 0){ //no regiones asociadas ni para la oficina ni para sus secundarias (en caso de tenerlas)	
 			
 			cout<<endl<<endl<< "La oficina "<<codigoOficina<<" no tiene regiones de reparto asociadas"<<endl<<endl;
 		
@@ -697,7 +699,7 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 			}
 			this->paquetes.clear();
 			
-			if( paquetesARepartir <= regionesReparto ){ //#paquetes <= # regiones
+			if( paquetesARepartir <= regionesARepartir ){ //#paquetes <= # regiones
 				
 				while(auxPaquetes.size() > 0){					
 					paquete = auxPaquetes.front(); //tomar paquete en el tope
@@ -717,13 +719,14 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 				
 			}else{ 	//#paquetes > # regiones								
 										
-				int cociente = paquetesARepartir/regionesReparto;
+				int cociente = paquetesARepartir/regionesARepartir;
 				int contador = cociente;
-				while( paquetesRepartidos < cociente*regionesReparto ){ 
+				while( paquetesRepartidos < cociente*regionesARepartir ){ 
 							
 					if (contador == cociente){
 						codRegion = queueCodigosRegiones.front();	//tomar región en tope de la pila
-						queueCodigosRegiones.pop();	//eliminar tope de la pila							
+						queueCodigosRegiones.pop();	//eliminar tope de la pila
+							
 						codOficina = mapOficinasRegiones.at(codRegion);	//buscar el codigo de oficina de la respectiva región, almacenado en el map
 						contador = 0;
 					}
@@ -753,8 +756,8 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 				
 			}
 			
-			cout<<endl<<endl<< "Se han repartido exitosamente "<<paquetesRepartidos<<" paquetes en "<<regionesReparto
-			<<" regiones de reparto de "<<oficinasReparto<<" oficinas "<<" secundarias a la oficina "<<codigoOficina<<endl<<endl;
+			cout<<endl<<endl<< "Se han repartido exitosamente "<<paquetesRepartidos<<" paquetes en "<<oficinasReparto
+			<<" oficinas de las regiones de reparto de la oficina "<<codigoOficina<<endl<<endl;
 		}
 	
 	}
