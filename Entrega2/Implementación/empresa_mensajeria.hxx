@@ -186,7 +186,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 									regionReparto.setCodigo(codRegionReparto); 
 									regionReparto.setNombre(nombreRegionReparto);
 									
-									this->agregarRegion(oficinaReparto, regionReparto); //cambios
+									this->agregarRegion(oficinaReparto, regionReparto); 
 								}
 							}
 						
@@ -667,19 +667,19 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 
 		typename list<OficinaReparto*>::iterator it;		
 		for(it = oficinasSecundarias.begin(); it != oficinasSecundarias.end(); it++){
-			
+			cout<<endl<<"oficina es "<<(*it)->getNombre();
 			oficinaReparto = (*it);
 			listRegiones = oficinaReparto->getRegiones();
 			
-			for(list<RegionReparto>::iterator it = listRegiones.begin(); it != listRegiones.end( ); it++){
-				
-				mapOficinasRegiones.insert(pair <string, string> ( (*it).getCodigo() , oficinaReparto->getCodigo() ));
-				queueCodigosRegiones.push( (*it).getCodigo() );
+			for(list<RegionReparto>::iterator it2 = listRegiones.begin(); it2 != listRegiones.end( ); it2++){
+				cout<<endl<<"region es "<<(*it2).getNombre();
+				mapOficinasRegiones.insert(pair <string, string> ( (*it2).getCodigo() , oficinaReparto->getCodigo() ));
+				queueCodigosRegiones.push( (*it2).getCodigo() );
 				
 			}
 		}
-		
-		int regionesARepartir = listRegiones.size();
+		cout<<endl<<"oficinas secundarias "<<oficinasSecundarias.size()<<endl;
+		int regionesARepartir = queueCodigosRegiones.size();
 					
 		if(regionesARepartir == 0){ //no regiones asociadas ni para la oficina ni para sus secundarias (en caso de tenerlas)	
 			
@@ -698,7 +698,7 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 				auxPaquetes.push(*it);
 			}
 			this->paquetes.clear();
-			
+			cout<<endl<<"paquetes a repartir "<<paquetesARepartir<<" y regiones a repartir "<<regionesARepartir<<endl;
 			if( paquetesARepartir <= regionesARepartir ){ //#paquetes <= # regiones
 				
 				while(auxPaquetes.size() > 0){					
