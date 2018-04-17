@@ -97,3 +97,33 @@ Paquete OficinaReparto::buscarPaquete(string numeroGuia){
 	
 	return paquete;	
 }
+
+std::list<Paquete> OficinaReparto::getPaquetesARepartir(){
+	list< Paquete > paquetesARepartir;
+	for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end(); it++){
+		if( (*it).getOficinaRecepcion() == this->codigo ){ //si toca enviarlo a otra oficina
+			paquetesARepartir.push_back( *it );
+		}
+	}
+	return paquetesARepartir;
+}
+
+std::list<Paquete> OficinaReparto::getPaquetesEntregados(){
+	list< Paquete > paquetesEntregados;
+	for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end(); it++){
+		if( (*it).getOficinaRecepcion() != this->codigo ){ //si se repartió acá
+			paquetesEntregados.push_back( *it );
+		}
+	}
+	return paquetesEntregados;
+}
+
+void OficinaReparto::eliminarPaquete(std::string numeroGuia){
+	list< Paquete >::iterator it;
+	for(it = this->paquetes.begin(); it != this->paquetes.end(); it++){
+		if( (*it).getNumeroGuia() == numeroGuia ){ 
+			break;
+		}
+	}
+	this->paquetes.erase(it);
+}

@@ -28,6 +28,7 @@ class OficinaReparto{
 		std::string getDireccion();
 		std::string getCiudad();
 		std::list<RegionReparto> getRegiones();
+		std::list<Paquete> getPaquetes();
 		//setters
 		void setCodigo(std::string codigo);
 		void setNombre(std::string nombre);
@@ -36,11 +37,14 @@ class OficinaReparto{
 		void setRegiones(std::list<RegionReparto> regiones);
 		
 		void agregarRegion(RegionReparto regionReparto);
-		RegionReparto buscarRegion(string codigoRegion);
+		RegionReparto buscarRegion(std::string codigoRegion);
  
 		void agregarPaquete(Paquete paquete);
-		std::list<Paquete> getPaquetes();
-		Paquete buscarPaquete(string numeroGuia);
+		void eliminarPaquete(std::string numeroGuia);		
+		Paquete buscarPaquete(std::string numeroGuia);
+		
+		std::list<Paquete> getPaquetesARepartir();
+		std::list<Paquete> getPaquetesEntregados();
 };
 
 #include "oficina_reparto.hxx"
