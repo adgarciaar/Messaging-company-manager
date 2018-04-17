@@ -1,4 +1,4 @@
-cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numGuia,codigoOficina,nombreOficina,direccionOficina,ciudadOficina,codigoRegion,nombreRegion
+cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numGuia,codigoOficinaRecepcion,nombreOficina,direccionOficina,ciudadOficina,codigoRegionEnvio,nombreRegion
 47767239440,53923218705,2000,prenda de vestir,RTY657,CHA98765,Oficina Chapinero,Carrera 7 #43-23,Bogotá,MAR3445,Marly
 345667335678,37898563423,5000,calefactor electrico,OPQ456,TDE56845,Oficina Teusaquillo,Carrera 30 #12-10,Bogotá,TPJ483,Teusaquillo
 30367825533,54110617861,6536,Prenda de vestir,JYF387,TD66DS76,Oficina Puente aranda,Cra 40 #29b-12,Bogotá,BIO867,El Rosario

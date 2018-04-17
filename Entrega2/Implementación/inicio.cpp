@@ -17,7 +17,7 @@ int main(){
 	
 	cout<<endl<<endl<<"Bienvenido, digite comando (digite ayuda en caso de no conocerlo)"<<endl;
 	
-	EmpresaMensajeria empresa ("Empresa");
+	EmpresaMensajeria empresa ("Empresa");	
 	
 	string comando;
 	// Vector of string to save tokens
@@ -166,7 +166,7 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	Persona remitente, destinatario;
 	string peso;
 	string tipoContenido, numeroGuia, numIdRemitente, numIdDestinatario, codOficina,codRegion;
-	OficinaReparto* oficinaReparto;
+	OficinaReparto* oficinaRecepcion;
 	RegionReparto regionReparto;
 	
 	cout<<"Digite el numero de guia: ";
@@ -193,11 +193,11 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	
 		remitente = empresa.buscarPersona(numIdRemitente);
 		destinatario = empresa.buscarPersona(numIdDestinatario);
-		oficinaReparto = empresa.buscarOficina(codOficina);
+		oficinaRecepcion = empresa.buscarOficina(codOficina);
 		regionReparto = empresa.buscarRegion(codRegion);
 	
 		//validar que existan remitente, destinatario, oficina y region
-		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaReparto != NULL && regionReparto.getCodigo() != "-1" ){
+		if (remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1" && oficinaRecepcion != NULL && regionReparto.getCodigo() != "-1" ){
 			
 			Paquete paqueteComprob = empresa.buscarPaquete(numeroGuia);
 					

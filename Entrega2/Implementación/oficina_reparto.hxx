@@ -74,3 +74,26 @@ RegionReparto OficinaReparto::buscarRegion(string codigoRegion){
 	
 	return regionReparto;
 }
+
+void OficinaReparto::agregarPaquete(Paquete paquete){
+	this->paquetes.push_back(paquete);
+}
+
+std::list<Paquete> OficinaReparto::getPaquetes(){
+	return this->paquetes;
+}
+
+Paquete OficinaReparto::buscarPaquete(string numeroGuia){
+	
+	Paquete paquete;
+	paquete.setNumeroGuia("-1");
+	
+	for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end(); it++){
+		if( numeroGuia == (*it).getNumeroGuia() ){
+			paquete = *it;
+			break;
+		}
+	}
+	
+	return paquete;	
+}

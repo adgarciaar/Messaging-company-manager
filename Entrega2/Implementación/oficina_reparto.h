@@ -4,6 +4,7 @@
 #include <string>
 #include <list>
 #include "region_reparto.h"
+#include "paquete.h"
 
 class OficinaReparto{
 	
@@ -14,6 +15,8 @@ class OficinaReparto{
 		std::string direccion;
 		std::string ciudad;
 		std::list<RegionReparto> regiones;
+		
+		std::list<Paquete> paquetes;
 		
 	public:
 		//constructor
@@ -35,8 +38,9 @@ class OficinaReparto{
 		void agregarRegion(RegionReparto regionReparto);
 		RegionReparto buscarRegion(string codigoRegion);
  
-	private:	
-	
+		void agregarPaquete(Paquete paquete);
+		std::list<Paquete> getPaquetes();
+		Paquete buscarPaquete(string numeroGuia);
 };
 
 #include "oficina_reparto.hxx"

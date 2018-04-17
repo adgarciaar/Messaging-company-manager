@@ -8,13 +8,13 @@ using namespace std;
 Paquete::Paquete(){}
 
 Paquete::Paquete(std::string remitente, std::string destinatario, int peso, string tipoContenido, string numeroGuia,
-	std::string oficinaReparto, std::string regionReparto){
+	std::string oficinaRecepcion, std::string regionReparto){
 	this->remitente = remitente;
 	this->destinatario = destinatario;
 	this->peso = peso;
 	this->tipoContenido = tipoContenido;
 	this->numeroGuia = numeroGuia;
-	this->oficinaReparto = oficinaReparto;
+	this->oficinaRecepcion = oficinaRecepcion;
 	this->regionReparto = regionReparto;
 }
 
@@ -40,8 +40,8 @@ string Paquete::getNumeroGuia(){
 	return this->numeroGuia;
 }
 
-std::string Paquete::getOficinaReparto(){
-	return this->oficinaReparto;
+std::string Paquete::getOficinaRecepcion(){
+	return this->oficinaRecepcion;
 }
 
 std::string Paquete::getRegionReparto(){
@@ -70,8 +70,8 @@ void Paquete::setNumeroGuia(string numeroGuia){
 	this->numeroGuia = numeroGuia;
 }
 
-void Paquete::setOficinaReparto(std::string oficinaReparto){
-	this->oficinaReparto = oficinaReparto;
+void Paquete::setOficinaRecepcion(std::string oficinaRecepcion){
+	this->oficinaRecepcion = oficinaRecepcion;
 }
 
 void Paquete::setRegionReparto(std::string regionReparto){

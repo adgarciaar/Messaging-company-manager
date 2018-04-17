@@ -16,7 +16,6 @@ class EmpresaMensajeria{
 	
 		std::string nombre;
 		Arbol< OficinaReparto* > arbol; //almacena jerarquía de oficinas y regiones
-		std::list<Paquete> paquetes;
 		std::list<Persona> personas;
 		
 	public:
@@ -31,7 +30,7 @@ class EmpresaMensajeria{
 			std::string direccion, std::string ciudad, std::string telefono);
 		//--------------------------------------------------------------------------------------------------------------------------
 		void registrarPaquete(std::string remitente, std::string destinatario, int peso, std::string tipoContenido, std::string numeroGuia,
-			std::string oficinaReparto, std::string regionReparto);
+			std::string oficinaRecepcion, std::string regionReparto);
 		//--------------------------------------------------------------------------------------------------------------------------
 		void conteoPaquetes();
 		

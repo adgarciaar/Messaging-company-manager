@@ -194,7 +194,9 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 							int peso;
 							ss >> peso;
 							Paquete paquete(cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numeroGuia,codOficina,codRegionReparto);
-							this->paquetes.push_back(paquete);
+							
+							oficinaReparto->agregarPaquete(paquete);
+							
 							correctos++;
 							
 						}else{
@@ -238,41 +240,46 @@ void EmpresaMensajeria::registrarPersona(string numeroIdentificacion, string nom
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::registrarPaquete(string remitente, string destinatario, int peso, string tipoContenido, string numeroGuia,
-	string oficinaReparto, string regionReparto){
+	string oficinaRecepcion, string regionReparto){
+		
+	OficinaReparto* oficinaReparto = this->buscarOficina(oficinaRecepcion);
 	
-	Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaReparto,regionReparto);
-	this->paquetes.push_back(paquete);		
-	
+	Paquete paquete(remitente,destinatario,peso,tipoContenido,numeroGuia,oficinaRecepcion,regionReparto);
+	oficinaReparto->agregarPaquete(paquete);		
 }
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::conteoPaquetes(){
 
-	long numPaquetes = this->paquetes.size();	
+	list<OficinaReparto*> listaOficinas;
+	this->arbol.returnValues(listaOficinas);
 	
-	if(numPaquetes == 0){
+	list<Paquete> paquetes;
+	
+	for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end(); it++){
+		paquetes.splice (paquetes.end(), (*it)->getPaquetes() );
+	}
+	
+	if(paquetes.size() == 0){
 		cout<<endl<<endl<< "No existe informacion de paquetes registrada en el sistema"<<endl<<endl;
 	}else{
-		cout<<endl<<endl<<"Se encuentran en el sistema "<<numPaquetes<<" pendientes por entregar. Estan distribuidos asi:"<<endl<<endl;
+		cout<<endl<<endl<<"Se encuentran en el sistema "<<paquetes.size()<<" pendientes por entregar. Estan distribuidos asi:"<<endl<<endl;
 		
 		long cantidad = 0;
 		
-		list< Nodo<OficinaReparto*>* > listaNodos;
-		this->arbol.returnNodes(listaNodos);
-		
 		OficinaReparto* oficinaReparto;	
 		
-		for(list< Nodo<OficinaReparto*>* >::iterator it = listaNodos.begin(); it != listaNodos.end( );	it++){
+		for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end( );	it++){
 							
-			oficinaReparto = (*it)->obtenerDato();
+			oficinaReparto = (*it);
 
 			list<RegionReparto> regiones = oficinaReparto->getRegiones();
 			
 			for(list< RegionReparto >::iterator it2 = regiones.begin(); it2 != regiones.end( ); it2++){
 				
 				cantidad = 0;
-				for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end(); it++ ){
-					if((*it).getRegionReparto() == (*it2).getCodigo()){
+				for(list< Paquete >::iterator it3 = paquetes.begin(); it3 != paquetes.end(); it3++ ){
+					if((*it3).getRegionReparto() == (*it2).getCodigo()){
 						cantidad++;
 					}	
 				}
@@ -313,22 +320,22 @@ Persona EmpresaMensajeria::buscarPersona(string numeroIdentificacion){
 Paquete EmpresaMensajeria::buscarPaquete(string numeroGuia){
 	
 	Paquete paquete;
-	bool b = false;
 	
-	if(this->paquetes.size() > 0){
+	list<OficinaReparto*> listaOficinas;
+	this->arbol.returnValues(listaOficinas);
+	
+	std::list<Paquete> paquetes;
+	
+	OficinaReparto* oficinaReparto;	
+	
+	for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end(); it++){
 		
-		for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end( );	it++){
-			if((*it).getNumeroGuia() == numeroGuia){
-				b = true;
-				paquete = *it;
-				break;
-			}
+		oficinaReparto = *it;		
+		paquete = oficinaReparto->buscarPaquete(numeroGuia);	
+		if(paquete.getNumeroGuia() != "-1"){
+			break;
 		}
 		
-	}
-	
-	if(b == false){
-		paquete.setNumeroGuia("-1");
 	}
 	
 	return paquete;
@@ -646,7 +653,7 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 
 //---------------------------------------------------------------------------------------------------
 void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
-	
+	/*
 	OficinaReparto* oficinaReparto = new OficinaReparto();
 	oficinaReparto->setCodigo(codigoOficina);
 	
@@ -710,7 +717,7 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 					
 					codOficina = mapOficinasRegiones.at(codRegion);	//buscar el codigo de oficina de la respectiva región, almacenado en el map
 					
-					paquete.setOficinaReparto(codOficina); //establecer al paquete la nueva oficina
+					paquete.setOficinaRecepcion(codOficina); //establecer al paquete la nueva oficina
 					paquete.setRegionReparto(codRegion); //establecer al paquete la nueva region de la respectiva oficina
 					
 					this->paquetes.push_back(paquete);	//insertar el paquete en la lista original	
@@ -734,7 +741,7 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 					paquete = auxPaquetes.front(); //tomar paquete en el tope
 					auxPaquetes.pop();	//eliminar el tope de la pila						
 							
-					paquete.setOficinaReparto(codOficina); //establecer al paquete la nueva oficina
+					paquete.setOficinaRecepcion(codOficina); //establecer al paquete la nueva oficina
 					paquete.setRegionReparto(codRegion); //establecer al paquete la nueva region de la respectiva oficina
 							
 					this->paquetes.push_back(paquete);	//insertar el paquete en la lista original
@@ -747,7 +754,7 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 					paquete = auxPaquetes.front(); //tomar paquete en el tope
 					auxPaquetes.pop();	//eliminar el tope de la pila						
 							
-					paquete.setOficinaReparto(codOficina); //establecer al paquete la nueva oficina
+					paquete.setOficinaRecepcion(codOficina); //establecer al paquete la nueva oficina
 					paquete.setRegionReparto(codRegion); //establecer al paquete la nueva region de la respectiva oficina
 							
 					this->paquetes.push_back(paquete);	//insertar el paquete en la lista original
@@ -760,5 +767,5 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){
 			<<" oficinas de las regiones de reparto de la oficina "<<codigoOficina<<endl<<endl;
 		}
 	
-	}
+	} */
 }

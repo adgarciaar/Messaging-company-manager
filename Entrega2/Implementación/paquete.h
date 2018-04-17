@@ -15,7 +15,7 @@ class Paquete{
 		int peso; //en gramos
 		std::string tipoContenido;
 		std::string numeroGuia;
-		std::string oficinaReparto;
+		std::string oficinaRecepcion;
 		std::string regionReparto;
  
 	public:
@@ -23,7 +23,7 @@ class Paquete{
 		//constructor
 		Paquete();
 		Paquete(std::string remitente, std::string destinatario, int peso, std::string tipoContenido, std::string numeroGuia,
-			std::string oficinaReparto, std::string regionReparto);
+			std::string oficinaRecepcion, std::string regionReparto);
 			
 		//getters
 		std::string getRemitente();
@@ -31,7 +31,7 @@ class Paquete{
 		int getPeso();
 		std::string getTipoContenido();
 		std::string getNumeroGuia();
-		std::string getOficinaReparto();
+		std::string getOficinaRecepcion();
 		std::string getRegionReparto();
 		
 		//setters
@@ -40,7 +40,7 @@ class Paquete{
 		void setPeso(int peso);
 		void setTipoContenido(std::string tipoContenido);
 		void setNumeroGuia(std::string numeroGuia);
-		void setOficinaReparto(std::string oficinaReparto);
+		void setOficinaRecepcion(std::string oficinaRecepcion);
 		void setRegionReparto(std::string regionReparto);
 		
 };
