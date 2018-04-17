@@ -236,8 +236,7 @@ void registrarOficina(EmpresaMensajeria& empresa){
 	cout<<endl<<"Digite la ciudad de la oficina: ";
 	cin.ignore();
 	getline (cin, ciudadOficina);
-	cin.ignore();
-	
+	cout<<endl;
 	//validar que los datos sean validos
 	if(empresa.validarCodigoOficina(codOficina) == true && empresa.validarCadenaAlfabetica(ciudadOficina)==true ) { 		
 		

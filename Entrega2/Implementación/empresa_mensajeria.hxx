@@ -173,7 +173,7 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 								
 								oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);
 							
-								this->agregarOficina(oficinaReparto);	//REVISAR BIEN ESTO, CUÁL SERÍA LA OFICINA PADRE
+								this->agregarOficina(oficinaReparto);	//se asume que oficina padre es la raíz
 								this->agregarRegion(oficinaReparto, regionReparto);
 								
 							}else{ //ya está registrada
