@@ -756,6 +756,7 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){ //recibe el
 					codOficina = mapOficinasRegiones.at(codRegion);	//buscar el codigo de oficina de la respectiva región, almacenado en el map
 					
 					oficinaReparto = this->buscarOficina(codOficina);
+					paquete.setRepartido();
 					oficinaReparto->agregarPaquete(paquete); //agrega el paquete a la oficina destino
 					
 					codOficina = paquete.getOficinaRecepcion(); //trae el código de oficina de recepción

@@ -5,7 +5,9 @@ using namespace std;
 
 //constructor
 
-Paquete::Paquete(){}
+Paquete::Paquete(){
+	this->repartido = false;	//por default no se ha repartido
+}
 
 Paquete::Paquete(std::string remitente, std::string destinatario, int peso, string tipoContenido, string numeroGuia,
 	std::string oficinaRecepcion, std::string regionReparto){
@@ -16,6 +18,7 @@ Paquete::Paquete(std::string remitente, std::string destinatario, int peso, stri
 	this->numeroGuia = numeroGuia;
 	this->oficinaRecepcion = oficinaRecepcion;
 	this->regionReparto = regionReparto;
+	this->repartido = false;	//por default no se ha repartido
 }
 
 //getters
@@ -47,6 +50,10 @@ std::string Paquete::getOficinaRecepcion(){
 std::string Paquete::getRegionReparto(){
 	return this->regionReparto;
 }
+
+bool Paquete::getRepartido(){
+	return this->repartido;
+}
 		
 //setters
 
@@ -76,4 +83,8 @@ void Paquete::setOficinaRecepcion(std::string oficinaRecepcion){
 
 void Paquete::setRegionReparto(std::string regionReparto){
 	this->regionReparto = regionReparto;
+}
+
+void Paquete::setRepartido(){
+	this->repartido = true;
 }

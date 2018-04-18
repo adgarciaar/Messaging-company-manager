@@ -17,6 +17,7 @@ class Paquete{
 		std::string numeroGuia;
 		std::string oficinaRecepcion;
 		std::string regionReparto;
+		bool repartido; //permite conocer si el paquete
  
 	public:
 	
@@ -33,6 +34,7 @@ class Paquete{
 		std::string getNumeroGuia();
 		std::string getOficinaRecepcion();
 		std::string getRegionReparto();
+		bool getRepartido();
 		
 		//setters
 		void setRemitente(std::string remitente);
@@ -42,6 +44,8 @@ class Paquete{
 		void setNumeroGuia(std::string numeroGuia);
 		void setOficinaRecepcion(std::string oficinaRecepcion);
 		void setRegionReparto(std::string regionReparto);
+		
+		void setRepartido();
 		
 };
 
