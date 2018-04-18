@@ -159,45 +159,26 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 						Persona destinatario = this->buscarPersona(cedulaDestinatario);
 						
 						if(remitente.getNumeroIdentificacion() != "-1" && destinatario.getNumeroIdentificacion() != "-1"){ //ya registrados ambos
+													
+							OficinaReparto* oficinaReparto = this->buscarOficina(codOficina); //mirar si está registrada ya la oficinaReparto
+							
+							RegionReparto regionReparto = this->buscarRegion(codRegionReparto); //mirar si está registrada ya la regionReparto
+							
+							if(oficinaReparto != NULL && regionReparto.getCodigo() != "-1"){ //ambas están registradas
 						
-							//mirar si está registrada ya la oficinaReparto
-							
-							OficinaReparto* oficinaReparto = this->buscarOficina(codOficina);
-							
-							RegionReparto regionReparto;
-							
-							if(oficinaReparto == NULL){ //no está registrada
-							
-								regionReparto.setCodigo(codRegionReparto); 
-								regionReparto.setNombre(nombreRegionReparto);
+								stringstream ss(pesoString);
+								int peso;
+								ss >> peso;
+								Paquete paquete(cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numeroGuia,codOficina,codRegionReparto);
 								
-								oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);
+								oficinaReparto->agregarPaquete(paquete);
+								
+								correctos++;
 							
-								this->agregarOficina(oficinaReparto);	//se asume que oficina padre es la raíz
-								this->agregarRegion(oficinaReparto, regionReparto);
-								
-							}else{ //ya está registrada
-							
-								//mirar si está registrada ya la regionReparto
-								regionReparto = this->buscarRegion(codRegionReparto);
-								
-								if(regionReparto.getCodigo() == "-1"){ //no está registrada
-								
-									regionReparto.setCodigo(codRegionReparto); 
-									regionReparto.setNombre(nombreRegionReparto);
-									
-									this->agregarRegion(oficinaReparto, regionReparto); 
-								}
+							}else{
+								cout<<endl<<"En la linea "<<numeroLinea<<": no se puede registrar el paquete con numero de guia "<<numeroGuia<<": oficina y/o region no registrada(s)"<<endl;
+								incorrectos++;
 							}
-						
-							stringstream ss(pesoString);
-							int peso;
-							ss >> peso;
-							Paquete paquete(cedulaRemitente,cedulaDestinatario,peso,tipoContenido,numeroGuia,codOficina,codRegionReparto);
-							
-							oficinaReparto->agregarPaquete(paquete);
-							
-							correctos++;
 							
 						}else{
 							cout<<endl<<"En la linea "<<numeroLinea<<": no se puede registrar el paquete con numero de guia "<<numeroGuia<<": remitente y/o destinatario no registrado(s)"<<endl;
