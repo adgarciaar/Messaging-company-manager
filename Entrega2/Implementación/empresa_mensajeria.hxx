@@ -246,6 +246,12 @@ void EmpresaMensajeria::conteoPaquetes(){
 	}else{
 		cout<<endl<<endl<<"Se encuentran en el sistema "<<paquetes.size()<<" pendientes por entregar. Estan distribuidos asi:"<<endl<<endl;
 		
+		list<RegionReparto> regiones;
+			
+		for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end(); it++){
+			regiones.splice (regiones.end(), (*it)->getRegiones() ); //conseguir todas las regiones
+		}
+		
 		long cantidad = 0;
 		
 		OficinaReparto* oficinaReparto;	
@@ -253,14 +259,12 @@ void EmpresaMensajeria::conteoPaquetes(){
 		for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end( );	it++){
 							
 			oficinaReparto = (*it);
-
-			list<RegionReparto> regiones = oficinaReparto->getRegiones();
 			
 			for(list< RegionReparto >::iterator it2 = regiones.begin(); it2 != regiones.end( ); it2++){
 				
 				cantidad = 0;
 				for(list< Paquete >::iterator it3 = paquetes.begin(); it3 != paquetes.end(); it3++ ){
-					if((*it3).getRegionReparto() == (*it2).getCodigo()){
+					if( (*it3).getRegionReparto() == (*it2).getCodigo() && ((*it3).getOficinaRecepcion() == oficinaReparto->getCodigo() ) ){
 						cantidad++;
 					}	
 				}
@@ -293,6 +297,12 @@ void EmpresaMensajeria::conteoPaquetesEntregados(){
 	}else{
 		cout<<endl<<endl<<"Se encuentran en el sistema "<<paquetes.size()<<" pendientes por entregar. Estan distribuidos asi:"<<endl<<endl;
 		
+		list<RegionReparto> regiones;
+			
+		for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end(); it++){
+			regiones.splice (regiones.end(), (*it)->getRegiones() ); //conseguir todas las regiones
+		}
+		
 		long cantidad = 0;
 		
 		OficinaReparto* oficinaReparto;	
@@ -300,14 +310,12 @@ void EmpresaMensajeria::conteoPaquetesEntregados(){
 		for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end( );	it++){
 							
 			oficinaReparto = (*it);
-
-			list<RegionReparto> regiones = oficinaReparto->getRegiones();
 			
 			for(list< RegionReparto >::iterator it2 = regiones.begin(); it2 != regiones.end( ); it2++){
 				
 				cantidad = 0;
 				for(list< Paquete >::iterator it3 = paquetes.begin(); it3 != paquetes.end(); it3++ ){
-					if((*it3).getRegionReparto() == (*it2).getCodigo()){
+					if( (*it3).getRegionReparto() == (*it2).getCodigo() && ((*it3).getOficinaRecepcion() == oficinaReparto->getCodigo() ) ){
 						cantidad++;
 					}	
 				}
@@ -319,7 +327,7 @@ void EmpresaMensajeria::conteoPaquetesEntregados(){
 							
 		}			
 				
-	}		
+	}	
 			
 }
 
