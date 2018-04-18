@@ -182,7 +182,7 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	cout<<endl<<"Digite el tipo de contenido: ";
 	cin.ignore();
 	getline (cin, tipoContenido);
-	cout<<"Digite el codigo de la oficina de reparto: ";
+	cout<<"Digite el codigo de la oficina de recepcion: ";
 	cin>>codOficina;
 	cout<<"Digite el codigo de la region de reparto: ";
 	cin>>codRegion;	
