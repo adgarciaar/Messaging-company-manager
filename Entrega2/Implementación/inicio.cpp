@@ -66,8 +66,8 @@ int main(){
 				registrarRegion(empresa);
 			}else if(comando == "conteoPaquetes"){ 
 				empresa.conteoPaquetes();
-			}else if(comando == "conteoPaquetesEntregados"){ 
-				empresa.conteoPaquetesEntregados();
+			}else if(comando == "conteoPaquetesRepartidos"){ 
+				empresa.conteoPaquetesRepartidos();
 			}else if(comando == "salir"){ 
 				break;
 			}else{ 

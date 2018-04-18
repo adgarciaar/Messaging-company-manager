@@ -281,7 +281,7 @@ void EmpresaMensajeria::conteoPaquetes(){
 }
 
 //---------------------------------------------------------------------------------------------------
-void EmpresaMensajeria::conteoPaquetesEntregados(){
+void EmpresaMensajeria::conteoPaquetesRepartidos(){
 
 	list<OficinaReparto*> listaOficinas;
 	this->arbol.returnValues(listaOficinas);

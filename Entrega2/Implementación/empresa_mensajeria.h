@@ -33,7 +33,7 @@ class EmpresaMensajeria{
 			std::string oficinaRecepcion, std::string regionReparto);
 		//--------------------------------------------------------------------------------------------------------------------------
 		void conteoPaquetes();
-		void conteoPaquetesEntregados();
+		void conteoPaquetesRepartidos();
 		
 		Persona buscarPersona(std::string numeroIdentificacion);
 		Paquete buscarPaquete(std::string numeroGuia);		
