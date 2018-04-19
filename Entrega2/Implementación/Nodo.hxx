@@ -167,7 +167,7 @@ bool Nodo<T>::eliminarNodo(T& n) {
 // ------------------------------------------------------------------------
 template< class T >
 Nodo<T>* Nodo<T>::buscarNodo(T& val) {	
-
+	
 	Nodo<T>* nodo = NULL;
 	bool b = false;
 	//modificación respecto al TAD original

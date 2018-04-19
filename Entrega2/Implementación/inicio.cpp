@@ -140,8 +140,9 @@ void registrarPersona(EmpresaMensajeria& empresa){
 	getline (cin, direccion);
 	cout<<endl<<"Digite la ciudad: ";
 	cin.ignore();
-	cin>>ciudad;
+	getline (cin, ciudad);
 	cout<<endl<<"Digite el telefono: ";
+	cin.ignore();
 	cin>>telefono;
 	cin.ignore();
 	
@@ -186,7 +187,7 @@ void registrarPaquete(EmpresaMensajeria& empresa){
 	cin>>codOficina;
 	cout<<"Digite el codigo de la region de reparto: ";
 	cin>>codRegion;	
-	cin.ignore();	
+	cin.ignore();
 	
 	//validar que los datos sean validos
 	if( empresa.validarCadenaAlfanumerica(numeroGuia)==true && empresa.validarCadenaAlfanumerica(numIdRemitente)==true && empresa.validarCadenaAlfanumerica(numIdDestinatario)==true 
@@ -238,6 +239,7 @@ void registrarOficina(EmpresaMensajeria& empresa){
 	cout<<endl<<"Digite la ciudad de la oficina: ";
 	cin.ignore();
 	getline (cin, ciudadOficina);
+	
 	cout<<endl;
 	//validar que los datos sean validos
 	if(empresa.validarCodigoOficina(codOficina) == true && empresa.validarCadenaAlfabetica(ciudadOficina)==true ) { 		
