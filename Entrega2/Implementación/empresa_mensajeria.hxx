@@ -238,7 +238,7 @@ void EmpresaMensajeria::conteoPaquetes(){
 	list<Paquete> paquetes;
 	
 	for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end(); it++){
-		paquetes.splice (paquetes.end(), (*it)->getPaquetesARepartir() );
+		paquetes.splice (paquetes.end(), (*it)->getPaquetes() );
 	}
 	
 	if(paquetes.size() == 0){
@@ -289,13 +289,13 @@ void EmpresaMensajeria::conteoPaquetesRepartidos(){
 	list<Paquete> paquetes;
 	
 	for(list< OficinaReparto* >::iterator it = listaOficinas.begin(); it != listaOficinas.end(); it++){
-		paquetes.splice (paquetes.end(), (*it)->getPaquetesEntregados() );
+		paquetes.splice (paquetes.end(), (*it)->getPaquetesRepartidos() );
 	}
 	
 	if(paquetes.size() == 0){
-		cout<<endl<<endl<< "No existe informacion de paquetes registrada en el sistema"<<endl<<endl;
+		cout<<endl<<endl<< "No existe informacion de paquetes repartidos registrada en el sistema"<<endl<<endl;
 	}else{
-		cout<<endl<<endl<<"Se encuentran en el sistema "<<paquetes.size()<<" ya entregados. Estan distribuidos asi:"<<endl<<endl;
+		cout<<endl<<endl<<"Se encuentran en el sistema "<<paquetes.size()<<" ya repartidos. Estan distribuidos asi:"<<endl<<endl;
 		
 		long cantidad = 0;
 		

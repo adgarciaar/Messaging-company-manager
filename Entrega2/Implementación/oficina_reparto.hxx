@@ -126,14 +126,14 @@ std::list<Paquete> OficinaReparto::getPaquetesARepartir(){
 
 //--------------------------------------------------------------------------------------------------------
 
-std::list<Paquete> OficinaReparto::getPaquetesEntregados(){
-	list< Paquete > paquetesEntregados;
+std::list<Paquete> OficinaReparto::getPaquetesRepartidos(){
+	list< Paquete > paquetesRepartidos;
 	for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end(); it++){
 		if( (*it).getRepartido() == true ){ //si se repartió acá
-			paquetesEntregados.push_back( *it );
+			paquetesRepartidos.push_back( *it );
 		}
 	}
-	return paquetesEntregados;
+	return paquetesRepartidos;
 }
 
 //--------------------------------------------------------------------------------------------------------

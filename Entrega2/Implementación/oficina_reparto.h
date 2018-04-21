@@ -44,7 +44,7 @@ class OficinaReparto{
 		Paquete buscarPaquete(std::string numeroGuia);
 		
 		std::list<Paquete> getPaquetesARepartir();
-		std::list<Paquete> getPaquetesEntregados();
+		std::list<Paquete> getPaquetesRepartidos();
 };
 
 #include "oficina_reparto.hxx"
