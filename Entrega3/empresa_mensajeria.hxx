@@ -432,7 +432,7 @@ bool EmpresaMensajeria::validarCadenaNumerica(string& cadena){ //true si cumple
 
     for (int i=0; i<cadena.size(); i++){
         char ch = cadena[i];
-        if( !(isdigit(ch)) ){
+        if( !( isdigit(ch) || ch=='.' ) ){
             b = false;
         }
     }
@@ -613,6 +613,7 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 		while ( getline (myfile,line) ){
 			
 			line.erase(remove(line.begin(), line.end(), '"'), line.end()); //eliminar los " de la línea
+			line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
 			
 			numeroLinea++;
 			// stringstream class check1
@@ -640,6 +641,16 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 				string codOficina = tokens[2];
 				string distanciaAOficinaPadre = tokens[3];
 				
+				if(this->validarCodigoOficina(codOficina)==false){
+					cout<<endl<<"Error con codOficina"<<endl;
+				}
+				if(this->validarCadenaAlfanumerica(codRegionReparto)==false){
+					cout<<endl<<"Error con codRegionReparto"<<endl;
+				}
+				if(this->validarCadenaNumerica(distanciaAOficinaPadre)==false){
+					cout<<endl<<"Error con distanciaAOficinaPadre"<<endl;
+				}
+				
 				//revisar si datos son válidos
 				if( this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfanumerica(codRegionReparto)==true
 					&& this->validarCadenaNumerica(distanciaAOficinaPadre)==true ) { 
@@ -653,7 +664,7 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 						if(oficinaReparto != NULL){ // está registrada
 						
 							stringstream ss(distanciaAOficinaPadre);
-							int distanciaAPadre;
+							float distanciaAPadre;
 							ss >> distanciaAPadre;
 							
 							regionReparto.setCodigo(codRegionReparto); 

@@ -6,7 +6,7 @@ using namespace std;
 
 RegionReparto::RegionReparto(){}
 
-RegionReparto::RegionReparto(string codigo, string nombre, int distanciaAOficinaPadre){
+RegionReparto::RegionReparto(string codigo, string nombre, float distanciaAOficinaPadre){
 	this->codigo = codigo;
 	this->nombre = nombre;
 	this->distanciaAOficinaPadre = distanciaAOficinaPadre;
@@ -22,7 +22,7 @@ string RegionReparto::getNombre(){
 	return this->nombre;
 }
 
-int RegionReparto::getDistanciaAOficinaPadre(){
+float RegionReparto::getDistanciaAOficinaPadre(){
 	return this->distanciaAOficinaPadre;
 }
 
@@ -36,6 +36,6 @@ void RegionReparto::setNombre(string nombre){
 	this->nombre = nombre;
 }
 
-void RegionReparto::setDistanciaAOficinaPadre(int distanciaAOficinaPadre){
+void RegionReparto::setDistanciaAOficinaPadre(float distanciaAOficinaPadre){
 	this->distanciaAOficinaPadre = distanciaAOficinaPadre;
 }

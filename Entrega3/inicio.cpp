@@ -290,7 +290,7 @@ void registrarRegion(EmpresaMensajeria& empresa){
 			if(oficinaReparto != NULL){ //ya está registrada la oficina
 			
 				stringstream ss(distanciaAOficinaPadre);
-				int distanciaAPadre;
+				float distanciaAPadre;
 				ss >> distanciaAPadre;
 		
 				regionReparto.setCodigo(codRegion); 

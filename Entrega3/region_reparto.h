@@ -9,20 +9,20 @@ class RegionReparto{
  
 		std::string codigo;
 		std::string nombre;
-		int distanciaAOficinaPadre;
+		float distanciaAOficinaPadre;
 		
 	public:
 		//constructor
 		RegionReparto();
-		RegionReparto(std::string codigo, std::string nombre, int distanciaAOficinaPadre);
+		RegionReparto(std::string codigo, std::string nombre, float distanciaAOficinaPadre);
 		//getters
 		std::string getCodigo();
 		std::string getNombre();
-		int getDistanciaAOficinaPadre();
+		float getDistanciaAOficinaPadre();
 		//setters
 		void setCodigo(std::string codigo);
 		void setNombre(std::string nombre);
-		void setDistanciaAOficinaPadre(int distanciaAOficinaPadre);
+		void setDistanciaAOficinaPadre(float distanciaAOficinaPadre);
 	
 };
 
