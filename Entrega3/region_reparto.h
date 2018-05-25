@@ -18,7 +18,7 @@ class RegionReparto{
 		//getters
 		std::string getCodigo();
 		std::string getNombre();
-		int getdDistanciaAOficinaPadre();
+		int getDistanciaAOficinaPadre();
 		//setters
 		void setCodigo(std::string codigo);
 		void setNombre(std::string nombre);

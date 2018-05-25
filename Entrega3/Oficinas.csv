@@ -1,5 +1,70 @@
 Codigo, Nombre,Direccion,Ciudad
-"""HGF34567"",""Oficina Bogot·"",""Carrera 56- #12-34"",""Bogot·"""
-"""CHA98765"",""Oficina Chapinero"",""Carrera 7 #43-23 Chapinero"",""Bogot·"""
-"""TEU65356"",""Oficina Teusaquillo"",""Carrera 40 #24-23 Teusaquillo"",""Bogot·"""
-"""USA34563"",""Oficina Usaquen"",""Calle 134 #15-23 UsaquÈn"",""Bogot·"""
+BOG44411,Bogota,Carrera 56- #12-34,Bogota
+CHA98765,Chapinero,Carrera 7 #43-23 ,Bogota
+TEU65356,Teusaquillo,Carrera 40 #24-23 ,Bogota
+USA34563,Usaquen,Calle 134 #15-23 ,Bogota
+SUB23954,Suba,Calle 145 #92-10 ,Bogota
+FON45294,Fontib√õn,Calle 17 #96-13 ,Bogota
+SUM34567,Sumapaz,Carrera 2 # 116-34,Bogota
+ENG65943,Engativa,Calle 67 # 80-34,Bogota
+MAR25294,Marly,Carrera 13 #49-12,Bogota
+PAR25295,Pardo Rubio,Transversal 3#42-12,Bogota
+QCA98855,Quinta Camacho,Carrera 9 # 69-34,Bogota
+CSA73811,Ciudad Salitre,Transversal 22 # 55-34,Bogota
+ALA25899,Alamos,Diagonal 87 # 89-86,Bogota
+MED44422,Medellin,Carrera 21- #3-23,Medellin 
+POP22444,Popular,Carrera 56- #12-34,Medellin
+SCR27833,Santa cruz,Carrera 7 #43-23 ,Medellin
+MAN12333,Manrique,Carrera 40 #24-23 ,Medellin
+ARA87988,Aranjuez,Calle 134 #15-23 ,Medellin
+CAS42255,Castilla,Calle 145 #92-10 ,Medellin
+12OC3431,12 de octubre,Calle 17 #96-13 ,Medellin
+ROB98444,Robledo,Carrera 2 # 116-34,Medellin
+VIL23444,Villa hermoza,Calle 67 # 80-34,Medellin
+BAR23455,Buenos aires,Carrera 13 #49-12,Medellin
+CAN34222,La candelaria,Transversal 3#42-12,Medellin
+LAU34577,Laureles estadio,Carrera 9 # 69-34,Medellin
+AME23456,La america,Transversal 22 # 55-34,Medellin
+SJAR2324,San javier,Diagonal 87 # 89-86,Medellin
+POB23486,El poblado,Carrera 21- #3-23,Medellin
+GUA343346,Guayabal,Carrera 13 #49-12,Medellin
+BEL359590,Belen,Transversal 3#42-12,Medellin
+CAL444313,Cali,Calle 61- #47-87,Cali
+SFER23459,San fernando,Carrera 7 #43-23 ,Cali
+LIM34551,El limonar,Carrera 40 #24-23 ,Cali
+CAN65445,Caney,Calle 134 #15-23 ,Cali
+SMON3466,Santa Monica,Calle 145 #92-10 ,Cali
+FLO54233,La flora,Calle 17 #96-13 ,Cali
+LIL23567,Lili,Carrera 2 # 116-34,Cali
+VER43666,Versalles,Calle 67 # 80-34,Cali
+PAN22355,Pance,Carrera 13 #49-12,Cali
+CJAR3455,Ciudad Jardin,Carrera 21- #3-23,Cali
+BAQ12345, Barranquilla, Carrera 38 # 38 - 38, Barranquilla
+NIV56678, Las Nieves, Carrera 15 # 20A - 53, Barranquilla
+UNI94734, La Union, Carrera 14A # 30 - 09, Barranquilla
+MAG94812, La Magdalena, Calle 19 # 9 - 68, Barranquilla
+REB64732, Rebolo, Calle 70B # 39 - 01, Barranquilla
+SIL43215, El Silencio, Carrera 38 # 100 - 12, Barranquilla
+REC91847, El Recreo, Calle 20 # 70D - 45, Barranquilla
+LUC01742, Lucero, Calle 60 # 50 - 27, Barranquilla
+PAC63041, Parque Central, Calle 70 # 9 - 70, Barranquilla
+BEL82312, Bellavista, Calle 50 # 10 - 83, Barranquilla
+PRA09876, El Prado, Carrera 60 # 60A - 20, Barranquilla
+CHI59832, Chinchiquira, Carrera 100 # 10 - 20, Barranquilla
+VIS91820, Villa Santos, Calle 100 # 70 - 54, Barranquilla
+SAV59023, San Vicente, Calle 120 # 80 - 66, Barranquilla
+CAR64722, Cartagena, Calle 40 # 50B - 12, Cartagena
+LCA73824, La Candelaria, Calle 5 # 57c -20, Cartagena
+SPM64937, San Pedro Mitir, Carrera 38 # 38 - 38, Cartagena
+MAC42930, Maria Cano, Carrera 15 # 20A - 53, Cartagena
+EED65312, El Educador, Carrera 14A # 30 - 09, Cartagena
+LCO12905, La Consolota, Calle 19 # 9 - 68, Cartagena
+MED62392, Medellin, Calle 70B # 39 - 01, Cartagena
+CHA09876, Chapacua, Carrera 38 # 100 - 12, Cartagena
+ESP01928, Espa√±a, Calle 20 # 70D - 45, Cartagena
+BOS82910, Bosquesito, Calle 60 # 50 - 27, Cartagena
+ZAR70970, Zaragocilla, Calle 70 # 9 - 70, Cartagena
+LCA50108, La Campi√±a, Calle 50 # 10 - 83, Cartagena
+LFL60602, La Floresta, Carrera 60 # 60A - 20, Cartagena
+SAP64100, San Pedro, Carrera 100 # 10 - 20, Cartagena
+UCO74902, Ucopin, Calle 100 # 70 - 54, Cartagena

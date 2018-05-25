@@ -22,7 +22,7 @@ string RegionReparto::getNombre(){
 	return this->nombre;
 }
 
-int RegionReparto::getdDistanciaAOficinaPadre(){
+int RegionReparto::getDistanciaAOficinaPadre(){
 	return this->distanciaAOficinaPadre;
 }
 

@@ -625,22 +625,24 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 				tokens.push_back(intermediate);
 			}
 			
-			if(tokens.size() != 3 && numeroLinea == 1){
+			if(tokens.size() != 4 && numeroLinea == 1){
 				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida"<<endl<<endl;
 				break;
 			}			
 			
-			if(tokens.size() != 3 && numeroLinea != 1){
+			if(tokens.size() != 4 && numeroLinea != 1){
 				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
 				incorrectos++;
 				
-			}else if (tokens.size() == 3 && numeroLinea != 1){
+			}else if (tokens.size() == 4 && numeroLinea != 1){
 				string codRegionReparto = tokens[0];
 				string nombreRegionReparto = tokens[1];
 				string codOficina = tokens[2];
+				string distanciaAOficinaPadre = tokens[3];
 				
 				//revisar si datos son válidos
-				if( this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfanumerica(codRegionReparto) ) { 
+				if( this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfanumerica(codRegionReparto)==true
+					&& this->validarCadenaNumerica(distanciaAOficinaPadre)==true ) { 
 					
 					RegionReparto regionReparto = this->buscarRegion(codRegionReparto);
 								
@@ -649,8 +651,15 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 						OficinaReparto* oficinaReparto = this->buscarOficina(codOficina);
 							
 						if(oficinaReparto != NULL){ // está registrada
+						
+							stringstream ss(distanciaAOficinaPadre);
+							int distanciaAPadre;
+							ss >> distanciaAPadre;
+							
 							regionReparto.setCodigo(codRegionReparto); 
-							regionReparto.setNombre(nombreRegionReparto);									
+							regionReparto.setNombre(nombreRegionReparto);
+							regionReparto.setDistanciaAOficinaPadre(distanciaAPadre);	
+							
 							this->agregarRegion(oficinaReparto, regionReparto); 
 							correctos++;
 						}else{
