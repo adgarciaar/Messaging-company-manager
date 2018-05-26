@@ -49,9 +49,11 @@ class EmpresaMensajeria{
 		bool agregarOficina(OficinaReparto* secundaria); 
 		bool agregarRegion(OficinaReparto* oficina, RegionReparto region); 
 		
-		void cargarOficinas(std::string nombreArchivo); //implementar
-		void cargarRegiones(std::string nombreArchivo); //implementar
-		void repartirPaquetes(std::string codigoOficina); //implementar
+		void cargarOficinas(std::string nombreArchivo);
+		void cargarRegiones(std::string nombreArchivo); 
+		void repartirPaquetes(std::string codigoOficina);
+		
+		void imprimirArbol();
 		 
 };
 

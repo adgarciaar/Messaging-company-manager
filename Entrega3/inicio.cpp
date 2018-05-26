@@ -81,6 +81,7 @@ int main(){
 				empresa.cargarPaquetes(tokens[1]);
 			}else if(tokens[0] == "cargarOficinas"){ 
 				empresa.cargarOficinas(tokens[1]);
+				empresa.imprimirArbol();
 			}else if(tokens[0] == "cargarRegiones"){ 
 				empresa.cargarRegiones(tokens[1]);
 			}else if(tokens[0] == "repartirPaquetes"){ 

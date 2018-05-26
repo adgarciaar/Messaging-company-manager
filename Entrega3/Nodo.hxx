@@ -307,7 +307,7 @@ void Nodo<T>::printGivenLevel(Nodo<T>* root, int level)
     if (root == NULL)
         return;
     if (level == 0)
-        std::cout<<root->dato<<"\t";
+        std::cout<<root->dato->getCodigo()<<"\t";
     else if (level > 0)
     {
 		typename TList::iterator it;

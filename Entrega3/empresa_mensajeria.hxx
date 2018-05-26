@@ -512,6 +512,9 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 	
 	if (myfile.is_open()){
 		
+		string ciudadActual;
+		bool cambioCiudad = false;
+		
 		int numeroLinea = 0;
 		// Vector of string to save tokens
 		vector <string> tokens;
@@ -549,7 +552,7 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 				string codOficina = tokens[0];
 				string nombreOficina = tokens[1];
 				string direccionOficina = tokens[2];
-				string ciudadOficina = tokens[3];
+				string ciudadOficina = tokens[3];				
 				
 				//revisar si datos son válidos
 				if(this->validarCodigoOficina(codOficina)==true	&& this->validarCadenaAlfabetica(ciudadOficina)==true) { 
@@ -558,16 +561,31 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 							
 					if(oficinaReparto == NULL){ //no está registrada
 								
-						oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);
+						oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);		
 						
 						if(numeroLinea == 2){ //primera oficina del archivo
+							ciudadActual = ciudadOficina;
+						
 							oficinaGeneral = oficinaReparto;
 							this->agregarOficina(oficinaReparto); //es la oficina general de la ciudad
 							correctos++;
 						}else{
+							
+							if(ciudadOficina != ciudadActual){
+								ciudadActual = ciudadOficina;
+								cambioCiudad = true;								
+							}
+							
 							if(oficinaGeneral != NULL){
-								this->agregarOficina(oficinaGeneral, oficinaReparto); //es una oficina secundaria de la ciudad
-								correctos++;
+								if(cambioCiudad == false){
+									this->agregarOficina(oficinaGeneral, oficinaReparto); //es una oficina secundaria de una ciudad
+									correctos++;
+								}else{
+									oficinaGeneral = oficinaReparto;
+									this->agregarOficina(oficinaReparto); //es la oficina general de otra ciudad
+									correctos++;
+									cambioCiudad = false;
+								}
 							}else{
 								cout<<endl<<"En la linea "<<numeroLinea<<": la oficina con codigo "<<codOficina<<" no pudo registrarse por problemas de registro de su oficina general"<<endl;
 								incorrectos++;	
@@ -799,4 +817,9 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){ //recibe el
 		}
 	
 	} 
+}
+
+//-----------------------------------------------------------------
+void EmpresaMensajeria::imprimirArbol(){
+	this->arbol.printLevelOrder();
 }
