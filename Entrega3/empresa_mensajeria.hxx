@@ -522,6 +522,7 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 		long correctos = 0, incorrectos = 0;
 		
 		OficinaReparto* oficinaGeneral = NULL;
+		int idOficinaGeneral, idOficinaSecundaria;
 		
 		while ( getline (myfile,line) ){
 			
@@ -539,20 +540,21 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 				tokens.push_back(intermediate);
 			}
 			
-			if(tokens.size() != 4 && numeroLinea == 1){
+			if(tokens.size() != 5 && numeroLinea == 1){
 				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida"<<endl<<endl;
 				break;
 			}			
 			
-			if(tokens.size() != 4 && numeroLinea != 1){
+			if(tokens.size() != 5 && numeroLinea != 1){
 				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
 				incorrectos++;
 				
-			}else if (tokens.size() == 4 && numeroLinea != 1){
+			}else if (tokens.size() == 5 && numeroLinea != 1){
 				string codOficina = tokens[0];
 				string nombreOficina = tokens[1];
 				string direccionOficina = tokens[2];
-				string ciudadOficina = tokens[3];				
+				string ciudadOficina = tokens[3];
+				string distanciaAOficinaPadre = tokens[4];	
 				
 				//revisar si datos son válidos
 				if(this->validarCodigoOficina(codOficina)==true	&& this->validarCadenaAlfabetica(ciudadOficina)==true) { 
@@ -564,10 +566,10 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 						oficinaReparto = new OficinaReparto(codOficina, nombreOficina, direccionOficina, ciudadOficina);		
 						
 						if(numeroLinea == 2){ //primera oficina del archivo
-							ciudadActual = ciudadOficina;
-						
+							ciudadActual = ciudadOficina;							
 							oficinaGeneral = oficinaReparto;
 							this->agregarOficina(oficinaReparto); //es la oficina general de la ciudad
+							idOficinaGeneral = this->grafo.AddVertex( oficinaReparto );
 							correctos++;
 						}else{
 							
@@ -578,11 +580,21 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 							
 							if(oficinaGeneral != NULL){
 								if(cambioCiudad == false){
+									
 									this->agregarOficina(oficinaGeneral, oficinaReparto); //es una oficina secundaria de una ciudad
+									idOficinaSecundaria = this->grafo.AddVertex( oficinaReparto );
+									
+									stringstream ss(distanciaAOficinaPadre);
+									float distanciaAPadre;
+									ss >> distanciaAPadre;
+							
+									grafo.AddEdge( idOficinaGeneral, idOficinaSecundaria, distanciaAPadre );
+									grafo.AddEdge( idOficinaSecundaria, idOficinaGeneral, distanciaAPadre );
 									correctos++;
 								}else{
 									oficinaGeneral = oficinaReparto;
 									this->agregarOficina(oficinaReparto); //es la oficina general de otra ciudad
+									idOficinaGeneral = this->grafo.AddVertex( oficinaReparto );
 									correctos++;
 									cambioCiudad = false;
 								}
@@ -618,7 +630,7 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 	}else{
 		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible."<<endl<<endl;
 	}	
-	
+	grafo.Draw( "grafo.txt" );
 }
 
 //---------------------------------------------------------------------------------------------------

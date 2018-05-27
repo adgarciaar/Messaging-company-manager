@@ -9,6 +9,9 @@
 #include "persona.h"
 #include "paquete.h"
 #include "Arbol.h"
+#include "Graph.h"
+
+typedef PUJ::Graph< OficinaReparto*, float > TGraph;
 
 class EmpresaMensajeria{
 	
@@ -17,6 +20,7 @@ class EmpresaMensajeria{
 		std::string nombre;
 		Arbol< OficinaReparto* > arbol; //almacena jerarquía de oficinas y regiones
 		std::list<Persona> personas;
+		TGraph grafo;
 		
 	public:
 	
