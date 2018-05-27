@@ -1,5 +1,5 @@
 Codigo, Nombre,Direccion,Ciudad,DistanciaAOficinaPadre
-BOG44411,Bogota,Carrera 56- #12-34,Bogota,0
+BOG44411,Bogota,Carrera 56- #12-34,Bogota,N.A.
 CHA98765,Chapinero,Carrera 7 #43-23 ,Bogota,10
 TEU65356,Teusaquillo,Carrera 40 #24-23 ,Bogota,15
 USA34563,Usaquen,Calle 134 #15-23 ,Bogota,8
@@ -12,7 +12,7 @@ PAR25295,Pardo Rubio,Transversal 3#42-12,Bogota,7
 QCA98855,Quinta Camacho,Carrera 9 # 69-34,Bogota,2
 CSA73811,Ciudad Salitre,Transversal 22 # 55-34,Bogota,2
 ALA25899,Alamos,Diagonal 87 # 89-86,Bogota,3
-MED44422,Medellin,Carrera 21- #3-23,Medellin,0 
+MED44422,Medellin,Carrera 21- #3-23,Medellin,N.A. 
 POP22444,Popular,Carrera 56- #12-34,Medellin,3
 SCR27833,Santa cruz,Carrera 7 #43-23 ,Medellin,7
 MAN12333,Manrique,Carrera 40 #24-23 ,Medellin,6
@@ -29,7 +29,7 @@ SJAR2324,San javier,Diagonal 87 # 89-86,Medellin,6
 POB23486,El poblado,Carrera 21- #3-23,Medellin,15
 GUA343346,Guayabal,Carrera 13 #49-12,Medellin,14
 BEL359590,Belen,Transversal 3#42-12,Medellin,13
-CAL44431,Cali,Calle 61- #47-87,Cali,0
+CAL44431,Cali,Calle 61- #47-87,Cali,N.A.
 SFER23459,San fernando,Carrera 7 #43-23 ,Cali,13
 LIM34551,El limonar,Carrera 40 #24-23 ,Cali,4
 CAN65445,Caney,Calle 134 #15-23 ,Cali,5
@@ -39,7 +39,7 @@ LIL23567,Lili,Carrera 2 # 116-34,Cali,2
 VER43666,Versalles,Calle 67 # 80-34,Cali,1
 PAN22355,Pance,Carrera 13 #49-12,Cali,3
 CJAR3455,Ciudad Jardin,Carrera 21- #3-23,Cali,8
-BAQ12345, Barranquilla, Carrera 38 # 38 - 38, Barranquilla,0
+BAQ12345, Barranquilla, Carrera 38 # 38 - 38, Barranquilla,N.A.
 NIV56678, Las Nieves, Carrera 15 # 20A - 53, Barranquilla,1
 UNI94734, La Union, Carrera 14A # 30 - 09, Barranquilla,3
 MAG94812, La Magdalena, Calle 19 # 9 - 68, Barranquilla,4
@@ -53,7 +53,7 @@ PRA09876, El Prado, Carrera 60 # 60A - 20, Barranquilla,5
 CHI59832, Chinchiquira, Carrera 100 # 10 - 20, Barranquilla,6
 VIS91820, Villa Santos, Calle 100 # 70 - 54, Barranquilla,7
 SAV59023, San Vicente, Calle 120 # 80 - 66, Barranquilla,5
-CAR64722, Cartagena, Calle 40 # 50B - 12, Cartagena,0
+CAR64722, Cartagena, Calle 40 # 50B - 12, Cartagena,N.A.
 LCA73824, La Candelaria, Calle 5 # 57c -20, Cartagena,3
 SPM64937, San Pedro Mitir, Carrera 38 # 38 - 38, Cartagena,8
 MAC42930, Maria Cano, Carrera 15 # 20A - 53, Cartagena,10

@@ -48,12 +48,14 @@ int main(){
 				cout<<"\t"<<"cargarPaquetes nombre_archivo"<<endl;
 				cout<<"\t"<<"cargarOficinas nombre_archivo"<<endl;
 				cout<<"\t"<<"cargarRegiones nombre_archivo"<<endl;
+				cout<<"\t"<<"cargarConexiones nombre_archivo"<<endl;
 				cout<<"\t"<<"registrarPersona"<<endl;
 				cout<<"\t"<<"registrarPaquete"<<endl;
 				cout<<"\t"<<"registrarOficina"<<endl;
 				cout<<"\t"<<"registrarRegion"<<endl;
 				cout<<"\t"<<"conteoPaquetes"<<endl;
 				cout<<"\t"<<"repartirPaquetes codigo_oficina"<<endl;
+				cout<<"\t"<<"rutaReparto cod_ofi_origen cod_ofi_destino"<<endl;
 				cout<<"\t"<<"ayuda comando"<<endl;
 				cout<<"\t"<<"salir"<<endl;
 			}else if(comando == "registrarPersona"){ 
@@ -84,6 +86,8 @@ int main(){
 				empresa.imprimirArbol();
 			}else if(tokens[0] == "cargarRegiones"){ 
 				empresa.cargarRegiones(tokens[1]);
+			}else if(tokens[0] == "cargarConexiones"){ 
+				//empresa.cargarConexiones(tokens[1]);
 			}else if(tokens[0] == "repartirPaquetes"){ 
 				empresa.repartirPaquetes(tokens[1]);
 			}else if(tokens[0] == "ayuda"){ 
@@ -95,6 +99,8 @@ int main(){
 					cout<<"\t"<<"Se debe escribir el comando: cargarOficinas nombre_archivo, donde nombre_archivo es el nombre del archivo que tiene la informacion de las oficinas, seguido de su extension. Por ejemplo: cargarOficinas oficina.csv"<<endl;
 				}else if(tokens[1] == "cargarRegiones"){
 					cout<<"\t"<<"Se debe escribir el comando: cargarRegiones nombre_archivo, donde nombre_archivo es el nombre del archivo que tiene la informacion de las regiones, seguido de su extension. Por ejemplo: cargarRegiones regiones.csv"<<endl;
+				}else if(tokens[1] == "cargarConexiones"){
+					cout<<"\t"<<"Se debe escribir el comando: cargarConexiones nombre_archivo, donde nombre_archivo es el nombre del archivo que tiene la informacion de las conexiones, seguido de su extension. Por ejemplo: cargarConexiones ciudades.csv"<<endl;
 				}else if(tokens[1] == "registrarPersona"){
 					cout<<"\t"<<"Se debe escribir el comando: registrarPersona. El programa lo guiara para introducir los datos de la persona"<<endl;
 				}else if(tokens[1] == "registrarPaquete"){
@@ -114,6 +120,14 @@ int main(){
 				}
 			}else{ 
 				cout<<endl<<"Comando no valido"<<endl<<endl;	
+			}
+		}else if(tokens.size() == 3){
+			if(tokens[0] == "rutaReparto"){
+				if( empresa.validarCodigoOficina(tokens[1]) == true && empresa.validarCodigoOficina(tokens[2]) == true ){
+					//algo
+				}else{
+					cout<<endl<<"Al menos uno de los códigos no es válido"<<endl<<endl;
+				}
 			}
 		}
 		
