@@ -35,11 +35,12 @@ namespace PUJ
 	void PrintPreorderGraph( unsigned long i ); //Depth-first search (DFS)
 	void PrintLevelsGraph( unsigned long i ); //Breadth-first search (BFS)
 	
-	std::vector< std::vector< unsigned long > > Dijkstra( unsigned long start );
+	std::vector< std::vector< unsigned long > > Dijkstra( unsigned long start, unsigned long end );
 	
 	unsigned long minDistance(unsigned long dist[], bool sptSet[]);
 	void savePath(unsigned long parent[], unsigned long j, std::vector< unsigned long >& camino);
-	void saveSolution(unsigned long dist[], unsigned long parent[], std::vector< std::vector< unsigned long > >& caminosDijkstra, unsigned long start);
+	void saveSolution(unsigned long dist[], unsigned long parent[], std::vector< std::vector< unsigned long > >& caminosDijkstra, 
+		unsigned long start, unsigned long end);
 	
     std::vector< std::vector< unsigned long > > Prim( unsigned long start );
 	

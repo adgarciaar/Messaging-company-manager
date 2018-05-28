@@ -419,7 +419,7 @@ retornarIdEnMatriz(unsigned long pVector){ //retorna el identificador de un vér
 // -------------------------------------------------------------------------
 template< class _TVertex, class _TEdge >
 std::vector< std::vector< unsigned long > > PUJ::Graph< _TVertex, _TEdge >::
-Dijkstra( unsigned long start ){
+Dijkstra( unsigned long start, unsigned long end ){
 	
 	start = retornarPosicionEnVertices(start);
 	
@@ -490,7 +490,7 @@ Dijkstra( unsigned long start ){
  
 	std::vector< std::vector< unsigned long > > caminosDijkstra;
 	
-    saveSolution(dist, parent, caminosDijkstra, start);
+    saveSolution(dist, parent, caminosDijkstra, start, end);
 	
 	return caminosDijkstra;	
 }
@@ -527,22 +527,25 @@ savePath(unsigned long parent[], unsigned long j, std::vector< unsigned long >& 
 // --------------------------------------------------------------------------
 template< class _TVertex, class _TEdge >
 void PUJ::Graph< _TVertex, _TEdge >::
-saveSolution(unsigned long dist[], unsigned long parent[], std::vector< std::vector< unsigned long > >& caminosDijkstra, unsigned long start){
+saveSolution(unsigned long dist[], unsigned long parent[], std::vector< std::vector< unsigned long > >& caminosDijkstra, 
+	unsigned long start, unsigned long end){
 	
 	std::vector< unsigned long > camino;
 	
     for (int i = 0; i < m_Vertices.size(); i++){        
 	
 		if(dist[i] < LONG_MAX){
-		
-			camino.push_back(i); //Vértice final
-			camino.push_back( dist[i] ); //Distancia a ese vértice
-			camino.push_back( start ); //Vértice de inicio del camino
 			
-			savePath(parent, i, camino); //Camino a ese vértice
-			
-			caminosDijkstra.push_back(camino);		
-			camino.clear();
+			if(i == end){		
+				camino.push_back(i); //Vértice final
+				camino.push_back( dist[i] ); //Distancia a ese vértice
+				camino.push_back( start ); //Vértice de inicio del camino
+				
+				savePath(parent, i, camino); //Camino a ese vértice
+				
+				caminosDijkstra.push_back(camino);		
+				camino.clear();
+			}
 		}
     }
 	
