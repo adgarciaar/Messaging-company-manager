@@ -588,8 +588,8 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 									float distanciaAPadre;
 									ss >> distanciaAPadre;
 							
-									grafo.AddEdge( idOficinaGeneral, idOficinaSecundaria, distanciaAPadre );
-									grafo.AddEdge( idOficinaSecundaria, idOficinaGeneral, distanciaAPadre );
+									this->grafo.AddEdge( idOficinaGeneral, idOficinaSecundaria, distanciaAPadre );
+									this->grafo.AddEdge( idOficinaSecundaria, idOficinaGeneral, distanciaAPadre );
 									correctos++;
 								}else{
 									oficinaGeneral = oficinaReparto;
@@ -630,7 +630,7 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 	}else{
 		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible."<<endl<<endl;
 	}	
-	grafo.Draw( "grafo.txt" );
+	
 }
 
 //---------------------------------------------------------------------------------------------------
@@ -678,7 +678,7 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 				string codOficina = tokens[2];
 				string distanciaAOficinaPadre = tokens[3];
 				
-				if(this->validarCodigoOficina(codOficina)==false){
+				/*if(this->validarCodigoOficina(codOficina)==false){
 					cout<<endl<<"Error con codOficina"<<endl;
 				}
 				if(this->validarCadenaAlfanumerica(codRegionReparto)==false){
@@ -686,7 +686,7 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 				}
 				if(this->validarCadenaNumerica(distanciaAOficinaPadre)==false){
 					cout<<endl<<"Error con distanciaAOficinaPadre"<<endl;
-				}
+				}*/
 				
 				//revisar si datos son válidos
 				if( this->validarCodigoOficina(codOficina)==true && this->validarCadenaAlfanumerica(codRegionReparto)==true
@@ -831,7 +831,158 @@ void EmpresaMensajeria::repartirPaquetes(std::string codigoOficina){ //recibe el
 	} 
 }
 
-//-----------------------------------------------------------------
-void EmpresaMensajeria::imprimirArbol(){
-	this->arbol.printLevelOrder();
+//---------------------------------------------------------------------------------------------------
+void EmpresaMensajeria::cargarConexiones(std::string nombreArchivo){
+	
+	string line;
+	ifstream myfile (nombreArchivo);
+	
+	if (myfile.is_open()){
+		
+		int numeroLinea = 0;
+		// Vector of string to save tokens
+		vector <string> tokens;
+		
+		long correctos = 0, incorrectos = 0;
+		
+		int idOficinaGeneral, idOficinaSecundaria;
+		
+		while ( getline (myfile,line) ){
+			
+			line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
+			
+			numeroLinea++;
+			// stringstream class check1
+			stringstream check(line);
+				 
+			string intermediate;
+				 
+			// Tokenizing w.r.t. coma ','
+			while(getline(check, intermediate, ',')){
+				tokens.push_back(intermediate);
+			}
+			
+			if(tokens.size() != 3 && numeroLinea == 1){
+				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida"<<endl<<endl;
+				break;
+			}			
+			
+			if(tokens.size() != 3 && numeroLinea != 1){
+				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
+				incorrectos++;
+				
+			}else if (tokens.size() == 3 && numeroLinea != 1){
+				string codOficina1 = tokens[0];
+				string codOficina2 = tokens[1];
+				string distancia = tokens[2];
+				
+				//revisar si datos son válidos
+				if( this->validarCodigoOficina(codOficina1)==true && this->validarCodigoOficina(codOficina2)==true
+					&& this->validarCadenaNumerica(distancia)==true ) { 
+					
+					OficinaReparto* oficina1 = this->buscarOficina(codOficina1);
+					OficinaReparto* oficina2 = this->buscarOficina(codOficina2);
+								
+					if(oficina1 != NULL && oficina2 != NULL){ //están registradas
+						
+						stringstream ss(distancia);
+						float distanciaOficinas;
+						ss >> distanciaOficinas;
+						
+						idOficinaGeneral = this->grafo.AddVertex( oficina1 );
+						idOficinaSecundaria = this->grafo.AddVertex( oficina2 );
+						
+						if( this->grafo.HasArc(idOficinaGeneral,idOficinaSecundaria)==true ){	// ya están conectadas	
+							float* distanciaAnterior = this->grafo.GetCost(idOficinaGeneral,idOficinaSecundaria);
+							if( distanciaOficinas < *distanciaAnterior ){
+								this->grafo.DeleteEdge( idOficinaGeneral, idOficinaSecundaria ); //eliminar anterior arista
+								this->grafo.DeleteEdge( idOficinaSecundaria, idOficinaGeneral ); //eliminar anterior arista
+								this->grafo.AddEdge( idOficinaGeneral, idOficinaSecundaria, distanciaOficinas );
+								this->grafo.AddEdge( idOficinaSecundaria, idOficinaGeneral, distanciaOficinas );
+							}
+						}else{ // aún no están conectadas	
+							this->grafo.AddEdge( idOficinaGeneral, idOficinaSecundaria, distanciaOficinas );
+							this->grafo.AddEdge( idOficinaSecundaria, idOficinaGeneral, distanciaOficinas );
+						}
+						
+						correctos++;
+								
+					}else{	//no está(n) registrada(s)
+						cout<<endl<<"En la linea "<<numeroLinea<<": una o ambas oficinas no se encuentra(n) registrada(s)"<<endl;
+						incorrectos++;	
+					}
+					
+				}else{
+					cout<<endl<<"En la linea "<<numeroLinea<<": uno o varios datos no son validos"<<endl;
+					incorrectos++;
+				}							
+			}
+			
+			tokens.clear();
+			
+		}
+		
+		myfile.close();
+		cout<<endl<<endl<< "Desde el archivo "<<nombreArchivo<<", se han cargado exitosamente "<<correctos
+		<<" registros; mientras que "<<incorrectos<<" registros presentaron problemas."<<endl<<endl;
+		
+	}else{
+		cout<<endl<<endl<< "El archivo "<<nombreArchivo<<" no existe o es ilegible."<<endl<<endl;
+	}
+	
+}
+
+//---------------------------------------------------------------------------------------------------
+void EmpresaMensajeria::imprimirArbolYGrafo(){
+	//this->arbol.printLevelOrder();
+	this->grafo.Draw( "grafo.txt" );
+}
+
+//---------------------------------------------------------------------------------------------------
+void EmpresaMensajeria::rutaReparto(std::string codigoOficinaOrigen, std::string codigoOficinaDestino){
+	
+	OficinaReparto* oficinaOrigen = this->buscarOficina(codigoOficinaOrigen);
+	OficinaReparto* oficinaDestino = this->buscarOficina(codigoOficinaDestino);
+	
+	if( oficinaOrigen != NULL && oficinaDestino != NULL ){ //ambas oficinas están registradas
+	
+		int idOficinaOrigen = this->grafo.AddVertex( oficinaOrigen );
+		int idOficinaDestino = this->grafo.AddVertex( oficinaDestino );
+		
+		vector< vector< unsigned long > > vectorDijkstra = this->grafo.Dijkstra( idOficinaOrigen );
+		vector< unsigned long > camino;  
+		  
+		typename vector< vector< unsigned long > >::iterator it;
+		typename vector< unsigned long >::iterator it2;
+		  
+		for(it = vectorDijkstra.begin(); it != vectorDijkstra.end(); it++){
+			camino = *it;
+			if( camino[0] == idOficinaDestino ){
+				
+				cout<<endl<<"La ruta de reparto mas corta que conecta las oficinas "<<codigoOficinaOrigen<<
+				" y "<<codigoOficinaDestino<<" pasa por: ";	
+				for(it2 = camino.begin()+2; it2 != camino.end(); it2++){
+					cout<<(this->grafo.GetVertex(*it2))->getCodigo();
+					if(it2 == camino.end()-1){
+						cout<<", ";
+					}else{
+						cout<<"; ";
+					}
+				}				
+				cout<<"con una longitud de "<<camino[1]<<endl<<endl;		
+			}
+		}
+		
+	}else{
+		if( oficinaOrigen == NULL && oficinaDestino == NULL ){
+			cout<<endl<<"La oficinas "<<codigoOficinaOrigen<<" y "<<codigoOficinaDestino<<" no se encuentran registradas en el sistema"<<endl<<endl;		
+		}else{
+			if( oficinaOrigen == NULL ){
+				cout<<endl<<"La oficina "<<codigoOficinaOrigen<<" no se encuentra registrada en el sistema"<<endl<<endl;		
+			}else if( oficinaDestino == NULL ){
+				cout<<endl<<"La oficina "<<codigoOficinaDestino<<" no se encuentra registrada en el sistema"<<endl<<endl;		
+			}
+		}
+	}
+	
 }

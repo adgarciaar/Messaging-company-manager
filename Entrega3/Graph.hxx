@@ -86,7 +86,6 @@ void PUJ::Graph< _TVertex, _TEdge >::
 AddEdge( unsigned long a, unsigned long b, _TEdge cost )
 {
 	if( m_Vertices.size() != 0 ){
-		//std::cout<<
 		if( m_Edges.count(a)>0 && m_Edges.count(b)>0 ){ //entonces existen los respectivos vértices		
 			if( (m_Edges.at(a)).at(b) == NULL ){ //no existe la arista		
 				_TEdge* newEdge = new _TEdge;
@@ -179,10 +178,8 @@ template< class _TVertex, class _TEdge >
 void PUJ::Graph< _TVertex, _TEdge >::
 DeleteEdge( unsigned long a, unsigned long b)
 {	
-	if( m_Edges.count(a)>0 && m_Edges.count(b)>0 ){ //entonces existen los respectivos vértices	
-		if( m_Edges.size() != 0 ){	
-			(m_Edges.at(a)).at(b) = NULL;
-		}
+	if( m_Edges.count(a)>0 && m_Edges.count(b)>0 ){ //entonces existen los respectivos vértices		
+		(m_Edges.at(a)).at(b) = NULL;		
 	}
 }
 

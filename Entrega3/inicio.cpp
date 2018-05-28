@@ -39,7 +39,7 @@ int main(){
 			tokens.push_back(intermediate);
 		}
 		cout<<endl;
-		if (tokens.size() > 2){
+		if (tokens.size() > 3){
 			cout<<endl<<"Comando no valido"<<endl<<endl;
 		}else if(tokens.size() == 1){
 			if (comando == "ayuda"){
@@ -83,11 +83,12 @@ int main(){
 				empresa.cargarPaquetes(tokens[1]);
 			}else if(tokens[0] == "cargarOficinas"){ 
 				empresa.cargarOficinas(tokens[1]);
-				empresa.imprimirArbol();
+				//empresa.imprimirArbolYGrafo();
 			}else if(tokens[0] == "cargarRegiones"){ 
 				empresa.cargarRegiones(tokens[1]);
 			}else if(tokens[0] == "cargarConexiones"){ 
-				//empresa.cargarConexiones(tokens[1]);
+				empresa.cargarConexiones(tokens[1]);
+				//empresa.imprimirArbolYGrafo(); 					//QUITAR
 			}else if(tokens[0] == "repartirPaquetes"){ 
 				empresa.repartirPaquetes(tokens[1]);
 			}else if(tokens[0] == "ayuda"){ 
@@ -123,12 +124,18 @@ int main(){
 			}
 		}else if(tokens.size() == 3){
 			if(tokens[0] == "rutaReparto"){
-				if( empresa.validarCodigoOficina(tokens[1]) == true && empresa.validarCodigoOficina(tokens[2]) == true ){
-					//algo
-				}else{
-					cout<<endl<<"Al menos uno de los códigos no es válido"<<endl<<endl;
+				if( tokens[1] == tokens[2] ){
+					cout<<endl<<"Los codigos de oficina dados son iguales"<<endl<<endl;
+				}else{				
+					if( empresa.validarCodigoOficina(tokens[1]) == true && empresa.validarCodigoOficina(tokens[2]) == true ){
+						empresa.rutaReparto( tokens[1],tokens[2] );
+					}else{
+						cout<<endl<<"Uno o ambos codigos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;
+					}
 				}
-			}
+			}else{ 
+				cout<<endl<<"Comando no valido"<<endl<<endl;	
+			}			
 		}
 		
 		tokens.clear();

@@ -18,7 +18,7 @@ class EmpresaMensajeria{
     private:
 	
 		std::string nombre;
-		Arbol< OficinaReparto* > arbol; //almacena jerarquía de oficinas y regiones
+		Arbol< OficinaReparto* > arbol; //almacena jerarquía de oficinas
 		std::list<Persona> personas;
 		TGraph grafo;
 		
@@ -57,7 +57,10 @@ class EmpresaMensajeria{
 		void cargarRegiones(std::string nombreArchivo); 
 		void repartirPaquetes(std::string codigoOficina);
 		
-		void imprimirArbol();
+		void cargarConexiones(std::string nombreArchivo);
+		void rutaReparto(std::string codigoOficinaOrigen, std::string codigoOficinaDestino);
+		
+		void imprimirArbolYGrafo();
 		 
 };
 
