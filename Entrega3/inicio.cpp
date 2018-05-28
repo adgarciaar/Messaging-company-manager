@@ -130,7 +130,16 @@ int main(){
 					if( empresa.validarCodigoOficina(tokens[1]) == true && empresa.validarCodigoOficina(tokens[2]) == true ){
 						empresa.rutaReparto( tokens[1],tokens[2] );
 					}else{
-						cout<<endl<<"Uno o ambos codigos no son validos, corrijalos y vuelva a intentar"<<endl<<endl;
+						if( empresa.validarCodigoOficina(tokens[1]) == false && empresa.validarCodigoOficina(tokens[2]) == false ){
+							cout<<endl<<"Ambos codigos no son validos"<<endl<<endl;
+						}else{						
+							if( empresa.validarCodigoOficina(tokens[1]) == false ){
+								cout<<endl<<"El codigo de la oficina origen no es valido"<<endl<<endl;
+							}
+							if( empresa.validarCodigoOficina(tokens[2]) == false ){
+								cout<<endl<<"El codigo de la oficina destino no es valido"<<endl<<endl;
+							}	
+						}						
 					}
 				}
 			}else{ 

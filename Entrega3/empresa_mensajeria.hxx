@@ -908,7 +908,15 @@ void EmpresaMensajeria::cargarConexiones(std::string nombreArchivo){
 						correctos++;
 								
 					}else{	//no está(n) registrada(s)
-						cout<<endl<<"En la linea "<<numeroLinea<<": una o ambas oficinas no se encuentra(n) registrada(s)"<<endl;
+						if(oficina1 == NULL && oficina2 == NULL){
+							cout<<endl<<"En la linea "<<numeroLinea<<": las oficinas no se encuentran registradas"<<endl;
+						}else{
+							if(oficina1 == NULL){
+								cout<<endl<<"En la linea "<<numeroLinea<<": la oficina origen no se encuentra registrada"<<endl;
+							}else if(oficina2 == NULL){
+								cout<<endl<<"En la linea "<<numeroLinea<<": la oficina destino no se encuentra registrada"<<endl;
+							}
+						}
 						incorrectos++;	
 					}
 					
