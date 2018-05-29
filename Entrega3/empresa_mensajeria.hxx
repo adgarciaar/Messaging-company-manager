@@ -125,25 +125,21 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 				tokens.push_back(intermediate);
 			}
 			
-			if(tokens.size() != 11 && numeroLinea == 1){
+			if(tokens.size() != 7 && numeroLinea == 1){
 				cout<<endl<<endl<<"El archivo "<<nombreArchivo<<" no contiene informacion valida"<<endl<<endl;
 				break;
 			}
 			
-			if(tokens.size() != 11 && numeroLinea != 1){
+			if(tokens.size() != 7 && numeroLinea != 1){
 				cout<<endl<<"En la linea "<<numeroLinea<<": datos incompletos"<<endl;
 				incorrectos++;
 				
-			}else if(tokens.size() == 11 && numeroLinea != 1){
+			}else if(tokens.size() == 7 && numeroLinea != 1){
 				
 				string cedulaRemitente = tokens[0];
 				string cedulaDestinatario = tokens[1];
-				string codRegionReparto = tokens[9];
-				string nombreRegionReparto = tokens[10];
-				string codOficina = tokens[5];
-				string nombreOficina = tokens[6];
-				string direccionOficina = tokens[7];
-				string ciudadOficina = tokens[8];
+				string codRegionReparto = tokens[6];				
+				string codOficina = tokens[5];				
 				string pesoString = tokens[2];
 				string tipoContenido = tokens[3];
 				string numeroGuia = tokens[4];
@@ -153,7 +149,6 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 				if(this->validarCadenaAlfanumerica(cedulaRemitente)==true && this->validarCadenaAlfanumerica(cedulaDestinatario)== true
 					&& this->validarCadenaAlfanumerica(codRegionReparto)
 					&& this->validarCodigoOficina(codOficina)==true
-					&& this->validarCadenaAlfabetica(ciudadOficina)==true 
 					&& this->validarCadenaNumerica(pesoString)==true
 					&& this->validarCadenaAlfanumerica(numeroGuia)==true && (cedulaRemitente!=cedulaDestinatario) ){
 					
