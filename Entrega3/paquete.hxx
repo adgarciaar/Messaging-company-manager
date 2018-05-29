@@ -1,4 +1,4 @@
-#include "paquete.h" 
+#include "paquete.h"
 #include <string>
 
 using namespace std;
@@ -17,6 +17,7 @@ Paquete::Paquete(std::string remitente, std::string destinatario, int peso, stri
 	this->tipoContenido = tipoContenido;
 	this->numeroGuia = numeroGuia;
 	this->oficinaRecepcion = oficinaRecepcion;
+	this->oficinaActual = oficinaRecepcion; //en donde se ingresa es la oficina actual
 	this->regionReparto = regionReparto;
 	this->repartido = false;	//por default no se ha repartido
 }
@@ -47,6 +48,10 @@ std::string Paquete::getOficinaRecepcion(){
 	return this->oficinaRecepcion;
 }
 
+std::string Paquete::getOficinaActual(){
+	return this->oficinaActual;
+}
+
 std::string Paquete::getRegionReparto(){
 	return this->regionReparto;
 }
@@ -54,7 +59,7 @@ std::string Paquete::getRegionReparto(){
 bool Paquete::getRepartido(){
 	return this->repartido;
 }
-		
+
 //setters
 
 void Paquete::setRemitente(std::string remitente){
@@ -79,6 +84,10 @@ void Paquete::setNumeroGuia(string numeroGuia){
 
 void Paquete::setOficinaRecepcion(std::string oficinaRecepcion){
 	this->oficinaRecepcion = oficinaRecepcion;
+}
+
+void Paquete::setOficinaActual(std::string oficinaActual){
+	this->oficinaActual = oficinaActual;
 }
 
 void Paquete::setRegionReparto(std::string regionReparto){

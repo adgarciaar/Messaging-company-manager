@@ -35,9 +35,9 @@ list<RegionReparto> OficinaReparto::getRegiones(){
 	return this->regiones;
 }
 
-//--------------------------------------------------------------------------------------------------------		
+//--------------------------------------------------------------------------------------------------------
 //setters
-		
+
 void OficinaReparto::setCodigo(string codigo){
 	this->codigo = codigo;
 }
@@ -65,7 +65,7 @@ void OficinaReparto::agregarRegion(RegionReparto regionReparto){
 //--------------------------------------------------------------------------------------------------------
 
 RegionReparto OficinaReparto::buscarRegion(string codigoRegion){
-	
+
 	RegionReparto regionReparto;
 	regionReparto.setCodigo("-1");
 
@@ -75,13 +75,14 @@ RegionReparto OficinaReparto::buscarRegion(string codigoRegion){
 			break;
 		}
 	}
-	
+
 	return regionReparto;
 }
 
 //--------------------------------------------------------------------------------------------------------
 
 void OficinaReparto::agregarPaquete(Paquete paquete){
+	paquete.setOficinaActual(this->codigo);
 	RegionReparto region = this->buscarRegion( paquete.getRegionReparto() );
 	if( region.getCodigo() != "-1" ){ //el paquete se va a repartir en una de las regiones que maneja esta oficina, por tanto no se debe reubicar
 		paquete.setRepartido();		//establece el paquete como repartido
@@ -98,18 +99,18 @@ std::list<Paquete> OficinaReparto::getPaquetes(){
 //--------------------------------------------------------------------------------------------------------
 
 Paquete OficinaReparto::buscarPaquete(string numeroGuia){
-	
+
 	Paquete paquete;
 	paquete.setNumeroGuia("-1");
-	
+
 	for(list< Paquete >::iterator it = this->paquetes.begin(); it != this->paquetes.end(); it++){
 		if( numeroGuia == (*it).getNumeroGuia() ){
 			paquete = *it;
 			break;
 		}
 	}
-	
-	return paquete;	
+
+	return paquete;
 }
 
 //--------------------------------------------------------------------------------------------------------
@@ -141,7 +142,7 @@ std::list<Paquete> OficinaReparto::getPaquetesRepartidos(){
 void OficinaReparto::eliminarPaquete(std::string numeroGuia){
 	list< Paquete >::iterator it;
 	for(it = this->paquetes.begin(); it != this->paquetes.end(); it++){
-		if( (*it).getNumeroGuia() == numeroGuia ){ 
+		if( (*it).getNumeroGuia() == numeroGuia ){
 			break;
 		}
 	}
