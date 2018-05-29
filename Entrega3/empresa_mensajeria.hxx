@@ -36,8 +36,6 @@ void EmpresaMensajeria::cargarPersonas(string nombreArchivo){
 		
 		while ( getline (myfile,line) ){
 			
-			line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
-			
 			numeroLinea++;
 			// stringstream class check1
 			stringstream check(line);
@@ -111,8 +109,6 @@ void EmpresaMensajeria::cargarPaquetes(string nombreArchivo){
 		long correctos = 0, incorrectos = 0;
 		
 		while ( getline (myfile,line) ){
-			
-			line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
 			
 			numeroLinea++;
 			// stringstream class check1
@@ -521,8 +517,8 @@ void EmpresaMensajeria::cargarOficinas(std::string nombreArchivo){
 		
 		while ( getline (myfile,line) ){
 			
-			line.erase(remove(line.begin(), line.end(), '"'), line.end()); //eliminar los " de la línea
-			line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
+			//line.erase(remove(line.begin(), line.end(), '"'), line.end()); //eliminar los " de la línea
+			//line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
 			
 			numeroLinea++;
 			// stringstream class check1
@@ -644,8 +640,8 @@ void EmpresaMensajeria::cargarRegiones(std::string nombreArchivo){
 		
 		while ( getline (myfile,line) ){
 			
-			line.erase(remove(line.begin(), line.end(), '"'), line.end()); //eliminar los " de la línea
-			line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
+			//line.erase(remove(line.begin(), line.end(), '"'), line.end()); //eliminar los " de la línea
+			//line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
 			
 			numeroLinea++;
 			// stringstream class check1
@@ -844,7 +840,7 @@ void EmpresaMensajeria::cargarConexiones(std::string nombreArchivo){
 		
 		while ( getline (myfile,line) ){
 			
-			line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
+			//line.erase(remove(line.begin(), line.end(), ' '), line.end()); //eliminar los espacios en blanco de la línea
 			
 			numeroLinea++;
 			// stringstream class check1
