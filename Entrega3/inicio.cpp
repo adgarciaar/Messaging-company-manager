@@ -127,7 +127,7 @@ int main(){
 				if( tokens[1] == tokens[2] ){
 					cout<<endl<<"Los codigos de oficina dados son iguales"<<endl<<endl;
 				}else{
-					if( empresa.validarCodigoOficina(tokens[1]) == true && empresa.validarCodigoOficina(tokens[2]) == true ){						
+					if( empresa.validarCodigoOficina(tokens[1]) == true && empresa.validarCodigoOficina(tokens[2]) == true ){
 						empresa.rutaReparto( tokens[1],tokens[2] );
 					}else{
 						if( empresa.validarCodigoOficina(tokens[1]) == false && empresa.validarCodigoOficina(tokens[2]) == false ){
@@ -310,7 +310,7 @@ void registrarRegion(EmpresaMensajeria& empresa){
 	cin.ignore();
 
 	//validar que los datos sean validos
-	if( empresa.validarCadenaAlfanumerica(codRegion) == true && empresa.validarCadenaNumerica(distanciaAOficinaPadre)==true ){
+	if( empresa.validarCadenaAlfanumerica(codRegion) == true && empresa.validarCadenaNumerica(distanciaAOficinaPadre)==true && empresa.validarCodigoOficina(codOficina)==true ){
 
 		RegionReparto regionReparto = empresa.buscarRegion(codRegion);
 
