@@ -943,7 +943,7 @@ void EmpresaMensajeria::rutaReparto(std::string codigoOficinaOrigen, std::string
 	OficinaReparto* oficinaOrigen = this->buscarOficina(codigoOficinaOrigen);
 	OficinaReparto* oficinaDestino = this->buscarOficina(codigoOficinaDestino);
 
-	if( oficinaOrigen != NULL && oficinaDestino != NULL ){ //ambas oficinas están registradas
+	if( oficinaOrigen != NULL && oficinaDestino != NULL ){ //ambas oficinas están registrada
 
 		int idOficinaOrigen = this->grafo.AddVertex( oficinaOrigen );
 		int idOficinaDestino = this->grafo.AddVertex( oficinaDestino );
@@ -953,19 +953,24 @@ void EmpresaMensajeria::rutaReparto(std::string codigoOficinaOrigen, std::string
 
 		typename vector< unsigned long >::iterator it;
 
-		camino = vectorDijkstra[0];
+		if(vectorDijkstra.size() != 0){
 
-		cout<<endl<<"La ruta de reparto mas corta que conecta las oficinas "<<codigoOficinaOrigen<<
-		" y "<<codigoOficinaDestino<<" pasa por: ";
-		for(it = camino.begin()+2; it != camino.end(); it++){
-			cout<<(this->grafo.GetVertex(*it))->getCodigo();
-			if(it == camino.end()-1){
-				cout<<"; ";
-			}else{
-				cout<<", ";
+			camino = vectorDijkstra[0];
+
+			cout<<endl<<"La ruta de reparto mas corta que conecta las oficinas "<<codigoOficinaOrigen<<
+			" y "<<codigoOficinaDestino<<" pasa por: ";
+			for(it = camino.begin()+2; it != camino.end(); it++){
+				cout<<(this->grafo.GetVertex(*it))->getCodigo();
+				if(it == camino.end()-1){
+					cout<<"; ";
+				}else{
+					cout<<", ";
+				}
 			}
+			cout<<"con una longitud de "<<camino[1]<<" km."<<endl<<endl;
+		}else{
+			cout<<endl<<"La oficinas no se pueden conectar"<<endl<<endl;
 		}
-		cout<<"con una longitud de "<<camino[1]<<" km."<<endl<<endl;
 
 	}else{
 		if( oficinaOrigen == NULL && oficinaDestino == NULL ){
